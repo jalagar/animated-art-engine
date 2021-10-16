@@ -1,0 +1,30 @@
+{
+  "name": "generative_gif_engine_v1.0.0",
+  "version": "1.0.0",
+  "description": "Generative nft engine for GIF projects",
+  "main": "index.js",
+  "bin": "index.js",
+  "pkg": {
+    "assets": [
+      "layers/**/*",
+      "node_modules/**/*",
+      "src/**/*"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Samuel Cuellar",
+  "license": "MIT",
+  "dependencies": {
+    "all": "0.0.0",
+    "canvas": "^2.8.0",
+    "gif-encoder": "^0.7.2",
+    "inquirer": "^8.2.0",
+    "pngjs": "^6.0.0",
+    "sha1": "^1.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
