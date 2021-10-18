@@ -1,4 +1,4 @@
-# Welcome to the _Generative GIF Engine v1.0.0_
+# Welcome to the __Generative GIF Engine v1.0.1__
 
 ## REQUIREMENTS
 * The source png files must be a series of evenly spaced frames horizontally.
@@ -11,6 +11,8 @@
 ## ADJUSTMENTS
 Make sure to make the folowing adjustments before running the program.
 [config.js]
+
+![like this](/layers/ball/4Frames_Red_Ball#10.png)
 
    1) Change you nft description in _'description'_.
    2) Change the Uri in _'baseUri'_.
