@@ -1,0 +1,29 @@
+{
+  "name": "generative_gif_engine",
+  "version": "1.0.1",
+  "description": "Engine for generative gif art - based on hashlips v1.0.6",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaPipo/Generative_Gif_Engine.git"
+  },
+  "author": "Samuel Cuellar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MichaPipo/Generative_Gif_Engine/issues"
+  },
+  "homepage": "https://github.com/MichaPipo/Generative_Gif_Engine#readme",
+  "dependencies": {
+    "canvas": "^2.8.0",
+    "gif-encoder": "^0.7.2",
+    "inquirer": "^8.2.0",
+    "pngjs": "^6.0.0",
+    "sha1": "^1.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
