@@ -8,7 +8,7 @@ Make sure to visit him for more info:
 
 A node app that combines png sprite sheet layers and converts them to a **.gif** file
 
-![](https://github.com/MichaPipo/Generative_Gif_Engine/blob/v1.0.0/README_Assets/gif_test.gif)
+![gif_example](https://github.com/MichaPipo/Generative_Gif_Engine/blob/v1.0.0/README_Assets/gif_test.gif)
 
 ## REQUIREMENTS
 
