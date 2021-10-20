@@ -7,8 +7,8 @@ Make sure to visit him for more info:
 # Welcome to the __Generative GIF Engine v1.0.1__ 🐤
 
 A node app that combines png sprite sheet layers and converts them to a **.gif** file
-![](https://github.com/MichaPipo/Generative_Gif_Engine/blob/v1.0.0/README_Assets/gif_test.gif)
 
+![](https://github.com/MichaPipo/Generative_Gif_Engine/blob/v1.0.0/README_Assets/gif_test.gif)
 
 ## REQUIREMENTS
 
