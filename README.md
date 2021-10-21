@@ -8,7 +8,7 @@ Make sure to visit him for more info:
 
 A node app that combines png sprite sheet layers and converts them to a **.gif** file
 
-![gif_example](https://github.com/MichaPipo/Generative_Gif_Engine/blob/v1.0.0/README_Assets/gif_test.gif)
+![gif_example](https://github.com/MichaPipo/Generative_Gif_Engine/blob/main/README_Assets/gif_test.gif)
 
 ## REQUIREMENTS
 
@@ -35,7 +35,7 @@ Install the latest version of [Node.js](https://nodejs.org/en/download/)
 * All your layer assets must be a series of evenly spaced frames horizontally. The number and size of your frames must be consistent in order to work properly.
 * This code only works with layers that are in [Sprite Sheet](https://gamedevelopment.tutsplus.com/tutorials/an-introduction-to-spritesheet-animation--gamedev-13099) format. Example:
 
-    ![Sprite_Sheet example](https://github.com/MichaPipo/Generative_Gif_Engine/blob/v1.0.0/README_Assets/SpriteSheet_test.png)
+    ![Sprite_Sheet example](https://github.com/MichaPipo/Generative_Gif_Engine/blob/main/README_Assets/SpriteSheet_test.png)
 
 ## HOW TO USE
 
@@ -106,7 +106,21 @@ Running this command will prompt some questions on the terminal where input rega
 | 7. 'Enter quality' : | select the output gif quality (20 = best , 10 = worst). Default value is 10. |
 | 8. 'Proceed with conversion?' : | type 'y' to proceed and 'n' to cancel the process. |
 
-After you proceed with the conversion, the converted .gif files will be located on the previously selected folder.
+## Utils
+
+On the `utils` directory you can find some tools you can use after you generated your collection.
+
+### Rarity stats
+
+You can check the rarity stats of your collection with:
+
+        node ./utils/rarity.js
+
+### Update your metadata info
+
+You can change the description and base Uri of your metadata even after running the code with:
+
+        node ./utils/update.js
 
 ## IMPORTANT NOTES
 
