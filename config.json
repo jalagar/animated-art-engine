@@ -1,0 +1,10 @@
+{
+  "totalSupply": 100,
+  "height": 1000,
+  "width": 1000,
+  "debug": false,
+  "layersOrder": ["background", "ball"],
+  "quality": 95,
+  "framesPerSecond": 12,
+  "numberOfFrames": 12
+}
