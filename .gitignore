@@ -1,5 +1,7 @@
 # Generative Gif Engine specific git ignore
 .DS_Store
+temp/
+output/
 
 # NODE GITIGNORE: https://github.com/github/gitignore/blob/main/Node.gitignore
 # Logs
