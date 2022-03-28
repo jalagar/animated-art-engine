@@ -1,0 +1,2 @@
+Pillow==9.0.1
+pre-commit==2.17.0

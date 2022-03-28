@@ -1,0 +1,192 @@
+[
+  {
+    "dna": "fb9fcae27f5373a50e65e6cdd50b617e9cda300f",
+    "name": "#1",
+    "description": "Your project description",
+    "image": "ipfs://NewUriToReplace/1.gif",
+    "edition": 1,
+    "date": 1648424254439,
+    "attributes": [
+      {
+        "trait_type": "background",
+        "value": "green"
+      },
+      {
+        "trait_type": "ball",
+        "value": "yellow"
+      }
+    ],
+    "compiler": "Generative GIF Engine"
+  },
+  {
+    "dna": "e9fdf52252efdfed2705f4e6c4d583320c415719",
+    "name": "#2",
+    "description": "Your project description",
+    "image": "ipfs://NewUriToReplace/2.gif",
+    "edition": 2,
+    "date": 1648424255690,
+    "attributes": [
+      {
+        "trait_type": "background",
+        "value": "green"
+      },
+      {
+        "trait_type": "ball",
+        "value": "purple"
+      }
+    ],
+    "compiler": "Generative GIF Engine"
+  },
+  {
+    "dna": "8ed60e8bdbee15e46da1ef5bdeb61e67695bd846",
+    "name": "#3",
+    "description": "Your project description",
+    "image": "ipfs://NewUriToReplace/3.gif",
+    "edition": 3,
+    "date": 1648424256923,
+    "attributes": [
+      {
+        "trait_type": "background",
+        "value": "light_blue"
+      },
+      {
+        "trait_type": "ball",
+        "value": "blue"
+      }
+    ],
+    "compiler": "Generative GIF Engine"
+  },
+  {
+    "dna": "80a8c731afe623adeb3bbbde1f42158697eeb811",
+    "name": "#4",
+    "description": "Your project description",
+    "image": "ipfs://NewUriToReplace/4.gif",
+    "edition": 4,
+    "date": 1648424258158,
+    "attributes": [
+      {
+        "trait_type": "background",
+        "value": "pink"
+      },
+      {
+        "trait_type": "ball",
+        "value": "multicolor"
+      }
+    ],
+    "compiler": "Generative GIF Engine"
+  },
+  {
+    "dna": "b814c5a317edeb92c216879ac8db44cd9070dc2c",
+    "name": "#5",
+    "description": "Your project description",
+    "image": "ipfs://NewUriToReplace/5.gif",
+    "edition": 5,
+    "date": 1648424259408,
+    "attributes": [
+      {
+        "trait_type": "background",
+        "value": "green"
+      },
+      {
+        "trait_type": "ball",
+        "value": "red"
+      }
+    ],
+    "compiler": "Generative GIF Engine"
+  },
+  {
+    "dna": "2f3127dd3d6bc61b4fc08ca1ca4d6b234d67ebc6",
+    "name": "#6",
+    "description": "Your project description",
+    "image": "ipfs://NewUriToReplace/6.gif",
+    "edition": 6,
+    "date": 1648424260601,
+    "attributes": [
+      {
+        "trait_type": "background",
+        "value": "yellow"
+      },
+      {
+        "trait_type": "ball",
+        "value": "yellow"
+      }
+    ],
+    "compiler": "Generative GIF Engine"
+  },
+  {
+    "dna": "8682e66be9cd6fc0a417dc0f1f4d90f3a7dd056e",
+    "name": "#7",
+    "description": "Your project description",
+    "image": "ipfs://NewUriToReplace/7.gif",
+    "edition": 7,
+    "date": 1648424261824,
+    "attributes": [
+      {
+        "trait_type": "background",
+        "value": "light_blue"
+      },
+      {
+        "trait_type": "ball",
+        "value": "yellow"
+      }
+    ],
+    "compiler": "Generative GIF Engine"
+  },
+  {
+    "dna": "97d9d2eff0a80e97783ef56f8cefaf84c947de80",
+    "name": "#8",
+    "description": "Your project description",
+    "image": "ipfs://NewUriToReplace/8.gif",
+    "edition": 8,
+    "date": 1648424263069,
+    "attributes": [
+      {
+        "trait_type": "background",
+        "value": "green"
+      },
+      {
+        "trait_type": "ball",
+        "value": "multicolor"
+      }
+    ],
+    "compiler": "Generative GIF Engine"
+  },
+  {
+    "dna": "c01cdd9212faba564b64743e8b7eb255779ceaec",
+    "name": "#9",
+    "description": "Your project description",
+    "image": "ipfs://NewUriToReplace/9.gif",
+    "edition": 9,
+    "date": 1648424264287,
+    "attributes": [
+      {
+        "trait_type": "background",
+        "value": "light_blue"
+      },
+      {
+        "trait_type": "ball",
+        "value": "orange"
+      }
+    ],
+    "compiler": "Generative GIF Engine"
+  },
+  {
+    "dna": "649a01f690eb5cfb90b209314b1d5d86cd7f1a67",
+    "name": "#10",
+    "description": "Your project description",
+    "image": "ipfs://NewUriToReplace/10.gif",
+    "edition": 10,
+    "date": 1648424265520,
+    "attributes": [
+      {
+        "trait_type": "background",
+        "value": "grey"
+      },
+      {
+        "trait_type": "ball",
+        "value": "red"
+      }
+    ],
+    "compiler": "Generative GIF Engine"
+  }
+]
