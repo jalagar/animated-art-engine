@@ -102,15 +102,26 @@ layers
 Example layers:
 Background:
 grey:
-<img src="./README_Assets/layers/background/grey/0.png" width="100">
+
+0.png: <img src="./README_Assets/layers/background/grey/0.png" width="200">
 pink:
-![0.png](./README_Assets/layers/background/pink/0.png)
+
+0.png: <img src="./README_Assets/layers/background/pink/0.png" width="200">
 
 Ball:
 red:
-![0.png](./README_Assets/layers/ball/red/0.png)
+0.png: <img src="./README_Assets/layers/ball/red/0.png" width="200">
+1.png: <img src="./README_Assets/layers/ball/red/1.png" width="200">
+2.png: <img src="./README_Assets/layers/ball/red/2.png" width="200">
+3.png: <img src="./README_Assets/layers/ball/red/3.png" width="200">
+4.png: <img src="./README_Assets/layers/ball/red/4.png" width="200">
+
 blue:
-![0.png](./README_Assets/layers/ball/blue/0.png)
+0.png: <img src="./README_Assets/layers/ball/blue/0.png" width="200">
+1.png: <img src="./README_Assets/layers/ball/blue/1.png" width="200">
+2.png: <img src="./README_Assets/layers/ball/blue/2.png" width="200">
+3.png: <img src="./README_Assets/layers/ball/blue/3.png" width="200">
+4.png: <img src="./README_Assets/layers/ball/blue/4.png" width="200">
 
 I am using python here instead of javascript libraries because I have found that image processing using
 [PIL](https://pillow.readthedocs.io/en/stable/) is much faster and without lossy quality than javascript. It
