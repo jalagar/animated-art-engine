@@ -147,21 +147,21 @@ background:
 
 grey:
 
-grey#20.png: <img src="./README_Assets/step1/background/grey#20.png" width="200">
+grey#20.png: <img src="./README_Assets/step1/background/grey#20.png" width="1000">
 
 pink:
 
-pink#20.png: <img src="./README_Assets/step1/background/pink#20.png" width="200">
+pink#20.png: <img src="./README_Assets/step1/background/pink#20.png" width="1000">
 
 ball:
 
 blue:
 
-blue#20.png: <img src="./README_Assets/step1/ball/blue#20.png" width="200">
+blue#20.png: <img src="./README_Assets/step1/ball/blue#20.png" width="1000">
 
 red:
 
-red#20.png: <img src="./README_Assets/step1/ball/red#20.png" width="200">
+red#20.png: <img src="./README_Assets/step1/ball/red#20.png" width="1000">
 
 ### Step 2
 
@@ -199,7 +199,8 @@ This allows you to not have to regenerate everything to play around with quality
 
 Example output:
 
-<img src="./README_Assets/step3/0.png" width="1000"><img src="./README_Assets/step3/1.png" width="1000"><img src="./README_Assets/step3/2.png" width="1000"><img src="./README_Assets/step3/3.png" width="1000">
+<img src="./README_Assets/step3/0.gif" width="500"><img src="./README_Assets/step3/1.gif" width="500"><img src="./README_Assets/step3/2.gif" width="500">
+<img src="./README_Assets/step3/3.gif" width="500">
 
 If you set `saveIndividualFrames` to `true` in `global_config.json`, it will also split the gifs into individual frames and save them in
 `images`. This is useful if you want people to be able to choose a single frame for a profile picture.
