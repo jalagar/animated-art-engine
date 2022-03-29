@@ -1,5 +1,9 @@
+first_time_setup:
+	pip3 install -r requirements.txt
+	cd step2_spritesheet_to_generative_sheet; npm i
+
 step1:
-	python3 step1_png_to_spritesheet/build.py
+	python3 step1_layers_to_spritesheet/build.py
 
 step2:
 	cd step2_spritesheet_to_generative_sheet; node index.js

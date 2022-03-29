@@ -1,33 +1,45 @@
-pip3 install -r requirements.txt
+# Welcome to the **Generative GIF Engine v2.0.0** 🐤
 
-Most of the code on this repository was created and explained by **HashLips** on his main YouTube channel.
+[5 minute read]
 
-Make sure to visit him for more info:
+This python and node app generates gifs based on layers to create NFT gif art! It is faster, simpler, and
+more dynamic than any other open source gif generative tool out there! I plan to actively maintain this repo
+and enhance it with various tools for months to come!
 
-> [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips)
+There are three steps:
 
-# Welcome to the **Generative GIF Engine v1.0.1** 🐤
+1. [Python] Converts layers into spritesheets using [PIL](https://pillow.readthedocs.io/en/stable/). This step can be skipped if you already have the spritesheets, but
+   is useful if you want to start with png files and makes the artist's life easier!
+2. [Node] Create generative spritesheets from the layers from step 1.
+   - Most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out his [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips)!
+3. [Python] Convert spritesheets to gifs using [PIL](https://pillow.readthedocs.io/en/stable/).
 
-A node app that combines png sprite sheet layers and converts them to a **.gif** file
+Please checkout this [Medium post]() for more information!
 
-![gif_example](https://github.com/MichaPipo/Generative_Gif_Engine/blob/main/README_Assets/gif_test.gif)
-
-## REQUIREMENTS
+## Requirements
 
 Install an IDE of your preference. [Recomended](https://code.visualstudio.com/download)
-
 Install the latest version of [Node.js](https://nodejs.org/en/download/)
 
 - Run this command on your system terminal to check if node is installed:
 
         node -v
 
+
+Install the latest version of [Python 3](https://www.python.org/downloads/). I am currently using 3.8.1 but anything above 3.6 should work.
+
+- Run this command on your system terminal to check if node is installed:
+
+        python3 --version
+
 ### Installation
 
 - Download this repo and extract all the files.
 - Run this command on your root folder using the terminal:
 
-        npm install
+          make first_time_setup
+
+  This should install python and node dependencies. You can use a virtual environment but I will not go into this here.
 
 ### Files
 
@@ -41,18 +53,83 @@ Install the latest version of [Node.js](https://nodejs.org/en/download/)
 
   ![Sprite_Sheet example](https://github.com/MichaPipo/Generative_Gif_Engine/blob/main/README_Assets/SpriteSheet_test.png)
 
+## How does it work?
+
+# Step 1
+
+In order to get [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine), the input layers needs to be in [Sprite Sheet](https://gamedevelopment.tutsplus.com/tutorials/an-introduction-to-spritesheet-animation--gamedev-13099). However this is tedious and
+unintuitive for many artists who use tools that export individual images.
+
+Step 1 simply converts individual images to spritesheets. You provide the various layers in the
+`/layers` folder. Each image should be numbered from 0 -> X, and only accepts `.png`. There should
+also be a `config.json` in each layer folder which looks like:
+
+```
+{
+    "rarity": 10
+}
+```
+
+which specifies the rarity of each layer.
+
+Example layers folder structure:
+
+```
+layers
+└───background
+│   └───grey
+│       │   config.json
+│       │   0.png
+│   └───pink
+│       │   config.json
+│       │   0.png
+└───ball
+│   └───red
+│       │   config.json
+│       │   0.png
+│       │   1.png
+│       │   2.png
+│       │   3.png
+│       │   4.png
+│   └───blue
+│       │   config.json
+│       │   0.png
+│       │   1.png
+│       │   2.png
+│       │   3.png
+│       │   4.png
+```
+
+Example layers:
+Background:
+grey:
+![0.png](https://github.com/MichaPipo/Generative_Gif_Engine/blob/main/README_Assets/layers/background/grey/0.png)
+pink:
+![0.png](https://github.com/MichaPipo/Generative_Gif_Engine/blob/main/README_Assets/layers/background/pink/0.png)
+
+Ball:
+red:
+![0.png](https://github.com/MichaPipo/Generative_Gif_Engine/blob/main/README_Assets/layers/ball/red/0.png)
+blue:
+![0.png](https://github.com/MichaPipo/Generative_Gif_Engine/blob/main/README_Assets/layers/ball/blue/0.png)
+
+I am using python here instead of javascript libraries because I have found that image processing using
+[PIL](https://pillow.readthedocs.io/en/stable/) is much faster and without lossy quality than javascript. It
+is also much simpler for me to work with.
+
+You can run only step1 by running:
+
+        make step1
+
 ## HOW TO USE
 
 ### Settings
 
-Before running the code, go to `src/config.js` where you can make the next changes:
+Before running the code, go to `config.json` where you can make the next changes:
 
 1.  **`'description'`** : the description of your nft that will be written in the metadata.
-
 2.  **`'baseUri'`** : uri where the nft is going to be stored.
-
 3.  **`'layerConfigurations'`** :
-
     - _'growEditionSizeTo'_ : the amount of images that will be generated.
     - _'layersOrder'_ : the order of generation of the layers, from back to front.
     - _'name'_ : the folder name of your layer.
@@ -77,11 +154,9 @@ const layerConfigurations = [
 
 6.  **`'format`'** : determines the heigth and width of the generated images, make sure this values are the same as your input images.
 
-7.  **`'background'`** : generates a background with a random color in case you dont provide one.
+7.  **`'extraMetadata'`** : add extra metadata to the .json file.
 
-8.  **`'extraMetadata'`** : add extra metadata to the .json file.
-
-9.  **`'uniqueDnaTorrance'`** : determines the maximum amount of unique images that can be generated.
+8.  **`'uniqueDnaTorrance'`** : determines the maximum amount of unique images that can be generated.
 
 ### Run the code
 
@@ -89,11 +164,10 @@ After everything is setup, you can proceed with the png generation with the next
 
     node index.js
 
-This will create a new directory called `build` that will cointain 3 folders:
+This will create a new directory called `build` that will cointain 2 folders:
 
-- `Images` : the generated png sprite sheets will be output here.
 - `Json` : here you can find the .json files of each image generated.
-- `Gifs` : here you can find the gifs generated by the second part of the code.
+- `Gifs` : here you can find the gifs generated by step 3.
 
 When the image generation is finished, you can now proceed with the **png to gif** convertion using the following command:
 
@@ -144,6 +218,6 @@ Hopefully i can release new and more efficient versions of this code, so please 
 
 Be sure to follow me for more updates on this project:
 
-[MichaPipo Twitter](https://twitter.com/MichaPipo)
-
-[MichaPipo GitHub](https://github.com/MichaPipo)
+[Twitter](https://twitter.com/jalagar_eth)
+[GitHub](https://github.com/jalagar/)
+[Medium](https://jalagar-eth.medium.com/)

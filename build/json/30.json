@@ -1,0 +1,19 @@
+{
+  "dna": "b814c5a317edeb92c216879ac8db44cd9070dc2c",
+  "name": "#31",
+  "description": "Your project description",
+  "image": "ipfs://NewUriToReplace/31.gif",
+  "edition": 31,
+  "date": 1648510300535,
+  "attributes": [
+    {
+      "trait_type": "background",
+      "value": "green"
+    },
+    {
+      "trait_type": "ball",
+      "value": "red"
+    }
+  ],
+  "compiler": "Generative GIF Engine"
+}

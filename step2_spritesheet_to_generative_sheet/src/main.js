@@ -10,24 +10,28 @@ const { createCanvas, loadImage } = require(path.join(
   "/node_modules/canvas"
 ));
 
-const layersDir = path.join(basePath, "../step1_png_to_spritesheet/output"); // Input is read from previous step
+const layersDir = path.join(basePath, "../step1_layers_to_spritesheet/output"); // Input is read from previous step
 
 const outputDir = path.join(basePath, "/output"); // Images are written to output fol.der
 const buildDir = path.join(basePath, "../build"); // JSON are written to json folder
 
 const {
-  format,
   baseUri,
   description,
-  background,
   uniqueDnaTorrance,
   layerConfigurations,
   rarityDelimiter,
   shuffleLayerConfigurations,
-  debugLogs,
   extraMetadata,
 } = require(path.join(basePath, "/src/config.js"));
-const canvas = createCanvas(format.width, format.height);
+const { height, width, numberOfFrames, debug: debugLogs } = require(path.join(
+  basePath,
+  "../config.json"
+));
+
+const outputWidth = width * numberOfFrames;
+const outputHeight = height;
+const canvas = createCanvas(outputWidth, outputHeight);
 const ctx = canvas.getContext("2d");
 var metadataList = [];
 var attributesList = [];
@@ -102,17 +106,6 @@ const saveImage = (_editionCount) => {
   );
 };
 
-const genColor = () => {
-  let hue = Math.floor(Math.random() * 360);
-  let pastel = `hsl(${hue}, 100%, ${background.brightness})`;
-  return pastel;
-};
-
-const drawBackground = () => {
-  ctx.fillStyle = genColor();
-  ctx.fillRect(0, 0, format.width, format.height);
-};
-
 const addMetadata = (_dna, _edition) => {
   let dateTime = Date.now();
   let tempMetadata = {
@@ -148,7 +141,7 @@ const loadLayerImg = async (_layer) => {
 const drawElement = (_renderObject) => {
   ctx.globalAlpha = _renderObject.layer.opacity;
   ctx.globalCompositeOperation = _renderObject.layer.blendMode;
-  ctx.drawImage(_renderObject.loadedImage, 0, 0, format.width, format.height);
+  ctx.drawImage(_renderObject.loadedImage, 0, 0, outputWidth, outputHeight);
   addAttributes(_renderObject);
 };
 
@@ -264,10 +257,7 @@ const startCreating = async () => {
 
         await Promise.all(loadedElements).then((renderObjectArray) => {
           debugLogs ? console.log("Clearing canvas") : null;
-          ctx.clearRect(0, 0, format.width, format.height);
-          if (background.generate) {
-            drawBackground();
-          }
+          ctx.clearRect(0, 0, outputWidth, outputHeight);
           renderObjectArray.forEach((renderObject) => {
             drawElement(renderObject);
           });

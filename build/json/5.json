@@ -1,14 +1,14 @@
 {
-  "dna": "a75cf49c598bbfc3758401337c74dd9dffb3efff",
+  "dna": "125f9213fc408996c2147ad8cb4cdc4da93728af",
   "name": "#6",
   "description": "Your project description",
   "image": "ipfs://NewUriToReplace/6.gif",
   "edition": 6,
-  "date": 1648475248992,
+  "date": 1648510267794,
   "attributes": [
     {
       "trait_type": "background",
-      "value": "dark_blue"
+      "value": "light_blue"
     },
     {
       "trait_type": "ball",

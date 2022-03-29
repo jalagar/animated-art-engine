@@ -1,10 +1,12 @@
 {
-  "totalSupply": 100,
+  "totalSupply": 50,
   "height": 1000,
   "width": 1000,
   "debug": false,
   "layersOrder": ["background", "ball"],
   "quality": 95,
   "framesPerSecond": 12,
-  "numberOfFrames": 12
+  "numberOfFrames": 12,
+  "description": "Your project description",
+  "baseUri": "ipfs://NewUriToReplace"
 }

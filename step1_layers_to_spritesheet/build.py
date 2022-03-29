@@ -7,7 +7,7 @@ from file import get_png_file_name, setup_directory
 
 
 layers_directory = "./layers"
-output_directory = "./step1_png_to_spritesheet/output"
+output_directory = "./step1_layers_to_spritesheet/output"
 json_config = "./config.json"
 
 
