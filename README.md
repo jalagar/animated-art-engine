@@ -25,7 +25,6 @@ Install the latest version of [Node.js](https://nodejs.org/en/download/)
 
         node -v
 
-
 Install the latest version of [Python 3](https://www.python.org/downloads/). I am currently using 3.8.1 but anything above 3.6 should work.
 
 - Run this command on your system terminal to check if node is installed:
@@ -103,15 +102,15 @@ layers
 Example layers:
 Background:
 grey:
-![0.png](https://github.com/MichaPipo/Generative_Gif_Engine/blob/main/README_Assets/layers/background/grey/0.png)
+![0.png](./README_Assets/layers/background/grey/0.png)
 pink:
-![0.png](https://github.com/MichaPipo/Generative_Gif_Engine/blob/main/README_Assets/layers/background/pink/0.png)
+![0.png](./README_Assets/layers/background/pink/0.png)
 
 Ball:
 red:
-![0.png](https://github.com/MichaPipo/Generative_Gif_Engine/blob/main/README_Assets/layers/ball/red/0.png)
+![0.png](./README_Assets/layers/ball/red/0.png)
 blue:
-![0.png](https://github.com/MichaPipo/Generative_Gif_Engine/blob/main/README_Assets/layers/ball/blue/0.png)
+![0.png](./README_Assets/layers/ball/blue/0.png)
 
 I am using python here instead of javascript libraries because I have found that image processing using
 [PIL](https://pillow.readthedocs.io/en/stable/) is much faster and without lossy quality than javascript. It
