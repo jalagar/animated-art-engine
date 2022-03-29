@@ -111,26 +111,27 @@ layers
 │       │   4.png
 ```
 
-Example layers:
-background:
+**Example layer**:
 
-grey:
+**background**:
+
+**grey**:
 
 <img src="./README_Assets/layers/background/grey/0.png" width="200">
 
-pink:
+**pink**:
 
 <img src="./README_Assets/layers/background/pink/0.png" width="200">
 
-ball:
+**ball**:
 
-red:
+**red**:
 
-<img src="./README_Assets/layers/ball/red/0.png" width="200"><img src="./README_Assets/layers/ball/red/1.png" width="200"><img src="./README_Assets/layers/ball/red/2.png" width="200"><img src="./README_Assets/layers/ball/red/3.png" width="200"><img src="./README_Assets/layers/ball/red/4.png" width="200">
+<img src="./README_Assets/layers/ball/red/0.png" width="150"><img src="./README_Assets/layers/ball/red/1.png" width="150"><img src="./README_Assets/layers/ball/red/2.png" width="150"><img src="./README_Assets/layers/ball/red/3.png" width="150"><img src="./README_Assets/layers/ball/red/4.png" width="200">...
 
-blue:
+**blue**:
 
-<img src="./README_Assets/layers/ball/blue/0.png" width="200"><img src="./README_Assets/layers/ball/blue/1.png" width="200"><img src="./README_Assets/layers/ball/blue/2.png" width="200"><img src="./README_Assets/layers/ball/blue/3.png" width="200"><img src="./README_Assets/layers/ball/blue/4.png" width="200">
+<img src="./README_Assets/layers/ball/blue/0.png" width="150"><img src="./README_Assets/layers/ball/blue/1.png" width="150"><img src="./README_Assets/layers/ball/blue/2.png" width="150"><img src="./README_Assets/layers/ball/blue/3.png" width="150"><img src="./README_Assets/layers/ball/blue/4.png" width="150">...
 
 I am using python here instead of javascript libraries because I have found that image processing using
 [PIL](https://pillow.readthedocs.io/en/stable/) is much faster and without lossy quality than javascript.
