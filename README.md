@@ -14,7 +14,7 @@ There are three steps:
    - Most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out his [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips)!
 3. [Python] Convert spritesheets to gifs using [PIL](https://pillow.readthedocs.io/en/stable/).
 
-Checkout this [Medium post]() and [How does it work?](#how-does-it-work?) for more information!
+Checkout this [Medium post]() and [How does it work?](#how-does-it-work) for more information!
 
 ## Requirements
 
@@ -126,7 +126,8 @@ ball:
 
 red:
 
-0.png: <img src="./README_Assets/layers/ball/red/0.png" width="200">|1.png: <img src="./README_Assets/layers/ball/red/1.png" width="200">|2.png: <img src="./README_Assets/layers/ball/red/2.png" width="200">|3.png: <img src="./README_Assets/layers/ball/red/3.png" width="200">|4.png: <img src="./README_Assets/layers/ball/red/4.png" width="200">|...
+0.png: 1.png: 2.png: 3.png: 4.png: ...
+<img src="./README_Assets/layers/ball/red/0.png" width="200"><img src="./README_Assets/layers/ball/red/1.png" width="200"><img src="./README_Assets/layers/ball/red/2.png" width="200"><img src="./README_Assets/layers/ball/red/3.png" width="200"><img src="./README_Assets/layers/ball/red/4.png" width="200">
 
 blue:
 
@@ -200,7 +201,7 @@ This allows you to not have to regenerate everything to play around with quality
 
 Example output:
 
-<img src="./README_Assets/step3/0.gif" width="200"><img src="./README_Assets/step3/1.gif" width="200"><img src="./README_Assets/step3/3.gif" width="200"><img src="./README_Assets/step3/2.gif" width="200">
+<img src="./README_Assets/step3/0.gif" width="200"><img src="./README_Assets/step3/1.gif" width="200"><img src="./README_Assets/step3/2.gif" width="200"><img src="./README_Assets/step3/3.gif" width="200">
 
 If you set `saveIndividualFrames` to `true` in `global_config.json`, it will also split the gifs into individual frames and save them in
 `images`. This is useful if you want people to be able to choose a single frame for a profile picture.
@@ -240,5 +241,7 @@ my code and incorporate the best features of other repos as easily as possible, 
 Be sure to follow me for more updates on this project:
 
 [Twitter](https://twitter.com/jalagar_eth)
+
 [GitHub](https://github.com/jalagar/)
+
 [Medium](https://jalagar-eth.medium.com/)
