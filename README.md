@@ -100,7 +100,8 @@ layers
 ```
 
 Example layers:
-Background:
+background:
+
 grey:
 
 0.png: <img src="./README_Assets/layers/background/grey/0.png" width="200">
@@ -109,31 +110,17 @@ pink:
 
 0.png: <img src="./README_Assets/layers/background/pink/0.png" width="200">
 
-Ball:
+ball:
+
 red:
 
-0.png: <img src="./README_Assets/layers/ball/red/0.png" width="200">
-
-1.png: <img src="./README_Assets/layers/ball/red/1.png" width="200">
-
-2.png: <img src="./README_Assets/layers/ball/red/2.png" width="200">
-
-3.png: <img src="./README_Assets/layers/ball/red/3.png" width="200">
-
-4.png: <img src="./README_Assets/layers/ball/red/4.png" width="200">
+0.png: <img src="./README_Assets/layers/ball/red/0.png" width="200"> 1.png: <img src="./README_Assets/layers/ball/red/1.png" width="200"> 2.png: <img src="./README_Assets/layers/ball/red/2.png" width="200"> 3.png: <img src="./README_Assets/layers/ball/red/3.png" width="200"> 4.png: <img src="./README_Assets/layers/ball/red/4.png" width="200">
 
 ...
 
 blue:
-0.png: <img src="./README_Assets/layers/ball/blue/0.png" width="200">
 
-1.png: <img src="./README_Assets/layers/ball/blue/1.png" width="200">
-
-2.png: <img src="./README_Assets/layers/ball/blue/2.png" width="200">
-
-3.png: <img src="./README_Assets/layers/ball/blue/3.png" width="200">
-
-4.png: <img src="./README_Assets/layers/ball/blue/4.png" width="200">
+0.png: <img src="./README_Assets/layers/ball/blue/0.png" width="200"> 1.png: <img src="./README_Assets/layers/ball/blue/1.png" width="200"> 2.png: <img src="./README_Assets/layers/ball/blue/2.png" width="200"> 3.png: <img src="./README_Assets/layers/ball/blue/3.png" width="200"> 4.png: <img src="./README_Assets/layers/ball/blue/4.png" width="200">
 
 ...
 
@@ -144,6 +131,30 @@ These benefits are much clearer in step 3.
 You can run only step1 by running:
 
         make step1
+
+This will convert the pngs into spritesheets and the output will look something like this:
+
+Output:
+
+background:
+
+grey:
+
+grey#20.png: <img src="./README_Assets/step1/output/background/grey/grey#20.png" width="200">
+
+pink:
+
+pink#20.png: <img src="./README_Assets/step1/output/background/grey/pink#20.png" width="200">
+
+ball:
+
+blue:
+
+blue#20.png: <img src="./README_Assets/step1/output/background/grey/blue#20.png" width="200">
+
+red:
+
+red#20.png: <img src="./README_Assets/step1/output/background/grey/red#20.png" width="200">
 
 ## HOW TO USE
 
