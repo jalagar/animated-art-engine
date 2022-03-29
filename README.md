@@ -58,6 +58,7 @@ Update `global_config.json` with:
 7.  **`'numberOfFrames'`** : number of total frames. For example you could have 24 frames, but you want to render it 12fps.
 8.  **`'description'`** : description to be put in the metadata.
 9.  **`'baseUri'`** : baseUri to be put in the metadata.
+10. **`'saveIndividualFrames'`** : this is if you want to save the individual final frames.
 
 Run `make all`. Your output gifs and JSON metadata will appear in `build/gifs` and `build/json`. Try it yourself with the default settings
 and layers!
@@ -169,12 +170,39 @@ all the magic happens! The output is a bunch of spritesheets with all the layers
 
 Most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out his [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips)!
 
+You can run only step 2 by running:
+
+        make step2
+
 Example output:
 
 <img src="./README_Assets/step2/0.png" width="1000">
 <img src="./README_Assets/step2/1.png" width="1000">
 <img src="./README_Assets/step2/2.png" width="1000">
 <img src="./README_Assets/step2/3.png" width="1000">
+
+### Step 3
+
+Step 3 takes the spritesheets from step 2 and creates gifs in `builds/gifs`. It also creates frame by frame in `builds/images` as well. This
+is where Python and [PIL](https://pillow.readthedocs.io/en/stable/) really shine. In MichaPipo's original repo, they used javascript libraries to
+create the gifs. These copied pixels by pixels, and the logic was a bit complicated. Creating just 15 gifs would take 4 minutes, and I noticed
+some of the pixel hex colors were off. Also depending on CPU usage, the program would crash. I spent days debugging, when I just decided to
+start from scratch in another language.
+
+Now, generating 15 gifs takes < 30 seconds and renders with perfect pixel quality!
+
+You can change the `quality` and `framesPerSecond` in `global_config.json` and you can run only step 3 by running:
+
+        make step3
+
+This allows you to not have to regenerate everything to play around with quality and fps.
+
+Example output:
+
+<img src="./README_Assets/step3/0.png" width="1000"><img src="./README_Assets/step3/1.png" width="1000"><img src="./README_Assets/step3/2.png" width="1000"><img src="./README_Assets/step3/3.png" width="1000">
+
+If you set `saveIndividualFrames` to `true` in `global_config.json`, it will also split the gifs into individual frames and save them in
+`images`. This is useful if you want people to be able to choose a single frame for a profile picture.
 
 ### Rarity stats
 
@@ -197,6 +225,16 @@ All of the code in step1 and step3 was written by me, and most of the code in th
 - [ ] Update step2 with latest features from [Hashlips art engine](https://github.com/HashLips/hashlips_art_engine).
 - [ ] Add layer functionality to step2 from [nftchef art engine](https://github.com/nftchef/art-engine).
 - [ ] Allow passing in gifs into step1 to split into spritesheets.
+
+**FAQ**
+
+Q: Why did you decide to use Python for step 1 and step 3?
+A: I found that Python [PIL](https://pillow.readthedocs.io/en/stable/) works better and faster than JS libraries, and the code is simpler for me.
+My philosphy is pick the right tool for the right job. If someone finds a better library for this specific job, then let me know!
+
+Q: Why didn't you use Python for step 2?
+A: The NFT dev community which writes the complicated logic for generative art mainly writes in javascript. I want to make it easy to update
+my code and incorporate the best features of other repos as easily as possible, and porting everything to Python would be a pain.
 
 Be sure to follow me for more updates on this project:
 

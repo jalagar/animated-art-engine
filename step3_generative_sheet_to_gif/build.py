@@ -46,11 +46,14 @@ def crop_and_save(file_name: str, height: int, width: int) -> None:
 
 def convert_pngs_to_gif(file_name: str, quality: int, duration: int):
     frames = []
+    global_config = parse_global_config()
+    save_individual_frames = global_config["saveIndividualFrames"]
 
     images_directory = os.path.join(
         output_images_directory, get_png_file_name(file_name)
     )
-    setup_directory(images_directory)
+    if save_individual_frames:
+        setup_directory(images_directory)
     temp_img_folder = os.path.join(temp_directory, get_png_file_name(file_name))
 
     for filename in sorted(
@@ -59,7 +62,8 @@ def convert_pngs_to_gif(file_name: str, quality: int, duration: int):
         if filename.endswith(".png"):
             temp_img_path = os.path.join(temp_img_folder, filename)
             new_frame = Image.open(temp_img_path)
-            new_frame.save(os.path.join(images_directory, filename))
+            if save_individual_frames:
+                new_frame.save(os.path.join(images_directory, filename))
             frames.append(new_frame)
 
     gif_name = get_png_file_name(file_name) + ".gif"
