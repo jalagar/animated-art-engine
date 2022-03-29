@@ -190,13 +190,13 @@ You can change the description and base Uri of your metadata even after running 
 
 ## IMPORTANT NOTES
 
-All of the code in step1 and step3 was written by me, and most of the code in step2 was written by
-MichaPipo and Hashlips.
+All of the code in step1 and step3 was written by me, and most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node).
 
 **_ Things to work on: _**
 
 - [ ] Update step2 with latest features from [Hashlips art engine](https://github.com/HashLips/hashlips_art_engine).
-- [ ] Add layer functionality from [nftchef art engine](https://github.com/nftchef/art-engine).
+- [ ] Add layer functionality to step2 from [nftchef art engine](https://github.com/nftchef/art-engine).
+- [ ] Allow passing in gifs into step1 to split into spritesheets.
 
 Be sure to follow me for more updates on this project:
 
