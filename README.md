@@ -2,16 +2,16 @@
 
 [8 minute read]
 
-This python and node app generates gifs based on layers to create NFT gif art! It is faster, simpler, and
+This python and node app generates layered-based gifs to create NFT gif art! It is faster, simpler, and
 more dynamic than any other open source gif generative tool out there! I plan to actively maintain this repo
-and enhance it with various tools for months to come!
+and enhance it with various tools for months to come.
 
 There are three steps:
 
 1. [Python] Converts layers into spritesheets using [PIL](https://pillow.readthedocs.io/en/stable/). This step can be skipped if you already have the spritesheets, but
    is useful if you want to start with png files and makes the artist's life easier!
 2. [Node] Create generative spritesheets from the layers from step 1.
-   - Most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out his [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips)!
+   - Most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out his [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) for a more in depth explanation on how the generative process works.
 3. [Python] Convert spritesheets to gifs using [PIL](https://pillow.readthedocs.io/en/stable/).
 
 Checkout this [Medium post]() and [How does it work?](#how-does-it-work) for more information!
@@ -19,6 +19,7 @@ Checkout this [Medium post]() and [How does it work?](#how-does-it-work) for mor
 ## Requirements
 
 Install an IDE of your preference. [Recomended](https://code.visualstudio.com/download)
+
 Install the latest version of [Node.js](https://nodejs.org/en/download/)
 
 - Run this command on your system terminal to check if node is installed:
@@ -48,29 +49,35 @@ there should be a `rarity.json` file with the rarity defined. See code or [step 
 
 Update `global_config.json` with:
 
-1.  **`'totalSupply'`** : total number of NFTs to generate.
+1.  **`'totalSupply'`** : total number of gifs to generate.
 2.  **`'height'`** : height of one frame. This should be equal to width.
 3.  **`'width'`** : width of one frame. This should be equal to height.
 4.  **`'layersOrder'`** : list of layers in order of background to foreground.
 5.  **`'quality'`** : quality of images. See [PIL docs](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#jpeg) for more info. 0 - worst, 95 - best.
-6.  **`'framesPerSecond'`** : number of frames per second. This will not be exact because PIL takes in milliseconds per frame (so 12fps = 83.3ms per
-    frame), but PIL takes in an integer. This will not be recognizable by the human eye, but worth calling out.
+6.  **`'framesPerSecond'`** : number of frames per second. This will not be exact because PIL takes in integer milliseconds per frame
+    (so 12fps = 83.3ms per frame but rounded to an int = 83ms). This will not be recognizable by the human eye, but worth calling out.
 7.  **`'numberOfFrames'`** : number of total frames. For example you could have 24 frames, but you want to render it 12fps.
 8.  **`'description'`** : description to be put in the metadata.
 9.  **`'baseUri'`** : baseUri to be put in the metadata.
-10. **`'saveIndividualFrames'`** : this is if you want to save the individual final frames.
+10. **`'saveIndividualFrames'`** : this is if you want to save the individual final frames, for example if you want to let people pick
+    just one frame for a profile page
 
-Run `make all`. Your output gifs and JSON metadata will appear in `build/gifs` and `build/json`. Try it yourself with the default settings
+- To run the process end to end run:
+
+          make all
+
+Your output gifs and JSON metadata will appear in `build/gifs` and `build/json`. Try it yourself with the default settings
 and layers!
 
 ## How does it work?
 
 ### Step 1
 
-In order to get [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine), the input layers needs to be in [Sprite Sheet](https://gamedevelopment.tutsplus.com/tutorials/an-introduction-to-spritesheet-animation--gamedev-13099). However this is tedious and
-unintuitive for many artists who use tools that export individual images.
+In order to get [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) to work, the input
+layers needs to be in [Sprite Sheet](https://gamedevelopment.tutsplus.com/tutorials/an-introduction-to-spritesheet-animation--gamedev-13099).
+However this is tedious and unintuitive for many artists who use tools that export individual images.
 
-Step 1 simply converts individual images to spritesheets. You provide the various layers in the
+Step 1 simply converts individual images to spritesheets with the rarity percentage. You provide the various layers in the
 `/layers` folder. Each image should be numbered from 0 -> X, and only accepts `.png`. There should
 also be a `rarity.json` in each layer folder which looks like:
 
@@ -168,7 +175,9 @@ red#20.png: <img src="./README_Assets/step1/ball/red.png" width="1000">
 Step 2 takes the spritesheets from step 1 and generates all possible combinations based on rarity. This is where
 all the magic happens! The output is a bunch of spritesheets with all the layers layered on top of each other.
 
-Most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out his [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips)!
+Most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out his [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) for a more in depth explanation on how the generative process works.
+
+There shouldn't be any extra configurations needed outside of `global_config.json`, but you can check out `step2_spritesheet_to_generative_sheet/src/config.js` for more configurations.
 
 You can run only step 2 by running:
 
@@ -183,9 +192,8 @@ Example output:
 
 ### Step 3
 
-Step 3 takes the spritesheets from step 2 and creates gifs in `builds/gifs`. It also creates frame by frame in `builds/images` as well. This
-is where Python and [PIL](https://pillow.readthedocs.io/en/stable/) really shine. In MichaPipo's original repo, they used javascript libraries to
-create the gifs. These copied pixels by pixels, and the logic was a bit complicated. Creating just 15 gifs would take 4 minutes, and I noticed
+Step 3 takes the spritesheets from step 2 and creates gifs in `builds/gifs`. This is where Python and [PIL](https://pillow.readthedocs.io/en/stable/) really shine. In MichaPipo's original repo, they used javascript libraries to
+create the gifs. These copied pixel by pixel, and the logic was a bit complicated. Creating just 15 gifs would take 4 minutes, and I noticed
 some of the pixel hex colors were off. Also depending on CPU usage, the program would crash. I spent days debugging, when I just decided to
 start from scratch in another language.
 
@@ -229,12 +237,15 @@ All of the code in step1 and step3 was written by me, and most of the code in th
 **FAQ**
 
 Q: Why did you decide to use Python for step 1 and step 3?
+
 A: I found that Python [PIL](https://pillow.readthedocs.io/en/stable/) works better and faster than JS libraries, and the code is simpler for me.
 My philosphy is pick the right tool for the right job. If someone finds a better library for this specific job, then let me know!
 
 Q: Why didn't you use Python for step 2?
-A: The NFT dev community which writes the complicated logic for generative art mainly writes in javascript. I want to make it easy to update
-my code and incorporate the best features of other repos as easily as possible, and porting everything to Python would be a pain.
+
+A: The NFT dev community which writes the complicated logic for generative art mainly codes in javascript. I want to make it easy to update
+my code and incorporate the best features of other repos as easily as possible, and porting everything to Python would be a pain. You can imagine
+step 1 and step 3 are just helper tools in Python, and step 2 is where most of the business logic comes from.
 
 Be sure to follow me for more updates on this project:
 
