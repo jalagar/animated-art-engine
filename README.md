@@ -102,7 +102,7 @@ layers
 Example layers:
 Background:
 grey:
-![0.png](./README_Assets/layers/background/grey/0.png)
+<img src="./README_Assets/layers/background/grey/0.png" width="100">
 pink:
 ![0.png](./README_Assets/layers/background/pink/0.png)
 
