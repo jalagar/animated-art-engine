@@ -126,11 +126,9 @@ layers
 **ball**:
 
 **red**:
-
 <img src="./README_Assets/layers/ball/red/0.png" width="150"><img src="./README_Assets/layers/ball/red/1.png" width="150"><img src="./README_Assets/layers/ball/red/2.png" width="150"><img src="./README_Assets/layers/ball/red/3.png" width="150"><img src="./README_Assets/layers/ball/red/4.png" width="200">...
 
 **blue**:
-
 <img src="./README_Assets/layers/ball/blue/0.png" width="150"><img src="./README_Assets/layers/ball/blue/1.png" width="150"><img src="./README_Assets/layers/ball/blue/2.png" width="150"><img src="./README_Assets/layers/ball/blue/3.png" width="150"><img src="./README_Assets/layers/ball/blue/4.png" width="150">...
 
 I am using python here instead of javascript libraries because I have found that image processing using
