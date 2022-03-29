@@ -114,15 +114,11 @@ ball:
 
 red:
 
-0.png: <img src="./README_Assets/layers/ball/red/0.png" width="200"> 1.png: <img src="./README_Assets/layers/ball/red/1.png" width="200"> 2.png: <img src="./README_Assets/layers/ball/red/2.png" width="200"> 3.png: <img src="./README_Assets/layers/ball/red/3.png" width="200"> 4.png: <img src="./README_Assets/layers/ball/red/4.png" width="200">
-
-...
+0.png: <img src="./README_Assets/layers/ball/red/0.png" width="200"> 1.png: <img src="./README_Assets/layers/ball/red/1.png" width="200"> 2.png: <img src="./README_Assets/layers/ball/red/2.png" width="200"> 3.png: <img src="./README_Assets/layers/ball/red/3.png" width="200"> 4.png: <img src="./README_Assets/layers/ball/red/4.png" width="200"> ...
 
 blue:
 
-0.png: <img src="./README_Assets/layers/ball/blue/0.png" width="200"> 1.png: <img src="./README_Assets/layers/ball/blue/1.png" width="200"> 2.png: <img src="./README_Assets/layers/ball/blue/2.png" width="200"> 3.png: <img src="./README_Assets/layers/ball/blue/3.png" width="200"> 4.png: <img src="./README_Assets/layers/ball/blue/4.png" width="200">
-
-...
+0.png: <img src="./README_Assets/layers/ball/blue/0.png" width="200"> 1.png: <img src="./README_Assets/layers/ball/blue/1.png" width="200"> 2.png: <img src="./README_Assets/layers/ball/blue/2.png" width="200"> 3.png: <img src="./README_Assets/layers/ball/blue/3.png" width="200"> 4.png: <img src="./README_Assets/layers/ball/blue/4.png" width="200"> ...
 
 I am using python here instead of javascript libraries because I have found that image processing using
 [PIL](https://pillow.readthedocs.io/en/stable/) is much faster and without lossy quality than javascript.
@@ -140,21 +136,21 @@ background:
 
 grey:
 
-grey#20.png: <img src="./README_Assets/step1/output/background/grey/grey#20.png" width="200">
+grey#20.png: <img src="./README_Assets/step1/output/background/grey#20.png" width="200">
 
 pink:
 
-pink#20.png: <img src="./README_Assets/step1/output/background/grey/pink#20.png" width="200">
+pink#20.png: <img src="./README_Assets/step1/output/background/pink#20.png" width="200">
 
 ball:
 
 blue:
 
-blue#20.png: <img src="./README_Assets/step1/output/background/grey/blue#20.png" width="200">
+blue#20.png: <img src="./README_Assets/step1/output/background/blue#20.png" width="200">
 
 red:
 
-red#20.png: <img src="./README_Assets/step1/output/background/grey/red#20.png" width="200">
+red#20.png: <img src="./README_Assets/step1/output/background/red#20.png" width="200">
 
 ## HOW TO USE
 
