@@ -1,6 +1,6 @@
 # Welcome to the **Generative GIF Engine v2.0.0** 🐤
 
-[5 minute read]
+[8 minute read]
 
 This python and node app generates gifs based on layers to create NFT gif art! It is faster, simpler, and
 more dynamic than any other open source gif generative tool out there! I plan to actively maintain this repo
@@ -14,7 +14,7 @@ There are three steps:
    - Most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out his [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips)!
 3. [Python] Convert spritesheets to gifs using [PIL](https://pillow.readthedocs.io/en/stable/).
 
-Checkout this [Medium post]() for more information!
+Checkout this [Medium post]() and [How does it work?](#how-does-it-work?) for more information!
 
 ## Requirements
 
@@ -44,7 +44,7 @@ This should install python and node dependencies.
 
 Load the png files into the `/layers` folder where each layer is a folder, and each folder contains
 another attribute folder which contains the individual frames. They should be named `0.png` -> `X.png` and
-there should be a `rarity.json` file with the rarity defined. See code or [step 1](# Step 1) for folder structure.
+there should be a `rarity.json` file with the rarity defined. See code or [step 1](#step-1) for folder structure.
 
 Update `global_config.json` with:
 
@@ -80,7 +80,8 @@ also be a `rarity.json` in each layer folder which looks like:
 }
 ```
 
-which specifies the rarity of each layer.
+which specifies the rarity of each layer. If you only provide one image, it will automatically assume
+you want it duplicated and multiple the image by `numberOfFrames`.
 
 Example layers folder structure:
 
@@ -143,25 +144,25 @@ This will convert the pngs into spritesheets and the output will look something 
 
 Output:
 
-background:
+**background**:
 
-grey:
+**grey**:
 
-grey#20.png: <img src="./README_Assets/step1/background/grey#20.png" width="1000">
+grey#20.png: <img src="./README_Assets/step1/background/grey.png" width="1000">
 
-pink:
+**pink**:
 
-pink#20.png: <img src="./README_Assets/step1/background/pink#20.png" width="1000">
+pink#20.png: <img src="./README_Assets/step1/background/pink.png" width="1000">
 
-ball:
+**ball**:
 
-blue:
+**blue**:
 
-blue#20.png: <img src="./README_Assets/step1/ball/blue#20.png" width="1000">
+blue#20.png: <img src="./README_Assets/step1/ball/blue.png" width="1000">
 
-red:
+**red**:
 
-red#20.png: <img src="./README_Assets/step1/ball/red#20.png" width="1000">
+red#20.png: <img src="./README_Assets/step1/ball/red.png" width="1000">
 
 ### Step 2
 
@@ -199,8 +200,7 @@ This allows you to not have to regenerate everything to play around with quality
 
 Example output:
 
-<img src="./README_Assets/step3/0.gif" width="500"><img src="./README_Assets/step3/1.gif" width="500"><img src="./README_Assets/step3/2.gif" width="500">
-<img src="./README_Assets/step3/3.gif" width="500">
+<img src="./README_Assets/step3/0.gif" width="500"><img src="./README_Assets/step3/1.gif" width="500"><img src="./README_Assets/step3/3.gif" width="500"><img src="./README_Assets/step3/2.gif" width="500">
 
 If you set `saveIndividualFrames` to `true` in `global_config.json`, it will also split the gifs into individual frames and save them in
 `images`. This is useful if you want people to be able to choose a single frame for a profile picture.
