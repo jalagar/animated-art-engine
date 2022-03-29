@@ -1,5 +1,5 @@
 {
-  "totalSupply": 50,
+  "totalSupply": 10,
   "height": 1000,
   "width": 1000,
   "debug": false,
@@ -7,6 +7,6 @@
   "quality": 95,
   "framesPerSecond": 12,
   "numberOfFrames": 12,
-  "description": "Your project description",
+  "description": "Bouncing ball",
   "baseUri": "ipfs://NewUriToReplace"
 }

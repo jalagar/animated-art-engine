@@ -26,7 +26,7 @@ const {
 } = require(path.join(basePath, "/src/config.js"));
 const { height, width, numberOfFrames, debug: debugLogs } = require(path.join(
   basePath,
-  "../config.json"
+  "../global_config.json"
 ));
 
 const outputWidth = width * numberOfFrames;

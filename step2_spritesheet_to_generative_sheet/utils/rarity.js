@@ -4,44 +4,39 @@ const path = require("path");
 const isLocal = typeof process.pkg === "undefined";
 const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
 const fs = require("fs");
-const layersDir = `${basePath}/layers`;
+const layersDir = path.join(basePath, "../step1_layers_to_spritesheet/output"); // Input is read from previous step
 
 console.log(path.join(basePath, "/src/config.js"));
-const { layerConfigurations } = require(path.join(basePath, "/src/config.js"));
-
+const { layersOrder } = require(path.join(basePath, "../global_config.json"));
 const { getElements } = require("../src/main.js");
 
 // read json data
-let rawdata = fs.readFileSync(`${basePath}/build/json/_metadata.json`);
+let rawdata = fs.readFileSync(`${basePath}/../build/json/_metadata.json`);
 let data = JSON.parse(rawdata);
 let editionSize = data.length;
 
 let rarityData = [];
 
 // intialize layers to chart
-layerConfigurations.forEach((config) => {
-  let layers = config.layersOrder;
-
-  layers.forEach((layer) => {
-    // get elements for each layer
-    let elementsForLayer = [];
-    let elements = getElements(`${layersDir}/${layer.name}/`);
-    elements.forEach((element) => {
-      // just get name and weight for each element
-      let rarityDataElement = {
-        trait: element.name,
-        chance: element.weight.toFixed(0),
-        occurrence: 0, // initialize at 0
-      };
-      elementsForLayer.push(rarityDataElement);
-    });
-
-    // don't include duplicate layers
-    if (!rarityData.includes(layer.name)) {
-      // add elements for each layer to chart
-      rarityData[layer.name] = elementsForLayer;
-    }
+layersOrder.forEach((layer) => {
+  // get elements for each layer
+  let elementsForLayer = [];
+  let elements = getElements(`${layersDir}/${layer}/`);
+  elements.forEach((element) => {
+    // just get name and weight for each element
+    let rarityDataElement = {
+      trait: element.name,
+      chance: element.weight.toFixed(0),
+      occurrence: 0, // initialize at 0
+    };
+    elementsForLayer.push(rarityDataElement);
   });
+
+  // don't include duplicate layers
+  if (!rarityData.includes(layer)) {
+    // add elements for each layer to chart
+    rarityData[layer] = elementsForLayer;
+  }
 });
 
 // fill up rarity chart with occurrences from metadata

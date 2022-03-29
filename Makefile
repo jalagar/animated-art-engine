@@ -15,3 +15,9 @@ all:
 	make step1
 	make step2
 	make step3
+
+rarity:
+	cd step2_spritesheet_to_generative_sheet; node utils/rarity.js
+
+update_json:
+	cd step2_spritesheet_to_generative_sheet; node utils/update.js

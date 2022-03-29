@@ -3,10 +3,11 @@ import os
 import json
 from file import get_png_file_name, setup_directory
 
-output_directory = "./build/gifs"
+output_gifs_directory = "./build/gifs"
+output_images_directory = "./build/images"
 input_directory = "./step2_spritesheet_to_generative_sheet/output/images"
 temp_directory = "./step3_generative_sheet_to_gif/temp"
-json_config = "./config.json"
+json_config = "./global_config.json"
 
 
 def parse_global_config() -> dict:
@@ -46,18 +47,24 @@ def crop_and_save(file_name: str, height: int, width: int) -> None:
 def convert_pngs_to_gif(file_name: str, quality: int, duration: int):
     frames = []
 
+    images_directory = os.path.join(
+        output_images_directory, get_png_file_name(file_name)
+    )
+    setup_directory(images_directory)
     temp_img_folder = os.path.join(temp_directory, get_png_file_name(file_name))
+
     for filename in sorted(
         os.listdir(temp_img_folder), key=lambda img: int(get_png_file_name(img))
     ):
         if filename.endswith(".png"):
             temp_img_path = os.path.join(temp_img_folder, filename)
             new_frame = Image.open(temp_img_path)
+            new_frame.save(os.path.join(images_directory, filename))
             frames.append(new_frame)
 
     gif_name = get_png_file_name(file_name) + ".gif"
     frames[0].save(
-        os.path.join(output_directory, gif_name),
+        os.path.join(output_gifs_directory, gif_name),
         format="GIF",
         append_images=frames[1:],
         save_all=True,
@@ -93,7 +100,7 @@ def main():
     height = global_config["height"]
     width = global_config["width"]
 
-    for folder in [output_directory, temp_directory]:
+    for folder in [output_gifs_directory, output_images_directory, temp_directory]:
         setup_directory(folder)
 
     for filename in sorted(

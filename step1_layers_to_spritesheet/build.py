@@ -8,7 +8,7 @@ from file import get_png_file_name, setup_directory
 
 layers_directory = "./layers"
 output_directory = "./step1_layers_to_spritesheet/output"
-json_config = "./config.json"
+json_config = "./global_config.json"
 
 
 def combine_images(images: List[Image]) -> Image:
@@ -42,7 +42,7 @@ def sort_function(file: str) -> int:
     try:
         return int(get_png_file_name(file))
     except:
-        if file != "config.json":
+        if file != "rarity.json":
             print(f"Invalid integer layer, ordering may not be accurage for", file)
         return 0
 
@@ -62,7 +62,7 @@ def parse_attributes_into_images(
     rarity_percentage = None
     for filename in sorted(os.listdir(attribute_path), key=sort_function):
         file_path = os.path.join(attribute_path, filename)
-        if filename == "config.json":
+        if filename == "rarity.json":
             config_file = open(file_path, "r")
             config_json = json.load(config_file)
             config_file.close()

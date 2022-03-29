@@ -3,11 +3,10 @@
 const path = require("path");
 const isLocal = typeof process.pkg === "undefined";
 const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
-const { MODE } = require(path.join(basePath, "src/blendMode.js"));
 
 const { totalSupply, layersOrder, description, baseUri } = require(path.join(
   basePath,
-  "../config.json"
+  "../global_config.json"
 ));
 
 const layerConfigurations = [
