@@ -44,8 +44,10 @@ This should install python and node dependencies.
 ## How to run?
 
 Load the png files into the `/layers` folder where each layer is a folder, and each folder contains
-another attribute folder which contains the individual frames. They should be named `0.png` -> `X.png` and
-there should be a `rarity.json` file with the rarity defined. See code or [step 1](#step-1) for folder structure.
+another attribute folder which contains the individual frames and a rarity percentage. For example if you wanted
+a background layer you would have `/layers/background/blue#20` and `/layers/background/red#20`.
+
+In each attribute folder, the frames should be named `0.png` -> `X.png`. See code or [step 1](#step-1) for folder structure.
 
 Update `global_config.json` with:
 
@@ -78,39 +80,29 @@ layers needs to be in [Sprite Sheet](https://gamedevelopment.tutsplus.com/tutori
 However this is tedious and unintuitive for many artists who use tools that export individual images.
 
 Step 1 simply converts individual images to spritesheets with the rarity percentage. You provide the various layers in the
-`/layers` folder. Each image should be numbered from 0 -> X, and only accepts `.png`. There should
-also be a `rarity.json` in each layer folder which looks like:
+`/layers` folder with the rarity in the folder name. Each image should be numbered from 0 -> X, and only accepts `.png`.
 
-```
-{
-    "rarity": 10
-}
-```
+**If you do not include the rarity weight in the attribute folder name, that attribute will be ignored**
 
-which specifies the rarity of each layer. If you only provide one image, it will automatically assume
-you want it duplicated and multiple the image by `numberOfFrames`.
+If you only provide one image, it will automatically assume you want it duplicated and multiple the image by `numberOfFrames`.
 
 Example layers folder structure:
 
 ```
 layers
 └───background
-│   └───grey
-│       │   rarity.json
+│   └───grey#50
 │       │   0.png
-│   └───pink
-│       │   rarity.json
+│   └───pink#50
 │       │   0.png
 └───ball
-│   └───red
-│       │   rarity.json
+│   └───red#50
 │       │   0.png
 │       │   1.png
 │       │   2.png
 │       │   3.png
 │       │   4.png
-│   └───blue
-│       │   rarity.json
+│   └───blue#50
 │       │   0.png
 │       │   1.png
 │       │   2.png

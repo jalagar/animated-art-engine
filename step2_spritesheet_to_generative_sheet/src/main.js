@@ -56,6 +56,9 @@ const getRarityWeight = (_str) => {
     nameWithoutExtension.split(rarityDelimiter).pop()
   );
   if (isNaN(nameWithoutWeight)) {
+    if (debugLogs) {
+      console.log(`Missing rarity for ${_str}`);
+    }
     nameWithoutWeight = 0;
   }
   return nameWithoutWeight;
