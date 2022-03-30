@@ -3,8 +3,9 @@
 [8 minute read]
 
 This python and node app generates layered-based gifs to create NFT gif art! It is faster, simpler, and
-more dynamic than any other open source gif generative tool out there! I plan to actively maintain this repo
-and enhance it with various tools for months to come.
+produces higher quality gifs than any other open source gif generative tool out there. Export your animation as a png image sequence,
+organize your layer folders with rarity, and the code does the rest! I plan to actively maintain this repo
+and enhance it with various tools for months to come so be sure to ask questions in the discussion and write issues.
 
 There are three steps:
 
@@ -231,7 +232,7 @@ All of the code in step1 and step3 was written by me, and most of the code in th
 Q: Why did you decide to use Python for step 1 and step 3?
 
 A: I found that Python [PIL](https://pillow.readthedocs.io/en/stable/) works better and faster than JS libraries, and the code is simpler for me.
-My philosphy is pick the right tool for the right job. If someone finds a better library for this specific job, then let me know!
+My philosophy is pick the right tool for the right job. If someone finds a better library for this specific job, then let me know!
 
 Q: Why didn't you use Python for step 2?
 
