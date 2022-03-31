@@ -136,41 +136,41 @@ layers
 
 Grey:
 
-<img src="./README_Assets/layers/Background/Grey#50/0.png" width="200">
+<img src="./README_Assets/layers/Background/Grey/0.png" width="200">
 
 Pink:
 
-<img src="./README_Assets/layers/Background/Pink#50/0.png" width="200">
+<img src="./README_Assets/layers/Background/Pink/0.png" width="200">
 
 **Ball**:
 
 Blue:
 
-<img src="./README_Assets/layers/Ball/Blue#50/0.png" width="150"><img src="./README_Assets/layers/Ball/Blue#50/1.png" width="150"><img src="./README_Assets/layers/Ball/Blue#50/2.png" width="150"><img src="./README_Assets/layers/Ball/Blue#50/3.png" width="150"><img src="./README_Assets/layers/Ball/Blue#50/4.png" width="150">...
+<img src="./README_Assets/layers/Ball/Blue/0.png" width="150"><img src="./README_Assets/layers/Ball/Blue/1.png" width="150"><img src="./README_Assets/layers/Ball/Blue/2.png" width="150"><img src="./README_Assets/layers/Ball/Blue/3.png" width="150"><img src="./README_Assets/layers/Ball/Blue/4.png" width="150">...
 
 Green:
 
-<img src="./README_Assets/layers/Ball/Green#50/0.png" width="150"><img src="./README_Assets/layers/Ball/Green#50/1.png" width="150"><img src="./README_Assets/layers/Ball/Green#50/2.png" width="150"><img src="./README_Assets/layers/Ball/Green#50/3.png" width="150"><img src="./README_Assets/layers/Ball/Green#50/4.png" width="150">...
+<img src="./README_Assets/layers/Ball/Green/0.png" width="150"><img src="./README_Assets/layers/Ball/Green/1.png" width="150"><img src="./README_Assets/layers/Ball/Green/2.png" width="150"><img src="./README_Assets/layers/Ball/Green/3.png" width="150"><img src="./README_Assets/layers/Ball/Green/4.png" width="150">...
 
 **Hat**:
 
 Birthday:
 
-<img src="./README_Assets/layers/Hat/Birthday#50/0.png" width="150"><img src="./README_Assets/layers/Hat/Birthday#50/1.png" width="150"><img src="./README_Assets/layers/Hat/Birthday#50/2.png" width="150"><img src="./README_Assets/layers/Hat/Birthday#50/3.png" width="150"><img src="./README_Assets/layers/Hat/Birthday#50/4.png" width="150">...
+<img src="./README_Assets/layers/Hat/Birthday/0.png" width="150"><img src="./README_Assets/layers/Hat/Birthday/1.png" width="150"><img src="./README_Assets/layers/Hat/Birthday/2.png" width="150"><img src="./README_Assets/layers/Hat/Birthday/3.png" width="150"><img src="./README_Assets/layers/Hat/Birthday/4.png" width="150">...
 
 Cowboy:
 
-<img src="./README_Assets/layers/Hat/Cowboy#50/0.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy#50/1.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy#50/2.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy#50/3.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy#50/4.png" width="150">...
+<img src="./README_Assets/layers/Hat/Cowboy/0.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy/1.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy/2.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy/3.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy/4.png" width="150">...
 
 **Landscape**:
 
 Cupcake:
 
-<img src="./README_Assets/layers/Landscape/Cupcake#50/0.png" width="150">
+<img src="./README_Assets/layers/Landscape/Cupcake/0.png" width="150">
 
 Green Tower:
 
-<img src="./README_Assets/layers/Landscape/Green Tower#50/0.png" width="150">
+<img src="./README_Assets/layers/Landscape/Green Tower/0.png" width="150">
 
 I am using python here instead of javascript libraries because I have found that image processing using
 [PIL](https://pillow.readthedocs.io/en/stable/) is much faster and without lossy quality than javascript.
