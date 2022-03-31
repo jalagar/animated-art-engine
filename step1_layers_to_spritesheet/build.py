@@ -57,7 +57,6 @@ def parse_attributes_into_images(
 ) -> List[Image]:
     images = []
 
-    rarity_percentage = None
     for filename in sorted(os.listdir(attribute_path), key=sort_function):
         file_path = os.path.join(attribute_path, filename)
         if filename.endswith(".png"):
@@ -78,10 +77,16 @@ def main():
     global_config_json = parse_global_config()
     is_debug = global_config_json["debug"]
 
+    setup_directory(output_directory)
     for layer_folder in os.listdir(layers_directory):
         layer_path = os.path.join(layers_directory, layer_folder)
-        output_path = os.path.join(output_directory, layer_folder)
-        setup_directory(output_path)
+
+        output_layer_path = os.path.join(output_directory, layer_folder)
+        # hidden files should be ignored
+        if layer_folder.startswith("."):
+            continue
+
+        setup_directory(output_layer_path)
 
         if os.path.isdir(layer_path):
             print(f"Parsing layer folder: {layer_folder}")
@@ -97,7 +102,7 @@ def main():
                     )
                     spritesheet = combine_images(images)
                     spritesheet.save(
-                        os.path.join(output_path, f"{attribute_folder}.png")
+                        os.path.join(output_layer_path, f"{attribute_folder}.png")
                     )
 
 

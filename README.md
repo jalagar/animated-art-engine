@@ -19,7 +19,7 @@ Checkout this [Medium post]() and [How does it work?](#how-does-it-work) for mor
 
 Here's an example final result (or you can download the code and run it and see more bouncing balls :)):
 
-<img src="./README_Assets/step3/0.gif" width="200"><img src="./README_Assets/step3/1.gif" width="200"><img src="./README_Assets/step3/2.gif" width="200"><img src="./README_Assets/step3/3.gif" width="200">
+<img src="./README_Assets/step3/0.gif" width="200"><img src="./README_Assets/step3/1.gif" width="200"><img src="./README_Assets/step3/2.gif" width="200"><img src="./README_Assets/step3/3.gif" width="200"><img src="./README_Assets/step3/4.gif" width="200"><img src="./README_Assets/step3/5.gif" width="200"><img src="./README_Assets/step3/6.gif" width="200"><img src="./README_Assets/step3/7.gif" width="200"><img src="./README_Assets/step3/8.gif" width="200"><img src="./README_Assets/step3/9.gif" width="200">
 
 ## Requirements
 

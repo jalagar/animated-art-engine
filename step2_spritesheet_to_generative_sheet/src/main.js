@@ -104,7 +104,7 @@ const layersSetup = (layersOrder) => {
 
 const saveImage = (_editionCount) => {
   fs.writeFileSync(
-    `${outputDir}/images/${_editionCount - 1}.png`,
+    `${outputDir}/images/${_editionCount}.png`,
     canvas.toBuffer("image/png")
   );
 };
@@ -198,11 +198,11 @@ const saveMetaDataSingleFile = (_editionCount) => {
   let metadata = metadataList.find((meta) => meta.edition == _editionCount);
   debugLogs
     ? console.log(
-        `Writing metadata for ${_editionCount - 1}: ${JSON.stringify(metadata)}`
+        `Writing metadata for ${_editionCount}: ${JSON.stringify(metadata)}`
       )
     : null;
   fs.writeFileSync(
-    `${buildDir}/json/${_editionCount - 1}.json`,
+    `${buildDir}/json/${_editionCount}.json`,
     JSON.stringify(metadata, null, 2)
   );
 };
@@ -267,11 +267,11 @@ const startCreating = async () => {
           debugLogs
             ? console.log("Editions left to create: ", abstractedIndexes)
             : null;
-          saveImage(abstractedIndexes[0]);
-          addMetadata(newDna, abstractedIndexes[0]);
-          saveMetaDataSingleFile(abstractedIndexes[0]);
+          saveImage(abstractedIndexes[0] - 1);
+          addMetadata(newDna, abstractedIndexes[0] - 1);
+          saveMetaDataSingleFile(abstractedIndexes[0] - 1);
           console.log(
-            `Created edition: ${abstractedIndexes[0]}, with DNA: ${sha1(
+            `Created edition: ${abstractedIndexes[0] - 1}, with DNA: ${sha1(
               newDna.join("")
             )}`
           );

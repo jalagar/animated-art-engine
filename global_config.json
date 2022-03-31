@@ -1,13 +1,13 @@
 {
-  "totalSupply": 50,
+  "totalSupply": 10,
   "height": 1000,
   "width": 1000,
   "debug": false,
-  "layersOrder": ["background", "ball"],
+  "layersOrder": ["Background", "Landscape", "Ball", "Hat"],
   "quality": 95,
   "framesPerSecond": 12,
   "numberOfFrames": 12,
   "saveIndividualFrames": false,
-  "description": "Bouncing ball",
+  "description": "Genesis Ball",
   "baseUri": "ipfs://NewUriToReplace"
 }

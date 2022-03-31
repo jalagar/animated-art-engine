@@ -96,6 +96,21 @@ def fps_to_ms_duration(fps: int) -> int:
     return int(1000 / fps)
 
 
+def sort_function(file: str) -> int:
+    """
+    Sorts based on the integer file name ex. 2.py.
+    That way 2.py comes before 10.py. Returns
+    0 for any invalid file name (there might be some hidden files)
+
+    :param file: filename
+    :returns: int
+    """
+    try:
+        return int(get_png_file_name(file))
+    except:
+        return 0
+
+
 def main():
     print("Starting step 3: Converting sprite sheets to gifs")
     global_config = parse_global_config()
@@ -107,11 +122,9 @@ def main():
     for folder in [output_gifs_directory, output_images_directory, temp_directory]:
         setup_directory(folder)
 
-    for filename in sorted(
-        os.listdir(input_directory), key=lambda file: int(get_png_file_name(file))
-    ):
-        print(f"Converting spritesheet to gif for {filename}")
+    for filename in sorted(os.listdir(input_directory), key=sort_function):
         if filename.endswith(".png"):
+            print(f"Converting spritesheet to gif for {filename}")
             crop_and_save(
                 filename,
                 height,
