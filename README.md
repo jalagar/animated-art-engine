@@ -184,25 +184,45 @@ This will convert the pngs into spritesheets and the output will look something 
 
 Output:
 
-**background**:
+**Background**:
 
-**grey**:
+Grey#50.png:
 
-grey#20.png: <img src="./README_Assets/step1/background/grey.png" width="1000">
+<img src="./README_Assets/step1/Background/Grey.png" width="1000">
 
-**pink**:
+Pink#50.png:
 
-pink#20.png: <img src="./README_Assets/step1/background/pink.png" width="1000">
+<img src="./README_Assets/step1/Background/Pink.png" width="1000">
 
-**ball**:
+**Ball**:
 
-**blue**:
+Blue#50.png:
 
-blue#20.png: <img src="./README_Assets/step1/ball/blue.png" width="1000">
+<img src="./README_Assets/step1/Ball/Blue.png" width="1000">
 
-**red**:
+Green#50.png:
 
-red#20.png: <img src="./README_Assets/step1/ball/red.png" width="1000">
+<img src="./README_Assets/step1/Ball/Green.png" width="1000">
+
+**Hat**:
+
+Birthday#50.png:
+
+<img src="./README_Assets/step1/Hat/Birthday.png" width="1000">
+
+Cowboy#50.png:
+
+<img src="./README_Assets/step1/Hat/Cowboy.png" width="1000">
+
+**Landscape**:
+
+Cupcake#50.png:
+
+<img src="./README_Assets/step1/Landscape/Cupcake.png" width="1000">
+
+Green Tower#50.png:
+
+<img src="./README_Assets/step1/Landscape/Green Tower.png" width="1000">
 
 ### Step 2
 
@@ -223,6 +243,18 @@ Example output:
 <img src="./README_Assets/step2/1.png" width="1000">
 <img src="./README_Assets/step2/2.png" width="1000">
 <img src="./README_Assets/step2/3.png" width="1000">
+<img src="./README_Assets/step2/4.png" width="1000">
+<img src="./README_Assets/step2/5.png" width="1000">
+<img src="./README_Assets/step2/6.png" width="1000">
+<img src="./README_Assets/step2/7.png" width="1000">
+<img src="./README_Assets/step2/8.png" width="1000">
+<img src="./README_Assets/step2/9.png" width="1000">
+<img src="./README_Assets/step2/10.png" width="1000">
+<img src="./README_Assets/step2/11.png" width="1000">
+<img src="./README_Assets/step2/12.png" width="1000">
+<img src="./README_Assets/step2/13.png" width="1000">
+<img src="./README_Assets/step2/14.png" width="1000">
+<img src="./README_Assets/step2/15.png" width="1000">
 
 ### Step 3
 
