@@ -19,7 +19,7 @@ Checkout this [Medium post]() and [How does it work?](#how-does-it-work) for mor
 
 Here's an example final result (or you can download the code and run it and see more bouncing balls :)):
 
-<img src="./README_Assets/step3/0.gif" width="200"><img src="./README_Assets/step3/1.gif" width="200"><img src="./README_Assets/step3/2.gif" width="200"><img src="./README_Assets/step3/3.gif" width="200"><img src="./README_Assets/step3/4.gif" width="200"><img src="./README_Assets/step3/5.gif" width="200"><img src="./README_Assets/step3/6.gif" width="200"><img src="./README_Assets/step3/7.gif" width="200"><img src="./README_Assets/step3/8.gif" width="200"><img src="./README_Assets/step3/9.gif" width="200">
+<img src="./README_Assets/build/0.gif" width="200"><img src="./README_Assets/build/1.gif" width="200"><img src="./README_Assets/build/2.gif" width="200"><img src="./README_Assets/build/3.gif" width="200">
 
 ## Requirements
 
@@ -91,49 +91,86 @@ Step 1 simply converts individual images to spritesheets with the rarity percent
 
 If you only provide one image, it will automatically assume you want it duplicated and multiple the image by `numberOfFrames`.
 
-Example layers folder structure:
+Example layers folder structure with four layers
+and two traits each layer:
 
 ```
 layers
-└───background
-│   └───grey#50
+└───Background
+│   └───Grey#50
 │       │   0.png
-│   └───pink#50
+│   └───Pink#50
 │       │   0.png
-└───ball
-│   └───red#50
-│       │   0.png
-│       │   1.png
-│       │   2.png
-│       │   3.png
-│       │   4.png
-│   └───blue#50
+└───Ball
+│   └───Blue#50
 │       │   0.png
 │       │   1.png
 │       │   2.png
-│       │   3.png
-│       │   4.png
+│       │   ...
+│   └───Green#50
+│       │   0.png
+│       │   1.png
+│       │   2.png
+│       │   ...
+└───Hat
+│   └───Birthday#50
+│       │   0.png
+│       │   1.png
+│       │   2.png
+│       │   ...
+│   └───Cowboy#50
+│       │   0.png
+│       │   1.png
+│       │   2.png
+│       │   ...
+└───Landscape
+│   └───Cupcake#50
+│       │   0.png
+│   └───Green Tower#50
+│       │   0.png
 ```
 
 **Example layer**:
 
-**background**:
+**Background**:
 
-**grey**:
+Grey:
 
-<img src="./README_Assets/layers/background/grey/0.png" width="200">
+<img src="./README_Assets/layers/Background/Grey#50/0.png" width="200">
 
-**pink**:
+Pink:
 
-<img src="./README_Assets/layers/background/pink/0.png" width="200">
+<img src="./README_Assets/layers/Background/Pink#50/0.png" width="200">
 
-**ball**:
+**Ball**:
 
-**red**:
-<img src="./README_Assets/layers/ball/red/0.png" width="150"><img src="./README_Assets/layers/ball/red/1.png" width="150"><img src="./README_Assets/layers/ball/red/2.png" width="150"><img src="./README_Assets/layers/ball/red/3.png" width="150"><img src="./README_Assets/layers/ball/red/4.png" width="150">...
+Blue:
 
-**blue**:
-<img src="./README_Assets/layers/ball/blue/0.png" width="150"><img src="./README_Assets/layers/ball/blue/1.png" width="150"><img src="./README_Assets/layers/ball/blue/2.png" width="150"><img src="./README_Assets/layers/ball/blue/3.png" width="150"><img src="./README_Assets/layers/ball/blue/4.png" width="150">...
+<img src="./README_Assets/layers/Ball/Blue#50/0.png" width="150"><img src="./README_Assets/layers/Ball/Blue#50/1.png" width="150"><img src="./README_Assets/layers/Ball/Blue#50/2.png" width="150"><img src="./README_Assets/layers/Ball/Blue#50/3.png" width="150"><img src="./README_Assets/layers/Ball/Blue#50/4.png" width="150">...
+
+Green:
+
+<img src="./README_Assets/layers/Ball/Green#50/0.png" width="150"><img src="./README_Assets/layers/Ball/Green#50/1.png" width="150"><img src="./README_Assets/layers/Ball/Green#50/2.png" width="150"><img src="./README_Assets/layers/Ball/Green#50/3.png" width="150"><img src="./README_Assets/layers/Ball/Green#50/4.png" width="150">...
+
+**Hat**:
+
+Birthday:
+
+<img src="./README_Assets/layers/Hat/Birthday#50/0.png" width="150"><img src="./README_Assets/layers/Hat/Birthday#50/1.png" width="150"><img src="./README_Assets/layers/Hat/Birthday#50/2.png" width="150"><img src="./README_Assets/layers/Hat/Birthday#50/3.png" width="150"><img src="./README_Assets/layers/Hat/Birthday#50/4.png" width="150">...
+
+Cowboy:
+
+<img src="./README_Assets/layers/Hat/Cowboy#50/0.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy#50/1.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy#50/2.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy#50/3.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy#50/4.png" width="150">...
+
+**Landscape**:
+
+Cupcake:
+
+<img src="./README_Assets/layers/Landscape/Cupcake#50/0.png" width="150">
+
+Green Tower:
+
+<img src="./README_Assets/layers/Landscape/Green Tower#50/0.png" width="150">
 
 I am using python here instead of javascript libraries because I have found that image processing using
 [PIL](https://pillow.readthedocs.io/en/stable/) is much faster and without lossy quality than javascript.
