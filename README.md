@@ -237,24 +237,12 @@ You can run only step 2 by running:
 
         make step2
 
-Example output:
+Example output (only first 4 displayed, but there are 16 total):
 
 <img src="./README_Assets/step2/0.png" width="1000">
 <img src="./README_Assets/step2/1.png" width="1000">
 <img src="./README_Assets/step2/2.png" width="1000">
 <img src="./README_Assets/step2/3.png" width="1000">
-<img src="./README_Assets/step2/4.png" width="1000">
-<img src="./README_Assets/step2/5.png" width="1000">
-<img src="./README_Assets/step2/6.png" width="1000">
-<img src="./README_Assets/step2/7.png" width="1000">
-<img src="./README_Assets/step2/8.png" width="1000">
-<img src="./README_Assets/step2/9.png" width="1000">
-<img src="./README_Assets/step2/10.png" width="1000">
-<img src="./README_Assets/step2/11.png" width="1000">
-<img src="./README_Assets/step2/12.png" width="1000">
-<img src="./README_Assets/step2/13.png" width="1000">
-<img src="./README_Assets/step2/14.png" width="1000">
-<img src="./README_Assets/step2/15.png" width="1000">
 
 ### Step 3
 
