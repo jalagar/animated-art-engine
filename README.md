@@ -259,12 +259,25 @@ You can change the `quality` and `framesPerSecond` in `global_config.json` and y
 
 This allows you to not have to regenerate everything to play around with quality and fps.
 
-Example output:
+Example output with all 16 permutations (click on each gif for the 1000x1000 version):
 
-<img src="./README_Assets/step3/0.gif" width="100"><img src="./README_Assets/step3/1.gif" width="100"><img src="./README_Assets/step3/2.gif" width="100"><img src="./README_Assets/step3/3.gif" width="100"><img src="./README_Assets/step3/4.gif" width="100"><img src="./README_Assets/step3/5.gif" width="100"><img src="./README_Assets/step3/6.gif" width="100"><img src="./README_Assets/step3/7.gif" width="100"><img src="./README_Assets/step3/8.gif" width="100"><img src="./README_Assets/step3/9.gif" width="100"><img src="./README_Assets/step3/10.gif" width="100"><img src="./README_Assets/step3/11.gif" width="100"><img src="./README_Assets/step3/12.gif" width="100"><img src="./README_Assets/step3/13.gif" width="100"><img src="./README_Assets/step3/14.gif" width="100"><img src="./README_Assets/step3/15.gif" width="100">
+<img src="./README_Assets/step3/0.gif" width="150"><img src="./README_Assets/step3/1.gif" width="150"><img src="./README_Assets/step3/2.gif" width="150"><img src="./README_Assets/step3/3.gif" width="150"><img src="./README_Assets/step3/4.gif" width="150"><img src="./README_Assets/step3/5.gif" width="150"><img src="./README_Assets/step3/6.gif" width="150"><img src="./README_Assets/step3/7.gif" width="150"><img src="./README_Assets/step3/8.gif" width="150"><img src="./README_Assets/step3/9.gif" width="150"><img src="./README_Assets/step3/10.gif" width="150"><img src="./README_Assets/step3/11.gif" width="150"><img src="./README_Assets/step3/12.gif" width="150"><img src="./README_Assets/step3/13.gif" width="150"><img src="./README_Assets/step3/14.gif" width="150"><img src="./README_Assets/step3/15.gif" width="150">
 
 If you set `saveIndividualFrames` to `true` in `global_config.json`, it will also split the gifs into individual frames and save them in
 `images`. This is useful if you want people to be able to choose a single frame for a profile picture.
+
+Some metrics:
+
+MichaPipo's Generative Gif Engine:
+
+- 15 NFT - 5 minutes with sometimes incorrect pixels.
+- 100 NFT - one hour (with the computer being almost unusable).
+
+New Generative Gif Engine:
+
+- 15 NFT - 30 seconds with no pixel issues.
+- 100 NFT - 3 minutes and 17 seconds with no pixel issues.
+- 1000 NFT - 45 minutes with no pixel issues and no CPU issues.
 
 ### Rarity stats
 
