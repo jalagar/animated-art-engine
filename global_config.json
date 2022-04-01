@@ -8,6 +8,6 @@
   "framesPerSecond": 12,
   "numberOfFrames": 12,
   "saveIndividualFrames": false,
-  "description": "Genesis Ball",
+  "description": "Your description here",
   "baseUri": "ipfs://NewUriToReplace"
 }
