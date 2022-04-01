@@ -136,41 +136,41 @@ layers
 
 Grey:
 
-<img src="./README_Assets/layers/Background/Grey#50/0.png" width="200">
+<img src="./README_Assets/layers/Background/Grey/0.png" width="200">
 
 Pink:
 
-<img src="./README_Assets/layers/Background/Pink#50/0.png" width="200">
+<img src="./README_Assets/layers/Background/Pink/0.png" width="200">
 
 **Ball**:
 
 Blue:
 
-<img src="./README_Assets/layers/Ball/Blue#50/0.png" width="150"><img src="./README_Assets/layers/Ball/Blue#50/1.png" width="150"><img src="./README_Assets/layers/Ball/Blue#50/2.png" width="150"><img src="./README_Assets/layers/Ball/Blue#50/3.png" width="150"><img src="./README_Assets/layers/Ball/Blue#50/4.png" width="150">...
+<img src="./README_Assets/layers/Ball/Blue/0.png" width="150"><img src="./README_Assets/layers/Ball/Blue/1.png" width="150"><img src="./README_Assets/layers/Ball/Blue/2.png" width="150"><img src="./README_Assets/layers/Ball/Blue/3.png" width="150"><img src="./README_Assets/layers/Ball/Blue/4.png" width="150">...
 
 Green:
 
-<img src="./README_Assets/layers/Ball/Green#50/0.png" width="150"><img src="./README_Assets/layers/Ball/Green#50/1.png" width="150"><img src="./README_Assets/layers/Ball/Green#50/2.png" width="150"><img src="./README_Assets/layers/Ball/Green#50/3.png" width="150"><img src="./README_Assets/layers/Ball/Green#50/4.png" width="150">...
+<img src="./README_Assets/layers/Ball/Green/0.png" width="150"><img src="./README_Assets/layers/Ball/Green/1.png" width="150"><img src="./README_Assets/layers/Ball/Green/2.png" width="150"><img src="./README_Assets/layers/Ball/Green/3.png" width="150"><img src="./README_Assets/layers/Ball/Green/4.png" width="150">...
 
 **Hat**:
 
 Birthday:
 
-<img src="./README_Assets/layers/Hat/Birthday#50/0.png" width="150"><img src="./README_Assets/layers/Hat/Birthday#50/1.png" width="150"><img src="./README_Assets/layers/Hat/Birthday#50/2.png" width="150"><img src="./README_Assets/layers/Hat/Birthday#50/3.png" width="150"><img src="./README_Assets/layers/Hat/Birthday#50/4.png" width="150">...
+<img src="./README_Assets/layers/Hat/Birthday/0.png" width="150"><img src="./README_Assets/layers/Hat/Birthday/1.png" width="150"><img src="./README_Assets/layers/Hat/Birthday/2.png" width="150"><img src="./README_Assets/layers/Hat/Birthday/3.png" width="150"><img src="./README_Assets/layers/Hat/Birthday/4.png" width="150">...
 
 Cowboy:
 
-<img src="./README_Assets/layers/Hat/Cowboy#50/0.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy#50/1.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy#50/2.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy#50/3.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy#50/4.png" width="150">...
+<img src="./README_Assets/layers/Hat/Cowboy/0.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy/1.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy/2.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy/3.png" width="150"><img src="./README_Assets/layers/Hat/Cowboy/4.png" width="150">...
 
 **Landscape**:
 
 Cupcake:
 
-<img src="./README_Assets/layers/Landscape/Cupcake#50/0.png" width="150">
+<img src="./README_Assets/layers/Landscape/Cupcake/0.png" width="150">
 
 Green Tower:
 
-<img src="./README_Assets/layers/Landscape/Green Tower#50/0.png" width="150">
+<img src="./README_Assets/layers/Landscape/Green Tower/0.png" width="150">
 
 I am using python here instead of javascript libraries because I have found that image processing using
 [PIL](https://pillow.readthedocs.io/en/stable/) is much faster and without lossy quality than javascript.
@@ -184,25 +184,45 @@ This will convert the pngs into spritesheets and the output will look something 
 
 Output:
 
-**background**:
+**Background**:
 
-**grey**:
+Grey#50.png:
 
-grey#20.png: <img src="./README_Assets/step1/background/grey.png" width="1000">
+<img src="./README_Assets/step1/Background/Grey.png" width="1000">
 
-**pink**:
+Pink#50.png:
 
-pink#20.png: <img src="./README_Assets/step1/background/pink.png" width="1000">
+<img src="./README_Assets/step1/Background/Pink.png" width="1000">
 
-**ball**:
+**Ball**:
 
-**blue**:
+Blue#50.png:
 
-blue#20.png: <img src="./README_Assets/step1/ball/blue.png" width="1000">
+<img src="./README_Assets/step1/Ball/Blue.png" width="1000">
 
-**red**:
+Green#50.png:
 
-red#20.png: <img src="./README_Assets/step1/ball/red.png" width="1000">
+<img src="./README_Assets/step1/Ball/Green.png" width="1000">
+
+**Hat**:
+
+Birthday#50.png:
+
+<img src="./README_Assets/step1/Hat/Birthday.png" width="1000">
+
+Cowboy#50.png:
+
+<img src="./README_Assets/step1/Hat/Cowboy.png" width="1000">
+
+**Landscape**:
+
+Cupcake#50.png:
+
+<img src="./README_Assets/step1/Landscape/Cupcake.png" width="1000">
+
+Green Tower#50.png:
+
+<img src="./README_Assets/step1/Landscape/Green Tower.png" width="1000">
 
 ### Step 2
 
@@ -217,7 +237,7 @@ You can run only step 2 by running:
 
         make step2
 
-Example output:
+Example output (only first 4 displayed, but there are 16 total):
 
 <img src="./README_Assets/step2/0.png" width="1000">
 <img src="./README_Assets/step2/1.png" width="1000">
@@ -239,12 +259,25 @@ You can change the `quality` and `framesPerSecond` in `global_config.json` and y
 
 This allows you to not have to regenerate everything to play around with quality and fps.
 
-Example output:
+Example output with all 16 permutations (click on each gif for the 1000x1000 version):
 
-<img src="./README_Assets/step3/0.gif" width="200"><img src="./README_Assets/step3/1.gif" width="200"><img src="./README_Assets/step3/2.gif" width="200"><img src="./README_Assets/step3/3.gif" width="200">
+<img src="./README_Assets/step3/0.gif" width="150"><img src="./README_Assets/step3/1.gif" width="150"><img src="./README_Assets/step3/2.gif" width="150"><img src="./README_Assets/step3/3.gif" width="150"><img src="./README_Assets/step3/4.gif" width="150"><img src="./README_Assets/step3/5.gif" width="150"><img src="./README_Assets/step3/6.gif" width="150"><img src="./README_Assets/step3/7.gif" width="150"><img src="./README_Assets/step3/8.gif" width="150"><img src="./README_Assets/step3/9.gif" width="150"><img src="./README_Assets/step3/10.gif" width="150"><img src="./README_Assets/step3/11.gif" width="150"><img src="./README_Assets/step3/12.gif" width="150"><img src="./README_Assets/step3/13.gif" width="150"><img src="./README_Assets/step3/14.gif" width="150"><img src="./README_Assets/step3/15.gif" width="150">
 
 If you set `saveIndividualFrames` to `true` in `global_config.json`, it will also split the gifs into individual frames and save them in
 `images`. This is useful if you want people to be able to choose a single frame for a profile picture.
+
+Some metrics:
+
+MichaPipo's Generative Gif Engine:
+
+- 15 NFT - 5 minutes with sometimes incorrect pixels.
+- 100 NFT - one hour (with the computer being almost unusable).
+
+New Generative Gif Engine:
+
+- 15 NFT - 30 seconds with no pixel issues.
+- 100 NFT - 3 minutes and 17 seconds with no pixel issues.
+- 1000 NFT - 45 minutes with no pixel issues and no CPU issues.
 
 ### Rarity stats
 
