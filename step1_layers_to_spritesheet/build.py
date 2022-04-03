@@ -3,12 +3,15 @@ import os
 from PIL.Image import Image
 from typing import List, Tuple
 import json
-from file import get_png_file_name, setup_directory
 
+# In order to import utils/file.py we need to add this path.append
+import os, sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.file import setup_directory, sort_function, parse_global_config
 
 layers_directory = "./layers"
 output_directory = "./step1_layers_to_spritesheet/output"
-json_config = "./global_config.json"
 
 
 def combine_images(images: List[Image]) -> Image:
@@ -28,28 +31,6 @@ def combine_images(images: List[Image]) -> Image:
     for i, img in enumerate(images):
         dst.paste(img, (i * width, 0))
     return dst
-
-
-def sort_function(file: str) -> int:
-    """
-    Sorts based on the integer file name ex. 2.py.
-    That way 2.py comes before 10.py. Returns
-    0 for any invalid file name (there might be some hidden files)
-
-    :param file: filename
-    :returns: int
-    """
-    try:
-        return int(get_png_file_name(file))
-    except:
-        return 0
-
-
-def parse_global_config() -> dict:
-    global_config_file = open(json_config, "r")
-    global_config_json = json.load(global_config_file)
-    global_config_file.close()
-    return global_config_json
 
 
 def parse_attributes_into_images(
