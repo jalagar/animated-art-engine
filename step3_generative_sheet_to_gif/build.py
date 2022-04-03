@@ -1,20 +1,22 @@
 from PIL import Image
 import os
 import json
-from file import get_png_file_name, setup_directory
+
+# In order to import utils/file.py we need to add this path.append
+import os, sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.file import (
+    get_png_file_name,
+    setup_directory,
+    sort_function,
+    parse_global_config,
+)
 
 output_gifs_directory = "./build/gifs"
 output_images_directory = "./build/images"
 input_directory = "./step2_spritesheet_to_generative_sheet/output/images"
 temp_directory = "./step3_generative_sheet_to_gif/temp"
-json_config = "./global_config.json"
-
-
-def parse_global_config() -> dict:
-    global_config_file = open(json_config, "r")
-    global_config_json = json.load(global_config_file)
-    global_config_file.close()
-    return global_config_json
 
 
 def crop_and_save(file_name: str, height: int, width: int) -> None:
@@ -94,21 +96,6 @@ def fps_to_ms_duration(fps: int) -> int:
     :returns: int - duration for each frame in milliseconds
     """
     return int(1000 / fps)
-
-
-def sort_function(file: str) -> int:
-    """
-    Sorts based on the integer file name ex. 2.py.
-    That way 2.py comes before 10.py. Returns
-    0 for any invalid file name (there might be some hidden files)
-
-    :param file: filename
-    :returns: int
-    """
-    try:
-        return int(get_png_file_name(file))
-    except:
-        return 0
 
 
 def main():
