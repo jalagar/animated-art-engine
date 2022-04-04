@@ -15,7 +15,7 @@ There are three steps:
    - Most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out his [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) for a more in depth explanation on how the generative process works.
 3. [Python] Convert spritesheets to gifs using [PIL](https://pillow.readthedocs.io/en/stable/).
 
-Checkout this [Medium post]() and [How does it work?](#how-does-it-work) for more information!
+Checkout this [Medium post](https://jalagar-eth.medium.com/how-to-create-generative-animated-nft-art-in-under-an-hour-e7dab1785c56) and [How does it work?](#how-does-it-work) for more information!
 
 Here's an example final result (or you can download the code and run it and see more bouncing balls :)). It is also pushed to production
 on [OpenSea](https://opensea.io/collection/genesis-bouncing-ball).
