@@ -43,9 +43,21 @@ Install the latest version of [Python 3](https://www.python.org/downloads/). I a
 - Download this repo and extract all the files.
 - Run this command on your root folder using the terminal:
 
-          make first_time_setup
+        make first_time_setup
 
-This should install python and node dependencies.
+If you have any issues with this command, try running each separate command:
+
+       python3 -m pip install --upgrade Pillow && pip3 install -r requirements.txt
+
+       cd step2_spritesheet_to_generative_sheet; npm i
+
+Each environment can be different, so try Google your issues. I'll add a few known issues below:
+
+Known issues:
+
+- [Canvas prebuild isn't built for ARM computers](https://github.com/Automattic/node-canvas/issues/1825) so you need to install it [from their Github](https://github.com/Automattic/node-canvas/wiki#installation-guides)
+- `cd` command might not work on Windows depending on what Terminal you are using. You may have to edit the `Makefile` to use `CHDIR` or the equivalent.
+
 
 ## How to run?
 
