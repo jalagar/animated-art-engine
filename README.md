@@ -65,7 +65,9 @@ Load the png files into the `/layers` folder where each layer is a folder, and e
 another attribute folder which contains the individual frames and a rarity percentage. For example if you wanted
 a background layer you would have `/layers/background/blue#20` and `/layers/background/red#20`.
 
-In each attribute folder, the frames should be named `0.png` -> `X.png`. See code or [step 1](#step-1) for folder structure.
+In each attribute folder, the frames should be named `0.png` -> `X.png`. See code or [step 1](#step-1) for folder structure. The code
+will handle any number of layers, so you could have a layer with two frames, another layer with one frame, and another with 20 frames,
+and as long as you pass `numberOfFrames` = 20, then the layers will be repeated until they hit 20.
 
 Update `global_config.json` with:
 
@@ -102,7 +104,8 @@ Step 1 simply converts individual images to spritesheets with the rarity percent
 
 **If you do not include the rarity weight in the attribute folder name, that attribute will be ignored**
 
-If you only provide one image, it will automatically assume you want it duplicated and multiple the image by `numberOfFrames`.
+You can provide any number of frames in each layer folder, the code will repeat them up until it hits `numberOfFrames`.
+It will also trim any that have too many frames.
 
 Example layers folder structure with four layers
 and two traits each layer:

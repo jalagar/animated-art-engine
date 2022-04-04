@@ -3,6 +3,7 @@ import os
 from PIL.Image import Image
 from typing import List, Tuple
 import json
+import math
 
 # In order to import utils/file.py we need to add this path.append
 import os, sys
@@ -32,6 +33,28 @@ def combine_images(images: List[Image]) -> Image:
         dst.paste(img, (i * width, 0))
     return dst
 
+def duplicate_images_number_of_frames_times(images: List[Image], num_frames: int):
+    """
+    Duplicates images number of layers times based on global_config.json
+    or trims it if it is too long
+
+    Ex. [0.png, 1.png]
+    num_frames = 5
+    output = [0.png, 1.png, 0.png, 1.png, 0.png]
+
+    :param images: List of PIL Image classes
+    :param num_frames: number of total frames in the list
+    :returns: List of PIL Image classes
+    """
+    if len(images) == num_frames:
+        return images
+
+    num_time_multiple = math.ceil(num_frames / len(images))
+    images = images * num_time_multiple
+    if len(images) > num_frames:
+        images = images[:num_frames]
+    return images
+
 
 def parse_attributes_into_images(
     attribute_path: str, num_frames: int, is_debug: bool
@@ -44,13 +67,7 @@ def parse_attributes_into_images(
             img = PIL_Image.open(file_path)
             images.append(img)
 
-    if len(images) == 1:
-        if is_debug:
-            print(
-                f"Only one image found for: {attribute_path}, duplicating images {num_frames} number of times"
-            )
-        images = images * num_frames
-    return images
+    return duplicate_images_number_of_frames_times(images, num_frames)
 
 
 def main():
