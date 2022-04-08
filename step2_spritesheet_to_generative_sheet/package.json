@@ -1,23 +1,41 @@
 {
-  "name": "generative_gif_engine",
-  "version": "2.0.0",
-  "description": "Engine for generative gif art - based on hashlips v1.0.6",
+  "name": "nft-kitchen-sink-generator",
+  "version": "2.0.3",
+  "description": "Jalagar Fork off of NFTChef Fork - Hard fork from HashLips Art Engine, is a tool used to create multiple different instances of artworks based on provided layers. Most config is the same as Hashlips",
   "main": "index.js",
+  "bin": "index.js",
+  "engines": {
+    "node": ">=14"
+  },
+  "pkg": {
+    "assets": [
+      "layers/**/*",
+      "node_modules/**/*",
+      "src/**/*"
+    ]
+  },
   "scripts": {
-    "test": "node index.js"
+    "build": "node index.js",
+    "generate": "node index.js",
+    "generate:solana": "node index.js && node utils/metaplex.js",
+    "generate:cardano": "node index.js && node utils/cardano.js",
+    "generate:tezos": "node index.js && node utils/tezos.js",
+    "preview": "node utils/createPreviewCollage.js",
+    "gif": "node utils/preview_gif.js",
+    "update:metadata": "node utils/updateInfo.js",
+    "update_info:tezos": "node tezos/updateInfo.js",
+    "resize": "node utils/resize.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jalagar/Generative_Gif_Engine.git"
-  },
-  "author": "Jalagar",
+  "author": "Daniel Eugene Botha (HashLips), NFTChef, Jalagar",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jalagar/Generative_Gif_Engine/issues"
-  },
-  "homepage": "https://github.com/jalagar/Generative_Gif_Engine#readme",
   "dependencies": {
-    "canvas": "2.9.1",
-    "sha1": "1.1.1"
+    "canvas": "^2.8.0",
+    "chalk": "^4.1.2",
+    "commander": "^8.2.0",
+    "eslint-plugin-node": "^11.1.0",
+    "keccak256": "^1.0.3",
+    "sharp": "^0.30.2",
+    "gif-encoder-2": "^1.0.5"
   }
 }

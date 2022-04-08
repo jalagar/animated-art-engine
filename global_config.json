@@ -1,5 +1,5 @@
 {
-  "totalSupply": 16,
+  "totalSupply": 10,
   "height": 1000,
   "width": 1000,
   "debug": false,
@@ -9,5 +9,6 @@
   "numberOfFrames": 12,
   "saveIndividualFrames": false,
   "description": "Your description here",
-  "baseUri": "ipfs://NewUriToReplace"
+  "baseUri": "ipfs://NewUriToReplace",
+  "startIndex": 0
 }

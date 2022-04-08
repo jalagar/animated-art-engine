@@ -7,7 +7,7 @@ step1:
 	python3 step1_layers_to_spritesheet/build.py
 
 step2:
-	cd step2_spritesheet_to_generative_sheet; node index.js
+	cd step2_spritesheet_to_generative_sheet; npm run generate
 
 step3:
 	python3 step3_generative_sheet_to_gif/build.py
