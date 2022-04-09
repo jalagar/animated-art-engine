@@ -4,6 +4,7 @@ import json
 
 # In order to import utils/file.py we need to add this path.append
 import os, sys
+import imageio
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.file import (
@@ -46,8 +47,7 @@ def crop_and_save(file_name: str, height: int, width: int) -> None:
             k += 1
 
 
-def convert_pngs_to_gif(file_name: str, quality: int, duration: int):
-    frames = []
+def convert_pngs_to_gif(file_name: str, fps: int):
     global_config = parse_global_config()
     save_individual_frames = global_config["saveIndividualFrames"]
 
@@ -58,6 +58,7 @@ def convert_pngs_to_gif(file_name: str, quality: int, duration: int):
         setup_directory(images_directory)
     temp_img_folder = os.path.join(temp_directory, get_png_file_name(file_name))
 
+    images = []
     for filename in sorted(
         os.listdir(temp_img_folder), key=lambda img: int(get_png_file_name(img))
     ):
@@ -66,18 +67,18 @@ def convert_pngs_to_gif(file_name: str, quality: int, duration: int):
             new_frame = Image.open(temp_img_path)
             if save_individual_frames:
                 new_frame.save(os.path.join(images_directory, filename))
-            frames.append(new_frame)
+            images.append(imageio.imread(temp_img_path))
 
     gif_name = get_png_file_name(file_name) + ".gif"
-    frames[0].save(
+    with imageio.get_writer(
         os.path.join(output_gifs_directory, gif_name),
-        format="GIF",
-        append_images=frames[1:],
-        save_all=True,
-        duration=duration,
-        loop=0,
-        quality=quality,
-    )
+        fps=fps,
+        mode="I",
+        quantizer=0,
+        palettesize=256,
+    ) as writer:
+        for image in images:
+            writer.append_data(image)
 
 
 def fps_to_ms_duration(fps: int) -> int:
@@ -101,7 +102,6 @@ def fps_to_ms_duration(fps: int) -> int:
 def main():
     print("Starting step 3: Converting sprite sheets to gifs")
     global_config = parse_global_config()
-    quality = global_config["quality"]
     fps = global_config["framesPerSecond"]
     height = global_config["height"]
     width = global_config["width"]
@@ -117,7 +117,7 @@ def main():
                 height,
                 width,
             )
-            convert_pngs_to_gif(filename, quality, fps_to_ms_duration(fps))
+            convert_pngs_to_gif(filename, fps)
 
 
 if __name__ == "__main__":
