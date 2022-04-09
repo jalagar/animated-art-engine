@@ -74,7 +74,7 @@ def convert_pngs_to_gif(file_name: str, fps: int):
         os.path.join(output_gifs_directory, gif_name),
         fps=fps,
         mode="I",
-        quantizer=1,
+        quantizer=0,
         palettesize=256,
     ) as writer:
         for image in images:
