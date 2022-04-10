@@ -18,7 +18,7 @@ all:
 	make step3
 
 rarity:
-	cd step2_spritesheet_to_generative_sheet; node utils/rarity.js
+	cd step2_spritesheet_to_generative_sheet; node utils/rarityData.js
 
 update_json:
-	cd step2_spritesheet_to_generative_sheet; node utils/update.js
+	cd step2_spritesheet_to_generative_sheet; node utils/updateInfo.js

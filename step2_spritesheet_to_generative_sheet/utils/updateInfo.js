@@ -24,7 +24,7 @@ const program = new Command();
 const chalk = require("chalk");
 
 // read json data
-let rawdata = fs.readFileSync(`${basePath}/build/json/_metadata.json`);
+let rawdata = fs.readFileSync(`${basePath}/../build/json/_metadata.json`);
 let data = JSON.parse(rawdata);
 
 program
@@ -80,13 +80,13 @@ program
       }
 
       fs.writeFileSync(
-        `${basePath}/build/json/${item.edition}.json`,
+        `${basePath}/../build/json/${item.edition}.json`,
         JSON.stringify(item, null, 2)
       );
     });
 
     fs.writeFileSync(
-      `${basePath}/build/json/_metadata.json`,
+      `${basePath}/../build/json/_metadata.json`,
       JSON.stringify(data, null, 2)
     );
     console.log(`\nUpdated baseUri for images to ===> ${baseUri}\n`);
