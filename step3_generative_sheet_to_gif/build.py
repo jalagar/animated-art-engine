@@ -1,11 +1,8 @@
 from PIL import Image
-import os
-import json
-
-# In order to import utils/file.py we need to add this path.append
 import os, sys
 import imageio
 
+# In order to import utils/file.py we need to add this path.append
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.file import (
     get_png_file_name,

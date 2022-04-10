@@ -478,7 +478,7 @@ _if you need `#num` with the `#` in the name for example, use a different symbol
 
 ## Running
 
-Run the script with the following command, passing in the source directory name, (relateive to the current working dir)
+Run the script with the following command, passing in the source directory name, (relative to the current working dir)
 
 ```sh
 node utils/replace.js [Source Directory]

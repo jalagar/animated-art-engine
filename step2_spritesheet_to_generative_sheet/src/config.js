@@ -34,7 +34,7 @@ const background = {
 const layerConfigurations = [
   {
     growEditionSizeTo: totalSupply,
-    namePrefix: "Series 2", // Use to add a name to Metadata `name:`
+    namePrefix: "", // Use to add a name to Metadata `name:`
     layersOrder: [
       { name: "Background" },
       { name: "Landscape" },
@@ -44,16 +44,6 @@ const layerConfigurations = [
       { name: "Hat" },
     ],
   },
-  // {
-  //   growEditionSizeTo: 10,
-  //   namePrefix: "Lion",
-  //   resetNameIndex: true, // this will start the Lion count at #1 instead of #6
-  //   layersOrder: [
-  //     { name: "Background" },
-  //     { name: "Hats" },
-  //     { name: "Male Hair" },
-  //   ],
-  // },
 ];
 
 /**

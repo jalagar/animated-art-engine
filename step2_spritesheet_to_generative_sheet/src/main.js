@@ -1,5 +1,13 @@
 "use strict";
 
+/*
+All of this code was taken from
+https://github.com/nftchef/art-engine
+
+I just updated it to pull from the correct input
+layers and output to the correct directory
+*/
+
 const path = require("path");
 const isLocal = typeof process.pkg === "undefined";
 const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
@@ -12,7 +20,6 @@ const { createCanvas, loadImage } = require(path.join(
   "/node_modules/canvas"
 ));
 
-console.log(path.join(basePath, "/src/config.js"));
 const {
   background,
   baseUri,
@@ -421,19 +428,6 @@ const filterDNAOptions = (_dna) => {
   });
 
   return filteredDNA.join(DNA_DELIMITER);
-};
-
-/**
- * Cleaning function for DNA strings. When DNA strings include an option, it
- * is added to the filename with a ?setting=value query string. It needs to be
- * removed to properly access the file name before Drawing.
- *
- * @param {String} _dna The entire newDNA string
- * @returns Cleaned DNA string without querystring parameters.
- */
-const removeQueryStrings = (_dna) => {
-  const query = /(\?.*$)/;
-  return _dna.replace(query, "");
 };
 
 const isDnaUnique = (_DnaList, _dna = []) => {
