@@ -1,16 +1,19 @@
 from PIL import Image as PIL_Image
-import os
 from PIL.Image import Image
-from typing import List
+from typing import List, Tuple
 import math
 
 # In order to import utils/file.py we need to add this path.append
 import os, sys
+import shutil
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.file import setup_directory, sort_function, parse_global_config
 
-layers_directory = "./layers"
+global_config_json = parse_global_config()
+is_debug = global_config_json["debug"]
+
+layers_directory = f"./{global_config_json['layersFolder']}"
 output_directory = "./step1_layers_to_spritesheet/output"
 
 
@@ -31,6 +34,7 @@ def combine_images(images: List[Image]) -> Image:
     for i, img in enumerate(images):
         dst.paste(img, (i * width, 0))
     return dst
+
 
 def duplicate_images_number_of_frames_times(images: List[Image], num_frames: int):
     """
@@ -56,9 +60,23 @@ def duplicate_images_number_of_frames_times(images: List[Image], num_frames: int
 
 
 def parse_attributes_into_images(
-    attribute_path: str, num_frames: int, is_debug: bool
-) -> List[Image]:
+    attribute_folder: str, attribute_path: str, num_frames: int, output_path: bool
+) -> Tuple[List[Image], bool]:
+    """
+    Mutual recursive function that parses the attributes
+    in a folder into images.
+
+    If it hits another folder, this function will call
+    parse_attribute_folders which will call this method again
+
+    :param attribute_folder: Folder name of attribute
+    :param attribute_path: Path to folder of attribute
+    :param num_frames: number of total frames in the list
+    :param output_path: output path to save images
+    :returns: Tuple of list of images, and a boolean indicating if there contains a subfolder
+    """
     images = []
+    containsSubFolder = False
 
     for filename in sorted(os.listdir(attribute_path), key=sort_function):
         file_path = os.path.join(attribute_path, filename)
@@ -66,13 +84,61 @@ def parse_attributes_into_images(
             img = PIL_Image.open(file_path)
             images.append(img)
 
-    return duplicate_images_number_of_frames_times(images, num_frames)
+        if os.path.isdir(file_path):
+            containsSubFolder = True
+            # Final output path needs to be output_layer_path/attribute_folder
+            output_attribute_path = os.path.join(output_path, attribute_folder)
+            setup_directory(output_attribute_path, delete_if_exists=False)
+            parse_attribute_folders(filename, file_path, output_attribute_path)
+
+    if len(images) == 0:
+        return [], containsSubFolder
+    return (
+        duplicate_images_number_of_frames_times(images, num_frames),
+        containsSubFolder,
+    )
+
+
+def parse_attribute_folders(
+    attribute_folder: str, attribute_path: str, output_path: str
+) -> None:
+    """
+    Mutually recursive function that parses attribute folders by
+    parsing all attributes into images and going into
+    subfolders.
+
+    Then it saves the images into the output path.
+
+    :param attribute_folder: Folder name of attribute
+    :param attribute_path: Path to folder of attribute
+    :param output_path: output path to save images
+    :returns: None
+    """
+    print(f"Parsing attributes in folder: {attribute_folder}")
+
+    images, containsSubFolder = parse_attributes_into_images(
+        attribute_folder,
+        attribute_path,
+        num_frames=global_config_json["numberOfFrames"],
+        output_path=output_path,
+    )
+    if len(images) == 0:
+        return
+
+    spritesheet = combine_images(images)
+    # If it contains subfolder, that means there is if-then logic and we need to
+    # place the file in the subfolder
+    if containsSubFolder:
+        output_folder = os.path.join(output_path, attribute_folder)
+        if not os.path.exists(output_folder):
+            setup_directory(output_folder)
+        spritesheet.save(os.path.join(output_folder, f"{attribute_folder}.png"))
+    else:
+        spritesheet.save(os.path.join(output_path, f"{attribute_folder}.png"))
 
 
 def main():
     print("********Starting step 1: Converting pngs to spritesheets********")
-    global_config_json = parse_global_config()
-    is_debug = global_config_json["debug"]
 
     setup_directory(output_directory)
     for layer_folder in os.listdir(layers_directory):
@@ -84,22 +150,15 @@ def main():
             continue
 
         setup_directory(output_layer_path)
-
         if os.path.isdir(layer_path):
-            print(f"Parsing layer folder: {layer_folder}")
+            print(f"Parsing layer folder {layer_folder}")
             for attribute_folder in os.listdir(layer_path):
                 attribute_path = os.path.join(layer_path, attribute_folder)
                 if os.path.isdir(attribute_path):
-                    print(f"Parsing attributes in folder: {attribute_folder}")
-
-                    images = parse_attributes_into_images(
+                    parse_attribute_folders(
+                        attribute_folder,
                         attribute_path,
-                        num_frames=global_config_json["numberOfFrames"],
-                        is_debug=is_debug,
-                    )
-                    spritesheet = combine_images(images)
-                    spritesheet.save(
-                        os.path.join(output_layer_path, f"{attribute_folder}.png")
+                        output_layer_path,
                     )
 
 

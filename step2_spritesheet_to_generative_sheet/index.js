@@ -19,7 +19,7 @@ program
 
   .option("-c, --continue <dna>", "Continues generatino using a _dna.json file")
   .action((options) => {
-    console.log(chalk.green("genator started"), options.continue);
+    console.log(chalk.green("generator started"), options.continue);
     options.continue
       ? console.log(
           chalk.bgCyanBright("\n continuing generation using _dna.json file \n")

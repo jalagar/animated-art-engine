@@ -1,7 +1,7 @@
 {
   "name": "nft-kitchen-sink-generator",
-  "version": "2.0.3",
-  "description": "Jalagar Fork off of NFTChef Fork - Hard fork from HashLips Art Engine, is a tool used to create multiple different instances of artworks based on provided layers. Most config is the same as Hashlips",
+  "version": "2.0.4",
+  "description": "Jalagar Fork off of NFTChef Fork - Hard fork from HashLips Art Engine, is a tool used to create multiple different instances of animated artworks based on provided layers. Most config is the same as Hashlips",
   "main": "index.js",
   "bin": "index.js",
   "engines": {
@@ -21,7 +21,6 @@
     "generate:cardano": "node index.js && node utils/cardano.js",
     "generate:tezos": "node index.js && node utils/tezos.js",
     "preview": "node utils/createPreviewCollage.js",
-    "gif": "node utils/preview_gif.js",
     "update:metadata": "node utils/updateInfo.js",
     "update_info:tezos": "node tezos/updateInfo.js",
     "resize": "node utils/resize.js",
@@ -35,7 +34,6 @@
     "commander": "^8.2.0",
     "eslint-plugin-node": "^11.1.0",
     "keccak256": "^1.0.3",
-    "sharp": "^0.30.2",
-    "gif-encoder-2": "^1.0.5"
+    "sharp": "^0.30.2"
   }
 }

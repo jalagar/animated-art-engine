@@ -13,7 +13,7 @@ const buildDir = path.join(basePath, "../build"); // JSON are written to json fo
  * General Generator Options
  ***********************/
 
-const { numberOfFrames, description, baseUri, height, width, startIndex, debug, totalSupply } = require(path.join(
+const { numberOfFrames, description, baseUri, height, width, startIndex, debug, totalSupply, layersFolder } = require(path.join(
   basePath,
   "../global_config.json"
 ));
@@ -31,7 +31,57 @@ const background = {
   brightness: "80%",
 };
 
-const layerConfigurations = [
+let layerConfigurations = [
+  {
+    growEditionSizeTo: totalSupply,
+    namePrefix: "", // Use to add a name to Metadata `name:`
+    layersOrder: [
+      { name: "Background" },
+      {
+        name: "Ball",
+      },
+      { name: "Landscape" },
+    ],
+  },
+]
+const layerConfigurationsZIndex = [
+  {
+    growEditionSizeTo: totalSupply,
+    namePrefix: "Bouncing Ball Z-Index Example:",
+    layersOrder: [
+      { name: "Background" },
+      { name: "Landscape" },
+      { name: "Ball" },
+    ],
+  },
+]
+
+// This will create totalSupply - 1 common balls, and 1 rare ball
+// They will be in order but you can shuffleLayerConfigurations
+const layerConfigurationsGrouping = [
+  {
+    growEditionSizeTo: totalSupply - 1,
+    namePrefix: "Bouncing Ball Common:",
+    layersOrder: [
+      { name: "Background" },
+      { name: "Landscape" },
+      { name: "Common Ball", trait: "Ball" },
+      { name: "Common Hat", trait: "Hat" },
+    ],
+  },
+  {
+    growEditionSizeTo: totalSupply,
+    namePrefix: "Bouncing Ball Rare:",
+    layersOrder: [
+      { name: "Background" },
+      { name: "Landscape" },
+      { name: "Rare Ball", trait: "Ball" },
+      { name: "Rare Hat", trait: "Hat" },
+    ],
+  },
+]
+
+const layerConfigurationsIfThen = [
   {
     growEditionSizeTo: totalSupply,
     namePrefix: "", // Use to add a name to Metadata `name:`
@@ -41,10 +91,27 @@ const layerConfigurations = [
       {
         name: "Ball",
       },
-      { name: "Hat" },
+      // {
+      //   name: "Hat",
+      // },
     ],
   },
-];
+]
+
+const handler = {
+  get: function (target, name) {
+    return target.hasOwnProperty(name) ? target[name] : layerConfigurations;
+  }
+};
+
+const layerConfigurationMapping = new Proxy({
+  "layers": layerConfigurations,
+  "layers_z_index": layerConfigurationsZIndex,
+  "layers_grouping": layerConfigurationsGrouping,
+  "layers_if_then": layerConfigurationsIfThen,
+}, handler);
+
+layerConfigurations = layerConfigurationMapping[layersFolder];
 
 /**
  * Set to true for when using multiple layersOrder configuration
@@ -138,22 +205,6 @@ const uniqueDnaTorrance = 10000;
  */
 const useRootTraitType = true;
 
-const preview = {
-  thumbPerRow: 5,
-  thumbWidth: 50,
-  imageRatio: format.width / format.height,
-  imageName: "preview.png",
-};
-
-const preview_gif = {
-  numberOfImages: 5,
-  order: "ASC", // ASC, DESC, MIXED
-  repeat: 0,
-  quality: 100,
-  delay: 500,
-  imageName: "preview.gif",
-};
-
 module.exports = {
   background,
   baseUri,
@@ -171,8 +222,6 @@ module.exports = {
   layersDir,
   outputJPEG,
   outputDir,
-  preview,
-  preview_gif,
   rarityDelimiter,
   shuffleLayerConfigurations,
   startIndex,

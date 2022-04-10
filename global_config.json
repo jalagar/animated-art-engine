@@ -1,14 +1,13 @@
 {
-  "totalSupply": 10,
+  "totalSupply": 8,
   "height": 1000,
   "width": 1000,
   "debug": false,
-  "layersOrder": ["Background", "Landscape", "Ball", "Hat"],
-  "quality": 95,
   "framesPerSecond": 12,
   "numberOfFrames": 12,
   "saveIndividualFrames": false,
   "description": "Your description here",
   "baseUri": "ipfs://NewUriToReplace",
-  "startIndex": 0
+  "startIndex": 0,
+  "layersFolder": "layers_z_index"
 }
