@@ -1,8 +1,7 @@
 from PIL import Image as PIL_Image
 import os
 from PIL.Image import Image
-from typing import List, Tuple
-import json
+from typing import List
 import math
 
 # In order to import utils/file.py we need to add this path.append
