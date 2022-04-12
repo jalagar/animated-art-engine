@@ -9,5 +9,5 @@
   "description": "Your description here",
   "baseUri": "ipfs://NewUriToReplace",
   "startIndex": 0,
-  "layersFolder": "layers_z_index"
+  "layersFolder": "layers"
 }

@@ -13,6 +13,12 @@ const buildDir = path.join(basePath, "../build"); // JSON are written to json fo
  * General Generator Options
  ***********************/
 
+const { numberOfFrames, description, baseUri, height, width, startIndex, debug, totalSupply, layersFolder } = require(path.join(
+  basePath,
+  "../global_config.json"
+));
+const outputJPEG = false; // if false, the generator outputs png's
+
 /* ONLY VARIABLE THAT YOU NEED TO EDIT IS HERE */
 let layerConfigurations = [
   {
@@ -30,13 +36,6 @@ let layerConfigurations = [
     ],
   },
 ]
-
-const { numberOfFrames, description, baseUri, height, width, startIndex, debug, totalSupply, layersFolder } = require(path.join(
-  basePath,
-  "../global_config.json"
-));
-const outputJPEG = false; // if false, the generator outputs png's
-
 
 const format = {
   width: width * numberOfFrames,
