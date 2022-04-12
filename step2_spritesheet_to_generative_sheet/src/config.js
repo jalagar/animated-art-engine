@@ -13,6 +13,24 @@ const buildDir = path.join(basePath, "../build"); // JSON are written to json fo
  * General Generator Options
  ***********************/
 
+/* ONLY VARIABLE THAT YOU NEED TO EDIT IS HERE */
+let layerConfigurations = [
+  {
+    growEditionSizeTo: totalSupply,
+    namePrefix: "", // Use to add a name to Metadata `name:`
+    layersOrder: [
+      { name: "Background" },
+      { name: "Landscape" },
+      {
+        name: "Ball",
+      },
+      {
+        name: "Hat",
+      },
+    ],
+  },
+]
+
 const { numberOfFrames, description, baseUri, height, width, startIndex, debug, totalSupply, layersFolder } = require(path.join(
   basePath,
   "../global_config.json"
@@ -31,19 +49,7 @@ const background = {
   brightness: "80%",
 };
 
-let layerConfigurations = [
-  {
-    growEditionSizeTo: totalSupply,
-    namePrefix: "", // Use to add a name to Metadata `name:`
-    layersOrder: [
-      { name: "Background" },
-      {
-        name: "Ball",
-      },
-      { name: "Landscape" },
-    ],
-  },
-]
+
 const layerConfigurationsZIndex = [
   {
     growEditionSizeTo: totalSupply,
