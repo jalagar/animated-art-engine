@@ -22,7 +22,7 @@ on [OpenSea](https://opensea.io/collection/genesis-bouncing-ball).
 
 <img src="./README_Assets/0.gif" width="200"><img src="./README_Assets/1.gif" width="200"><img src="./README_Assets/2.gif" width="200"><img src="./README_Assets/3.gif" width="200">
 
-**EDIT tool now supports z-index/stacking, grouping and if-then statements**. See [nftchef's docs](https://generator.nftchef.dev/readme/) for more information. The layers will have to match the format expected in step 2 in step 1.
+**EDIT tool now supports z-index/stacking, grouping and if-then statements**. See [nftchef's docs](https://generator.nftchef.dev/readme/) for more information. Here is an example of having one layer that is both in front and behind the ball.
 
 <img src="./README_Assets/z-index/0.gif" width="200">
 
@@ -87,7 +87,7 @@ Update `global_config.json` with:
 9. **`'layersFolder'`**: this is the folder that you want to use for the layers. The default is `layers`, but this allows you to have multiple versions of layers and run them side by side. The current repo has four example folders, `layers`, `layers_grouping`, `layers_if_then`, `layers_z_index` which all demonstrate features from [nftchef's repo](https://generator.nftchef.dev/).
 
 Update `step2_spritesheet_to_generative_sheet/src/config.js` with your `layerConfigurations`. If you want the basic
-configuration, just `layersOrder`, but if you want to take advantage of [nftchef's repo](https://generator.nftchef.dev/), then scroll through the file for some examples and modify it accordingly.
+configuration, just edit `layersOrder`, but if you want to take advantage of [nftchef's repo](https://generator.nftchef.dev/), then scroll through the file for some examples and modify `layerConfigurations` accordingly.
 
 - To run the process end to end run:
 
@@ -245,7 +245,7 @@ Green Tower#50.png:
 
 <img src="./README_Assets/step1/Landscape/Green Tower.png" width="1000">
 
-**EDIT tool now supports z-index/stacking, grouping and if-then statements**. See [nftchef's docs](https://generator.nftchef.dev/readme/) for more information. The layers will have to match the format expected in step 2 in step 1.
+**EDIT tool now supports z-index/stacking, grouping and if-then statements**. See [nftchef's docs](https://generator.nftchef.dev/readme/) for more information. The layers in this step will have to match the format expected in step 2. See the example layer folders for some more info.
 
 ### Step 2
 
@@ -260,10 +260,6 @@ I recently modified this section to use the code from [nftchef's Generative Engi
 - grouping statements. You can now group traits into certain groups. So in the `layers_grouping` we have common balls and hats, and rare balls and hats, and the first `totalSupply - 1` balls are common, and the last one is rare.
 - z-index otherwise known as stack order. You can now have multiple stacks for the same layer, for example a basketball hoop landscape which has art in front and behind the ball. See [nftchef's docs](https://generator.nftchef.dev/readme/z-index-layer-order) for more information.
 
-Example z-index stack order gif:
-
-<img src="./README_Assets/z-index/0.gif" width="200">
-
 You will need to update `global_config.json` and also update `layerConfigurations` in `step2_spritesheet_to_generative_sheet/src/config.js`.
 
 You can run only step 2 by running:
@@ -276,6 +272,10 @@ Example output with the `layers` folder (only first 4 displayed, but there are 1
 <img src="./README_Assets/step2/1.png" width="1000">
 <img src="./README_Assets/step2/2.png" width="1000">
 <img src="./README_Assets/step2/3.png" width="1000">
+
+Example output with the `layers_z_index` folder:
+
+<img src="./README_Assets/z-index/0.png" width="200">
 
 ### Step 3
 
