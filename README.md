@@ -1,4 +1,4 @@
-# Welcome to the **Generative GIF Engine v2.0.0** 🐤
+# Welcome to the **Generative GIF Engine v2.0.4** 🐤
 
 [8 minute read]
 
@@ -12,7 +12,7 @@ There are three steps:
 1. [Python] Converts layers into spritesheets using [PIL](https://pillow.readthedocs.io/en/stable/). This step can be skipped if you already have the spritesheets, but
    is useful if you want to start with png files and makes the artist's life easier!
 2. [Node] Create generative spritesheets from the layers from step 1.
-   - Most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out his [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) for a more in depth explanation on how the generative process works.
+   - The original idea came from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) but now most of the code in this step is forked from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out Hashlip's [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) for a more in depth explanation on how the generative process works.
 3. [Python] Convert spritesheets to gifs using [PIL](https://pillow.readthedocs.io/en/stable/).
 
 Checkout this [Medium post](https://jalagar-eth.medium.com/how-to-create-generative-animated-nft-art-in-under-an-hour-e7dab1785c56) and [How does it work?](#how-does-it-work) for more information!
@@ -21,6 +21,10 @@ Here's an example final result (or you can download the code and run it and see 
 on [OpenSea](https://opensea.io/collection/genesis-bouncing-ball).
 
 <img src="./README_Assets/0.gif" width="200"><img src="./README_Assets/1.gif" width="200"><img src="./README_Assets/2.gif" width="200"><img src="./README_Assets/3.gif" width="200">
+
+EDIT **tool now supports layering and if-then statements**
+
+<img src="./README_Assets/z-index/0.gif" width="200">
 
 ## Requirements
 
