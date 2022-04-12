@@ -4,13 +4,12 @@ const path = require("path");
 const isLocal = typeof process.pkg === "undefined";
 const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
 const fs = require("fs");
-const layersDir = `${basePath}/layers`;
 
-console.log(path.join(basePath, "/src/config.js"));
 const {
   layerConfigurations,
   extraAttributes,
   rarityDelimiter,
+  layersDir
 } = require(path.join(basePath, "/src/config.js"));
 
 const { getElements } = require("../src/main.js");
@@ -24,7 +23,7 @@ class Rarity {
   }
 }
 // read json data
-let rawdata = fs.readFileSync(`${basePath}/build/json/_metadata.json`);
+let rawdata = fs.readFileSync(`${basePath}/../build/json/_metadata.json`);
 let data = JSON.parse(rawdata);
 let editionSize = data.length;
 
@@ -49,11 +48,12 @@ layerConfigurations.forEach((config) => {
       };
     });
   }
+
   // Get nested required subfolders and flatten them into layers
   const allLayers = layers.reduce((acc, layer) => {
     return [
       ...acc,
-      ...getDirectoriesRecursive(`${basePath}/layers/${layer.name}`)
+      ...getDirectoriesRecursive(`${layersDir}/${layer.name}`)
         // get the last name in the long string path by splitting, then reversing
         .map(
           (pathname) =>
@@ -73,7 +73,6 @@ layerConfigurations.forEach((config) => {
       // phew…we made it, fam
     ];
   }, []);
-  // .map((path) => path.split(`"/"`).reverse()[0])
 
   allLayers.forEach((layer) => {
     // get elements for each layer
@@ -129,7 +128,6 @@ data.forEach((element) => {
       // Check if the trait has been overwritten
 
       let value = attribute.value;
-
       let rarityDataTraits = rarityData[traitType];
       rarityDataTraits.elements.forEach((rarityDataTrait) => {
         if (rarityDataTrait.trait == value) {

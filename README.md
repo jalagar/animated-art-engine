@@ -1,4 +1,4 @@
-# Welcome to the **Generative GIF Engine v2.0.0** 🐤
+# Welcome to the **Generative GIF Engine v2.0.4** 🐤
 
 [8 minute read]
 
@@ -12,8 +12,8 @@ There are three steps:
 1. [Python] Converts layers into spritesheets using [PIL](https://pillow.readthedocs.io/en/stable/). This step can be skipped if you already have the spritesheets, but
    is useful if you want to start with png files and makes the artist's life easier!
 2. [Node] Create generative spritesheets from the layers from step 1.
-   - Most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out his [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) for a more in depth explanation on how the generative process works.
-3. [Python] Convert spritesheets to gifs using [PIL](https://pillow.readthedocs.io/en/stable/).
+   - The original idea came from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) but now most of the code in this step is forked from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out Hashlip's [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) for a more in depth explanation on how the generative process works.
+3. [Python] Convert spritesheets to gifs using [imagio](https://imageio.readthedocs.io/en/stable/).
 
 Checkout this [Medium post](https://jalagar-eth.medium.com/how-to-create-generative-animated-nft-art-in-under-an-hour-e7dab1785c56) and [How does it work?](#how-does-it-work) for more information!
 
@@ -21,6 +21,10 @@ Here's an example final result (or you can download the code and run it and see 
 on [OpenSea](https://opensea.io/collection/genesis-bouncing-ball).
 
 <img src="./README_Assets/0.gif" width="200"><img src="./README_Assets/1.gif" width="200"><img src="./README_Assets/2.gif" width="200"><img src="./README_Assets/3.gif" width="200">
+
+**EDIT tool now supports z-index/stacking, grouping and if-then statements**. See [nftchef's docs](https://generator.nftchef.dev/readme/) for more information. Here is an example of having one layer that is both in front and behind the ball.
+
+<img src="./README_Assets/z-index/0.gif" width="200">
 
 ## Requirements
 
@@ -74,19 +78,20 @@ Update `global_config.json` with:
 1.  **`'totalSupply'`** : total number of gifs to generate.
 2.  **`'height'`** : height of one frame. This should be equal to width.
 3.  **`'width'`** : width of one frame. This should be equal to height.
-4.  **`'layersOrder'`** : list of layers in order of background to foreground.
-5.  **`'quality'`** : quality of images. See [PIL docs](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#jpeg) for more info. 0 - worst, 95 - best.
-6.  **`'framesPerSecond'`** : number of frames per second. This will not be exact because PIL takes in integer milliseconds per frame
+4.  **`'framesPerSecond'`** : number of frames per second. This will not be exact because PIL takes in integer milliseconds per frame
     (so 12fps = 83.3ms per frame but rounded to an int = 83ms). This will not be recognizable by the human eye, but worth calling out.
-7.  **`'numberOfFrames'`** : number of total frames. For example you could have 24 frames, but you want to render it 12fps.
-8.  **`'description'`** : description to be put in the metadata.
-9.  **`'baseUri'`** : baseUri to be put in the metadata.
-10. **`'saveIndividualFrames'`** : this is if you want to save the individual final frames, for example if you want to let people pick
-    just one frame for a profile page
+5.  **`'numberOfFrames'`** : number of total frames. For example you could have 24 frames, but you want to render it 12fps.
+6.  **`'description'`** : description to be put in the metadata.
+7.  **`'baseUri'`** : baseUri to be put in the metadata.
+8.  **`'saveIndividualFrames'`** : this is if you want to save the individual final frames, for example if you want to let people pick just one frame for a profile page.
+9. **`'layersFolder'`**: this is the folder that you want to use for the layers. The default is `layers`, but this allows you to have multiple versions of layers and run them side by side. The current repo has four example folders, `layers`, `layers_grouping`, `layers_if_then`, `layers_z_index` which all demonstrate features from [nftchef's repo](https://generator.nftchef.dev/).
+
+Update `step2_spritesheet_to_generative_sheet/src/config.js` with your `layerConfigurations`. If you want the basic
+configuration, just edit `layersOrder`, but if you want to take advantage of [nftchef's repo](https://generator.nftchef.dev/), then scroll through the file for some examples and modify `layerConfigurations` accordingly.
 
 - To run the process end to end run:
 
-          make all
+        make all
 
 Your output gifs and JSON metadata will appear in `build/gifs` and `build/json`. Try it yourself with the default settings
 and layers!
@@ -95,7 +100,7 @@ and layers!
 
 ### Step 1
 
-In order to get [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) to work, the input
+In order to get [nftchef's Generative Gif Engine](https://github.com/nftchef/art-engine) to work, the input
 layers needs to be in [Sprite Sheet](https://gamedevelopment.tutsplus.com/tutorials/an-introduction-to-spritesheet-animation--gamedev-13099).
 However this is tedious and unintuitive for many artists who use tools that export individual images.
 
@@ -240,40 +245,53 @@ Green Tower#50.png:
 
 <img src="./README_Assets/step1/Landscape/Green Tower.png" width="1000">
 
+**EDIT tool now supports z-index/stacking, grouping and if-then statements**. See [nftchef's docs](https://generator.nftchef.dev/readme/) for more information. The layers in this step will have to match the format expected in step 2. See the example layer folders for some more info.
+
 ### Step 2
 
 Step 2 takes the spritesheets from step 1 and generates all possible combinations based on rarity. This is where
 all the magic happens! The output is a bunch of spritesheets with all the layers layered on top of each other.
 
-Most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out his [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) for a more in depth explanation on how the generative process works.
+The original idea came from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) but now most of the code in this step is forked from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). 
+Please check out Hashlip's [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) for a more in depth explanation on how the generative process works.
 
-There shouldn't be any extra configurations needed outside of `global_config.json`, but you can check out `step2_spritesheet_to_generative_sheet/src/config.js` for more configurations.
+I recently modified this section to use the code from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which adds the following features:
+- if-then statements. You can have generative art code that says if this layer, then select these layers. There is an example layers under `layers_if_then` which has logic for if the ball is pink, wear a birthday or cowboy hat, or if the ball is purple, wear a mini ball hat. See [nftchef's docs](https://generator.nftchef.dev/readme/branching-if-then) for more information.
+- grouping statements. You can now group traits into certain groups. So in the `layers_grouping` we have common balls and hats, and rare balls and hats, and the first `totalSupply - 1` balls are common, and the last one is rare.
+- z-index otherwise known as stack order. You can now have multiple stacks for the same layer, for example a basketball hoop landscape which has art in front and behind the ball. See [nftchef's docs](https://generator.nftchef.dev/readme/z-index-layer-order) for more information.
+
+You will need to update `global_config.json` and also update `layerConfigurations` in `step2_spritesheet_to_generative_sheet/src/config.js`.
 
 You can run only step 2 by running:
 
         make step2
 
-Example output (only first 4 displayed, but there are 16 total):
+Example output with the `layers` folder (only first 4 displayed, but there are 16 total):
 
 <img src="./README_Assets/step2/0.png" width="1000">
 <img src="./README_Assets/step2/1.png" width="1000">
 <img src="./README_Assets/step2/2.png" width="1000">
 <img src="./README_Assets/step2/3.png" width="1000">
 
+Example output with the `layers_z_index` folder:
+
+<img src="./README_Assets/z-index/0.png" width="200">
+
 ### Step 3
 
-Step 3 takes the spritesheets from step 2 and creates gifs in `builds/gifs`. This is where Python and [PIL](https://pillow.readthedocs.io/en/stable/) really shine. In MichaPipo's original repo, they used javascript libraries to
+Step 3 takes the spritesheets from step 2 and creates gifs in `builds/gifs`. This is where Python libraries really shine. Initially I used [PIL](https://pillow.readthedocs.io/en/stable/), but found some issues with pixel quality so
+I switched to [imageio](https://imageio.readthedocs.io/en/stable/) which outputs perfect gifs. In MichaPipo's original repo, they used javascript libraries to
 create the gifs. These copied pixel by pixel, and the logic was a bit complicated. Creating just 15 gifs would take 4 minutes, and I noticed
 some of the pixel hex colors were off. Also depending on CPU usage, the program would crash. I spent days debugging, when I just decided to
 start from scratch in another language.
 
 Now, generating 15 gifs takes < 30 seconds and renders with perfect pixel quality!
 
-You can change the `quality` and `framesPerSecond` in `global_config.json` and you can run only step 3 by running:
+You can change the `framesPerSecond` in `global_config.json` and you can run only step 3 by running:
 
         make step3
 
-This allows you to not have to regenerate everything to play around with quality and fps.
+This allows you to not have to regenerate everything to play around with fps.
 
 Example output with all 16 permutations (click on each gif for the 1000x1000 version):
 
@@ -309,19 +327,19 @@ You can change the description and base Uri of your metadata even after running 
 
 ## IMPORTANT NOTES
 
-All of the code in step1 and step3 was written by me, and most of the code in this step is forked from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node).
+All of the code in step1 and step3 was written by me. The original idea for the repo came from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) but now most of the code in step 2 is forked from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node).
 
 **_ Things to work on: _**
 
-- [ ] Update step2 with latest features from [Hashlips art engine](https://github.com/HashLips/hashlips_art_engine).
-- [ ] Add layer functionality to step2 from [nftchef art engine](https://github.com/nftchef/art-engine).
+- [X] Update step2 with latest features from [Hashlips art engine](https://github.com/HashLips/hashlips_art_engine).
+- [X] Add layer functionality to step2 from [nftchef art engine](https://github.com/nftchef/art-engine).
 - [ ] Allow passing in gifs into step1 to split into spritesheets.
 
 **FAQ**
 
 Q: Why did you decide to use Python for step 1 and step 3?
 
-A: I found that Python [PIL](https://pillow.readthedocs.io/en/stable/) works better and faster than JS libraries, and the code is simpler for me.
+A: I found that Python [PIL](https://pillow.readthedocs.io/en/stable/) and [imageio](https://imageio.readthedocs.io/en/stable/) work better and faster than JS libraries, and the code is simpler for me.
 My philosophy is pick the right tool for the right job. If someone finds a better library for this specific job, then let me know!
 
 Q: Why didn't you use Python for step 2?
