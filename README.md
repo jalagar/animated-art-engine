@@ -87,6 +87,7 @@ Update `global_config.json` with:
 7.  **`'baseUri'`** : baseUri to be put in the metadata.
 8.  **`'saveIndividualFrames'`** : this is if you want to save the individual final frames, for example if you want to let people pick just one frame for a profile page.
 9. **`'layersFolder'`**: this is the folder that you want to use for the layers. The default is `layers`, but this allows you to have multiple versions of layers and run them side by side. The current repo has four example folders, `layers`, `layers_grouping`, `layers_if_then`, `layers_z_index` which all demonstrate features from [nftchef's repo](https://generator.nftchef.dev/).
+10. **`'quality'`**: quality of the gif, 1-100.
 
 Update `step2_spritesheet_to_generative_sheet/src/config.js` with your `layerConfigurations`. If you want the basic
 configuration, just edit `layersOrder`, but if you want to take advantage of [nftchef's repo](https://generator.nftchef.dev/), then scroll through the file for some examples and modify `layerConfigurations` accordingly.
