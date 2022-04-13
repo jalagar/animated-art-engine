@@ -1,6 +1,6 @@
+import subprocess
 from PIL import Image
 import os, sys
-import imageio
 
 # In order to import utils/file.py we need to add this path.append
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -16,8 +16,14 @@ output_images_directory = "./build/images"
 input_directory = "./step2_spritesheet_to_generative_sheet/output/images"
 temp_directory = "./step3_generative_sheet_to_gif/temp"
 
+global_config = parse_global_config()
+fps = global_config["framesPerSecond"]
+height = global_config["height"]
+width = global_config["width"]
+quality = global_config["quality"]
 
-def crop_and_save(file_name: str, height: int, width: int) -> None:
+
+def crop_and_save(file_name: str) -> None:
     """
     Crops image into squares and saves them into temp folder
 
@@ -55,7 +61,6 @@ def convert_pngs_to_gif(file_name: str, fps: int):
         setup_directory(images_directory)
     temp_img_folder = os.path.join(temp_directory, get_png_file_name(file_name))
 
-    images = []
     for filename in sorted(
         os.listdir(temp_img_folder), key=lambda img: int(get_png_file_name(img))
     ):
@@ -64,18 +69,12 @@ def convert_pngs_to_gif(file_name: str, fps: int):
             new_frame = Image.open(temp_img_path)
             if save_individual_frames:
                 new_frame.save(os.path.join(images_directory, filename))
-            images.append(imageio.imread(temp_img_path))
 
     gif_name = get_png_file_name(file_name) + ".gif"
-    with imageio.get_writer(
-        os.path.join(output_gifs_directory, gif_name),
-        fps=fps,
-        mode="I",
-        quantizer=0,
-        palettesize=256,
-    ) as writer:
-        for image in images:
-            writer.append_data(image)
+    subprocess.run(
+        f"gifski -o {os.path.join(output_gifs_directory, gif_name)} {temp_img_folder}/*.png --fps={fps} --quality={quality} -W={width}",
+        shell=True,
+    )
 
 
 def fps_to_ms_duration(fps: int) -> int:
@@ -98,10 +97,6 @@ def fps_to_ms_duration(fps: int) -> int:
 
 def main():
     print("Starting step 3: Converting sprite sheets to gifs")
-    global_config = parse_global_config()
-    fps = global_config["framesPerSecond"]
-    height = global_config["height"]
-    width = global_config["width"]
 
     for folder in [output_gifs_directory, output_images_directory, temp_directory]:
         setup_directory(folder)
@@ -111,8 +106,6 @@ def main():
             print(f"Converting spritesheet to gif for {filename}")
             crop_and_save(
                 filename,
-                height,
-                width,
             )
             convert_pngs_to_gif(filename, fps)
 

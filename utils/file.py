@@ -17,7 +17,7 @@ global_config_json = parse_global_config()
 is_debug = global_config_json["debug"]
 
 
-def setup_directory(directory_path: str, delete_if_exists: bool=True) -> None:
+def setup_directory(directory_path: str, delete_if_exists: bool = True) -> None:
     is_debug and print(f"Setting up directory {directory_path}")
     if os.path.exists(directory_path) and delete_if_exists:
         is_debug and print(f"Directory {directory_path} exists, deleting directory")
