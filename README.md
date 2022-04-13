@@ -13,7 +13,7 @@ There are three steps:
    is useful if you want to start with png files and makes the artist's life easier!
 2. [Node] Create generative spritesheets from the layers from step 1.
    - The original idea came from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) but now most of the code in this step is forked from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out Hashlip's [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) for a more in depth explanation on how the generative process works.
-3. [Python] Convert spritesheets to gifs using [imagio](https://imageio.readthedocs.io/en/stable/).
+3. [Python + gifski] Convert spritesheets to gifs using Python and [gifski](https://github.com/ImageOptim/gifski).
 
 Checkout this [Medium post](https://jalagar-eth.medium.com/how-to-create-generative-animated-nft-art-in-under-an-hour-e7dab1785c56) and [How does it work?](#how-does-it-work) for more information!
 
@@ -55,13 +55,15 @@ If you have any issues with this command, try running each separate command:
 
        cd step2_spritesheet_to_generative_sheet; npm i
 
+       brew install gifski
+
 Each environment can be different, so try Google your issues. I'll add a few known issues below:
 
 Known issues:
 
 - [M1 Mac: Canvas prebuild isn't built for ARM computers](https://github.com/Automattic/node-canvas/issues/1825) so you need to install it [from their Github](https://github.com/Automattic/node-canvas/wiki#installation-guides)
 - `cd` command might not work on Windows depending on what Terminal you are using. You may have to edit the `Makefile` to use `CHDIR` or the equivalent.
-
+- If you don't have brew installed, look at [gifski](https://github.com/ImageOptim/gifski) docs for another way to install gifski.
 
 ## How to run?
 
@@ -279,11 +281,16 @@ Example output with the `layers_z_index` folder:
 
 ### Step 3
 
-Step 3 takes the spritesheets from step 2 and creates gifs in `builds/gifs`. This is where Python libraries really shine. Initially I used [PIL](https://pillow.readthedocs.io/en/stable/), but found some issues with pixel quality so
-I switched to [imageio](https://imageio.readthedocs.io/en/stable/) which outputs perfect gifs. In MichaPipo's original repo, they used javascript libraries to
+Step 3 takes the spritesheets from step 2 and creates gifs in `builds/gifs`. This is where Python libraries really shine. Initially I used [PIL](https://pillow.readthedocs.io/en/stable/), but found some issues with pixel quality.
+
+In MichaPipo's original repo, they used javascript libraries to
 create the gifs. These copied pixel by pixel, and the logic was a bit complicated. Creating just 15 gifs would take 4 minutes, and I noticed
 some of the pixel hex colors were off. Also depending on CPU usage, the program would crash. I spent days debugging, when I just decided to
 start from scratch in another language.
+
+Initially I tried PIL, imageio, and a few Python libraries, but they all had issues
+generating gifs. I spent weeks finding the best tool for this job, and came across [gifski](https://gif.ski/). This
+creates incredibly clean gifs and worked the best.
 
 Now, generating 15 gifs takes < 30 seconds and renders with perfect pixel quality!
 
@@ -339,7 +346,10 @@ All of the code in step1 and step3 was written by me. The original idea for the 
 
 Q: Why did you decide to use Python for step 1 and step 3?
 
-A: I found that Python [PIL](https://pillow.readthedocs.io/en/stable/) and [imageio](https://imageio.readthedocs.io/en/stable/) work better and faster than JS libraries, and the code is simpler for me.
+A: I found that Python [PIL](https://pillow.readthedocs.io/en/stable/) work better and faster than JS libraries, and the code is simpler for me. Initially I tried PIL, imageio, and a few Python libraries, but they all had issues
+generating gifs. I spent weeks finding the best tool for this job, and came across [gifski](https://gif.ski/). This
+creates incredibly clean gifs and worked the best.
+
 My philosophy is pick the right tool for the right job. If someone finds a better library for this specific job, then let me know!
 
 Q: Why didn't you use Python for step 2?

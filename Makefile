@@ -2,6 +2,7 @@ first_time_setup:
 	python3 -m pip install --upgrade Pillow
 	pip3 install -r requirements.txt
 	cd step2_spritesheet_to_generative_sheet; npm i
+	brew install gifski
 
 step1:
 	python3 step1_layers_to_spritesheet/build.py
