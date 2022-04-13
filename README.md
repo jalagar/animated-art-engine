@@ -42,7 +42,7 @@ Install the latest version of [Python 3](https://www.python.org/downloads/). I a
 
         python3 --version
 
-- Install [gifski](https://gif.ski/). I recommend using brew `brew install gifski` (this is also in the first time setup). But you can take a look at their docs to install it without brew, [gifski Github](https://github.com/ImageOptim/gifski).
+Install [gifski](https://gif.ski/). I recommend using brew `brew install gifski` (this is also in the first time setup). But you can take a look at their docs to install it without brew, [gifski Github](https://github.com/ImageOptim/gifski).
 
 ### Installation
 
