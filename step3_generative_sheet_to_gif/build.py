@@ -1,3 +1,4 @@
+import subprocess
 from PIL import Image
 import os, sys
 import imageio
@@ -67,15 +68,16 @@ def convert_pngs_to_gif(file_name: str, fps: int):
             images.append(imageio.imread(temp_img_path))
 
     gif_name = get_png_file_name(file_name) + ".gif"
-    with imageio.get_writer(
-        os.path.join(output_gifs_directory, gif_name),
-        fps=fps,
-        mode="I",
-        quantizer=0,
-        palettesize=256,
-    ) as writer:
-        for image in images:
-            writer.append_data(image)
+    subprocess.run(f"gifski -o {os.path.join(output_gifs_directory, gif_name)} {temp_img_folder}/*.png --fps {fps} --quality=100 -W 1000")
+    # with imageio.get_writer(
+    #     os.path.join(output_gifs_directory, gif_name),
+    #     fps=fps,
+    #     mode="I",
+    #     quantizer=0,
+    #     palettesize=256,
+    # ) as writer:
+    #     for image in images:
+    #         writer.append_data(image)
 
 
 def fps_to_ms_duration(fps: int) -> int:
