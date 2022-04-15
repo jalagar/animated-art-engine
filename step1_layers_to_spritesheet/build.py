@@ -132,11 +132,16 @@ def parse_attribute_folders(
         output_folder = os.path.join(output_path, attribute_folder)
         if not os.path.exists(output_folder):
             setup_directory(output_folder)
-        spritesheet.save(os.path.join(output_folder, f"{attribute_folder}.png"), quality=95)
+        spritesheet.save(
+            os.path.join(output_folder, f"{attribute_folder}.png"), quality=95
+        )
     else:
-        spritesheet.save(os.path.join(output_path, f"{attribute_folder}.png"), quality=95)
+        spritesheet.save(
+            os.path.join(output_path, f"{attribute_folder}.png"), quality=95
+        )
 
-def search_folders_for_gifs(directory:str) -> bool:
+
+def search_folders_for_gifs(directory: str) -> bool:
     """
     Recursive function that searches folders for gifs
     :param directory: File path to directory
@@ -151,7 +156,8 @@ def search_folders_for_gifs(directory:str) -> bool:
             found_gif = search_folders_for_gifs(file_path) or found_gif
     return found_gif
 
-def parse_gifs_into_temp_directory(directory:str, output_directory:str) -> None:
+
+def parse_gifs_into_temp_directory(directory: str, output_directory: str) -> None:
     """
     Parses gifs in the layers folder and splits them into output directory
     :param directory - file path to layers directory
@@ -176,6 +182,7 @@ def parse_gifs_into_temp_directory(directory:str, output_directory:str) -> None:
         if os.path.isdir(file_path):
             setup_directory(output_path, delete_if_exists=False)
             parse_gifs_into_temp_directory(file_path, output_path)
+
 
 def main():
     print("********Starting step 1: Converting pngs to spritesheets********")

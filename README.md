@@ -44,6 +44,8 @@ Install the latest version of [Python 3](https://www.python.org/downloads/). I a
 
 Install [gifski](https://gif.ski/). I recommend using brew `brew install gifski` (this is also in the first time setup). If you don't have brew you can install it using [brew](https://brew.sh/). You can also take a look at their docs to install it without brew, [gifski Github](https://github.com/ImageOptim/gifski).
 
+If you plan on developing on this repository, run `pre-commit` to install pre-commit hooks.
+
 ### Installation
 
 - Download this repo and extract all the files.
