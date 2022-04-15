@@ -46,7 +46,7 @@ def crop_and_save(file_name: str) -> None:
             box = (j, i, j + width, i + height)
             a = im.crop(box)
             file_path = os.path.join(temp_folder_path, "%s.png" % k)
-            a.save(file_path)
+            a.save(file_path, quality=95)
             k += 1
 
 
@@ -68,7 +68,7 @@ def convert_pngs_to_gif(file_name: str, fps: int):
             temp_img_path = os.path.join(temp_img_folder, filename)
             new_frame = Image.open(temp_img_path)
             if save_individual_frames:
-                new_frame.save(os.path.join(images_directory, filename))
+                new_frame.save(os.path.join(images_directory, filename), quality=95)
 
     gif_name = get_png_file_name(file_name) + ".gif"
     subprocess.run(

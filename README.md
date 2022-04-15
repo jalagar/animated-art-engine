@@ -44,6 +44,8 @@ Install the latest version of [Python 3](https://www.python.org/downloads/). I a
 
 Install [gifski](https://gif.ski/). I recommend using brew `brew install gifski` (this is also in the first time setup). If you don't have brew you can install it using [brew](https://brew.sh/). You can also take a look at their docs to install it without brew, [gifski Github](https://github.com/ImageOptim/gifski).
 
+If you plan on developing on this repository, run `pre-commit` to install pre-commit hooks.
+
 ### Installation
 
 - Download this repo and extract all the files.
@@ -69,11 +71,11 @@ Known issues:
 
 ## How to run?
 
-Load the png files into the `/layers` folder where each layer is a folder, and each folder contains
+Load the png or gif files into the `/layers` folder where each layer is a folder, and each folder contains
 another attribute folder which contains the individual frames and a rarity percentage. For example if you wanted
 a background layer you would have `/layers/background/blue#20` and `/layers/background/red#20`.
 
-In each attribute folder, the frames should be named `0.png` -> `X.png`. See code or [step 1](#step-1) for folder structure. The code
+In each attribute folder, the frames should be named `0.png` -> `X.png` or `0.gif`. See code or [step 1](#step-1) for folder structure. The code
 will handle any number of layers, so you could have a layer with two frames, another layer with one frame, and another with 20 frames,
 and as long as you pass `numberOfFrames` = 20, then the layers will be repeated until they hit 20.
 
@@ -251,6 +253,11 @@ Green Tower#50.png:
 <img src="./README_Assets/step1/Landscape/Green Tower.png" width="1000">
 
 **EDIT tool now supports z-index/stacking, grouping and if-then statements**. See [nftchef's docs](https://generator.nftchef.dev/readme/) for more information. The layers in this step will have to match the format expected in step 2. See the example layer folders for some more info.
+
+**EDIT tool now supports gif layers**. You can provide layers as gifs and the code will split the gif into
+frames. See `layers_gif_example`. It will create a temp folder in step1_layers_to_spritesheet/temp with the
+resulting separate frames, and then will parse through that folder to create the output. Make sure `numberOfFrames`
+is set in global_config.json.
 
 ### Step 2
 
