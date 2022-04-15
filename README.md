@@ -343,7 +343,7 @@ All of the code in step1 and step3 was written by me. The original idea for the 
 
 - [X] Update step2 with latest features from [Hashlips art engine](https://github.com/HashLips/hashlips_art_engine).
 - [X] Add layer functionality to step2 from [nftchef art engine](https://github.com/nftchef/art-engine).
-- [ ] Allow passing in gifs into step1 to split into spritesheets.
+- [X] Allow passing in gifs into step1 to split into spritesheets.
 
 **FAQ**
 
