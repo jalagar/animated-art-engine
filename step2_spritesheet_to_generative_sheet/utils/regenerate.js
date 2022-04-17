@@ -21,10 +21,10 @@ const { createCanvas } = require("canvas");
 
 const chalk = require("chalk");
 
-const jsonDir = `${basePath}/build/json`;
-const imageDir = `${basePath}/build/images`;
-const dnaFilePath = `${basePath}/build/_dna.json`;
-const metadataFilePath = `${basePath}/build/json/_metadata.json`;
+const jsonDir = `${basePath}/../build/json`;
+const imageDir = `${basePath}/output`;
+const dnaFilePath = `${basePath}/../build/_dna.json`;
+const metadataFilePath = `${basePath}/../build/json/_metadata.json`;
 
 const {
   format,

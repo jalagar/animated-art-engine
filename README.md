@@ -343,6 +343,18 @@ You can change the description and base Uri of your metadata even after running 
 
         make update_json
 
+### Solana metadata
+
+🧪 BETA FEATURE
+
+After running `make all` you can run generate the Solana metadata in two steps:
+- Edit `step2_spritesheet_to_generative_sheet/Solana/solana_config.js`
+- `make solana` to generate the Solana metadata. This will create an output folder `build/solana`with the gifs and the metadata.
+
+Most of the code comes from [nftchef](https://github.com/nftchef/art-engine/blob/nested-folder-structure/utils/metaplex.js).
+
+I have not tried this on any test net or production Solana chain, so please flag any issues or create a PR to fix them!
+
 ## IMPORTANT NOTES
 
 All of the code in step1 and step3 was written by me. The original idea for the repo came from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) but now most of the code in step 2 is forked from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node).
