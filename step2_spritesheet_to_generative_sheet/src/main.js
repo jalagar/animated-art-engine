@@ -110,8 +110,8 @@ const parseQueryString = (filename, layer, sublayer) => {
   }, []);
 
   return {
-    blendmode: layerstyles.blend ? layerstyles.blend : getElementOptions(layer,sublayer).blendmode,
-    opacity: layerstyles.opacity ? layerstyles.opacity / 100 : getElementOptions(layer,sublayer).opacity,
+    blendmode: layerstyles.blend ? layerstyles.blend : getElementOptions(layer, sublayer).blendmode,
+    opacity: layerstyles.opacity ? layerstyles.opacity / 100 : getElementOptions(layer, sublayer).opacity,
   };
 };
 
@@ -170,8 +170,8 @@ const getElements = (path, layer) => {
       const zindex = zflag.exec(i)
         ? zflag.exec(i)[0]
         : layer.zindex
-        ? layer.zindex
-        : "";
+          ? layer.zindex
+          : "";
 
       const element = {
         sublayer,
@@ -215,8 +215,8 @@ const getElements = (path, layer) => {
       element.trait = layer.sublayerOptions?.[parentName]
         ? layer.sublayerOptions[parentName].trait
         : layer.trait !== undefined
-        ? layer.trait
-        : parentName;
+          ? layer.trait
+          : parentName;
 
       const rawTrait = getTraitValueFromPath(element, lineage);
       const trait = processTraitOverrides(rawTrait);
@@ -472,9 +472,9 @@ function pickRandomElement(
   if (incompatibleDNA.includes(layer.name) && layer.sublayer) {
     debugLogs
       ? console.log(
-          `Skipping incompatible sublayer directory, ${layer.name}`,
-          layer.name
-        )
+        `Skipping incompatible sublayer directory, ${layer.name}`,
+        layer.name
+      )
       : null;
     return dnaSequence;
   }
@@ -485,11 +485,11 @@ function pickRandomElement(
   if (compatibleLayers.length === 0) {
     debugLogs
       ? console.log(
-          chalk.yellow(
-            "No compatible layers in the directory, skipping",
-            layer.name
-          )
+        chalk.yellow(
+          "No compatible layers in the directory, skipping",
+          layer.name
         )
+      )
       : null;
     return dnaSequence;
   }
@@ -538,9 +538,9 @@ function pickRandomElement(
       if (incompatible[currentLayers[i].name]) {
         debugLogs
           ? console.log(
-              `Adding the following to incompatible list`,
-              ...incompatible[currentLayers[i].name]
-            )
+            `Adding the following to incompatible list`,
+            ...incompatible[currentLayers[i].name]
+          )
           : null;
         incompatibleDNA.push(...incompatible[currentLayers[i].name]);
       }
@@ -548,11 +548,11 @@ function pickRandomElement(
       if (forcedCombinations[currentLayers[i].name]) {
         debugLogs
           ? console.log(
-              chalk.bgYellowBright.black(
-                `\nSetting up the folling forced combinations for ${currentLayers[i].name}: `,
-                ...forcedCombinations[currentLayers[i].name]
-              )
+            chalk.bgYellowBright.black(
+              `\nSetting up the folling forced combinations for ${currentLayers[i].name}: `,
+              ...forcedCombinations[currentLayers[i].name]
             )
+          )
           : null;
         forcedDNA.push(...forcedCombinations[currentLayers[i].name]);
       }
@@ -671,8 +671,8 @@ const saveMetaDataSingleFile = (_editionCount) => {
   let metadata = metadataList.find((meta) => meta.edition == _editionCount);
   debugLogs
     ? console.log(
-        `Writing metadata for ${_editionCount}: ${JSON.stringify(metadata)}`
-      )
+      `Writing metadata for ${_editionCount}: ${JSON.stringify(metadata)}`
+    )
     : null;
   fs.writeFileSync(
     `${buildDir}/json/${_editionCount}.json`,
@@ -792,7 +792,7 @@ const startCreating = async (storedDNA) => {
     let i = startIndex;
     i <=
     startIndex +
-      layerConfigurations[layerConfigurations.length - 1].growEditionSizeTo - 1; // TODO hack just for now to get shuffling working
+    layerConfigurations[layerConfigurations.length - 1].growEditionSizeTo - 1; // TODO hack just for now to get shuffling working
     i++
   ) {
     abstractedIndexes.push(i);
