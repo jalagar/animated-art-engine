@@ -43,7 +43,7 @@ Install the latest version of [Python 3](https://www.python.org/downloads/). I a
         python3 --version
 
 Install [gifski](https://gif.ski/). I recommend using brew `brew install gifski` if you're on Mac OSX. If you don't have brew you can install it using [brew](https://brew.sh/) on Mac OSX. Or if you're on Windows
-you can install it using [Chocolatey](https://community.chocolatey.org/): `chocolatey install gifski`.
+you can install it using [Chocolatey](https://community.chocolatey.org/): `choco install gifski`.
 
 If none of those methods work, follow instructions on gifski [gifski Github](https://github.com/ImageOptim/gifski). Gifski is crucial for this tool because it provides the best gif generation
 out of all the tools I checked out (PIL, imageio, ImageMagic, js libraries).
