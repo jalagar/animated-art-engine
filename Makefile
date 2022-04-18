@@ -12,6 +12,9 @@ step2:
 solana:
 	cd ./step2_spritesheet_to_generative_sheet; npm run generate:solana
 
+provenance:
+	cd ./step2_spritesheet_to_generative_sheet; node utils/provenance.js
+
 step3:
 	python3 ./step3_generative_sheet_to_gif/build.py
 
