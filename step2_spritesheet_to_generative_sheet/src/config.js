@@ -197,7 +197,8 @@ const extraAttributes = () => [
 ];
 
 // Outputs an Keccack256 hash for the image. Required for provenance hash
-const hashImages = true;
+// Disable hash images for this tool given this will hash the spritesheet, not the final gif
+const hashImages = false;
 
 const rarityDelimiter = "#";
 

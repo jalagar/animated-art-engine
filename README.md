@@ -341,7 +341,9 @@ You can check the rarity stats of your collection with:
 
         make rarity
 
-### Provenance Hash Generation
+### Provenance Hash Generation - IN PROGRESS
+
+THIS SECTION IS STILL IN PROGRESS, IT DOES NOT GENERATE PROVENANCE HASH CORRECTLY
 
 If you need to generate a provenance hash (and, yes, you should, [read about it here](https://medium.com/coinmonks/the-elegance-of-the-nft-provenance-hash-solution-823b39f99473) ), make sure the following in config.js is set to `true`
 
