@@ -31,11 +31,9 @@ const {
   extraMetadata,
   forcedCombinations,
   format,
-  hashImages,
   incompatible,
   layerConfigurations,
   layersDir,
-  outputJPEG,
   outputDir,
   rarityDelimiter,
   shuffleLayerConfigurations,
@@ -270,8 +268,8 @@ const layersSetup = (layersOrder) => {
 
 const saveImage = (_editionCount) => {
   fs.writeFileSync(
-    `${outputDir}/images/${_editionCount}${outputJPEG ? ".jpg" : ".png"}`,
-    canvas.toBuffer(`${outputJPEG ? "image/jpeg" : "image/png"}`)
+    `${outputDir}/images/${_editionCount}.png`,
+    canvas.toBuffer("image/png")
   );
 };
 
@@ -288,7 +286,7 @@ const drawBackground = (canvasContext) => {
 
 const addMetadata = (_dna, _edition, _prefixData) => {
   let dateTime = Date.now();
-  const { _prefix, _offset, _imageHash } = _prefixData;
+  const { _prefix, _offset } = _prefixData;
 
   const combinedAttrs = [...attributesList, ...extraAttributes()];
   const cleanedAttrs = combinedAttrs.reduce((acc, current) => {
@@ -304,8 +302,8 @@ const addMetadata = (_dna, _edition, _prefixData) => {
     dna: hash(_dna),
     name: `${_prefix ? _prefix + " " : ""}#${_edition - _offset}`,
     description: description,
-    image: `${baseUri}/${_edition}${outputJPEG ? ".jpg" : ".png"}`,
-    ...(hashImages === true && { imageHash: _imageHash }),
+    image: `${baseUri}/${_edition}.gif`,
+    imageName: `${_edition}.gif`, // Used by the provenance hash
     edition: _edition,
     date: dateTime,
     ...extraMetadata,
@@ -732,13 +730,7 @@ const paintLayers = (canvasContext, renderObjectArray, layerData) => {
 };
 
 const postProcessMetadata = (layerData) => {
-  const { abstractedIndexes, layerConfigIndex } = layerData;
-  // Metadata options
-  const savedFile = fs.readFileSync(
-    `${outputDir}/images/${abstractedIndexes[0]}${outputJPEG ? ".jpg" : ".png"}`
-  );
-  const _imageHash = hash(savedFile);
-
+  const { layerConfigIndex } = layerData;
   // if there's a prefix for the current configIndex, then
   // start count back at 1 for the name, only.
   const _prefix = layerConfigurations[layerConfigIndex].namePrefix
@@ -752,7 +744,6 @@ const postProcessMetadata = (layerData) => {
   }
 
   return {
-    _imageHash,
     _prefix,
     _offset,
   };
@@ -763,12 +754,11 @@ const outputFiles = (abstractedIndexes, layerData) => {
   // Save the canvas buffer to file
   saveImage(abstractedIndexes[0]);
 
-  const { _imageHash, _prefix, _offset } = postProcessMetadata(layerData);
+  const { _prefix, _offset } = postProcessMetadata(layerData);
 
   addMetadata(newDna, abstractedIndexes[0], {
     _prefix,
     _offset,
-    _imageHash,
   });
 
   saveMetaDataSingleFile(abstractedIndexes[0]);

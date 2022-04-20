@@ -56,7 +56,7 @@ program
      * insead of the loop index as images may have a different order.
      */
     data.forEach((item) => {
-      item.image = `${baseUri}/${item.edition}.png`;
+      item.image = `${baseUri}/${item.edition}.gif`;
       item.description = description;
 
       if (options.name) {

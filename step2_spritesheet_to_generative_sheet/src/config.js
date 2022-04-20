@@ -17,7 +17,6 @@ const { numberOfFrames, description, baseUri, height, width, startIndex, debug, 
   basePath,
   "../global_config.json"
 ));
-const outputJPEG = false; // if false, the generator outputs png's
 
 /* ONLY VARIABLE THAT YOU NEED TO EDIT IS HERE */
 let layerConfigurations = [
@@ -196,10 +195,6 @@ const extraAttributes = () => [
   // },
 ];
 
-// Outputs an Keccack256 hash for the image. Required for provenance hash
-// Disable hash images for this tool given this will hash the spritesheet, not the final gif
-const hashImages = false;
-
 const rarityDelimiter = "#";
 
 const uniqueDnaTorrance = 10000;
@@ -222,11 +217,9 @@ module.exports = {
   extraMetadata,
   forcedCombinations,
   format,
-  hashImages,
   incompatible,
   layerConfigurations,
   layersDir,
-  outputJPEG,
   outputDir,
   rarityDelimiter,
   shuffleLayerConfigurations,
