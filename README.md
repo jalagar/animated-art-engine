@@ -72,6 +72,7 @@ Known issues:
 - [M1 Mac: Canvas prebuild isn't built for ARM computers](https://github.com/Automattic/node-canvas/issues/1825) so you need to install it [from their Github](https://github.com/Automattic/node-canvas/wiki#installation-guides)
 - `cd` command might not work on Windows depending on what Terminal you are using. You may have to edit the `Makefile` to use `CHDIR` or the equivalent.
 - If you're on Windows 10 you might get a 'make' is not recognized. Try follow these [instructions](https://pakstech.com/blog/make-windows/#:~:text=make%20%3A%20The%20term%20'make',choose%20Path%20and%20click%20Edit). Otherwise you can copy and paste the instructions manually in `Makefile`.
+- If you're on Windows you might get an error where 'python3' does not exist, try modify the `Makefile` and replace python3 with python. Thank you!
 - If you don't have brew installed, look at [gifski](https://github.com/ImageOptim/gifski) docs for another way to install gifski.
 
 ## How to run?
