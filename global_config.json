@@ -1,15 +1,15 @@
 {
-  "totalSupply": 1,
-  "height": 400,
-  "width": 400,
+  "totalSupply": 4,
+  "height": 1000,
+  "width": 1000,
   "debug": false,
   "framesPerSecond": 12,
-  "numberOfFrames": 21,
+  "numberOfFrames": 12,
   "saveIndividualFrames": false,
   "description": "Your description here",
   "baseUri": "ipfs://NewUriToReplace",
   "startIndex": 0,
   "quality": 100,
   "layersFolder": "layers",
-  "gifTool": "imageio"
+  "gifTool": "gifski"
 }

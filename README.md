@@ -98,6 +98,7 @@ Update `global_config.json` with:
 8.  **`'saveIndividualFrames'`** : this is if you want to save the individual final frames, for example if you want to let people pick just one frame for a profile page.
 9. **`'layersFolder'`**: this is the folder that you want to use for the layers. The default is `layers`, but this allows you to have multiple versions of layers and run them side by side. The current repo has four example folders, `layers`, `layers_grouping`, `layers_if_then`, `layers_z_index` which all demonstrate features from [nftchef's repo](https://generator.nftchef.dev/).
 10. **`'quality'`**: quality of the gif, 1-100.
+11. **`'gifTool'`**: pick which gif generation method to use, `gifski` or `imageio`. Gifski is better overall, but some people were having issues with it on Linux. Also `imageio` will work for more pixel art, so if you don't want to download Gifski you can set this to `imageio`.
 
 Update `step2_spritesheet_to_generative_sheet/src/config.js` with your `layerConfigurations`. If you want the basic
 configuration, just edit `layersOrder`, but if you want to take advantage of [nftchef's repo](https://generator.nftchef.dev/), then scroll through the file for some examples and modify `layerConfigurations` accordingly.
@@ -304,8 +305,10 @@ create the gifs. These copied pixel by pixel, and the logic was a bit complicate
 some of the pixel hex colors were off. Also depending on CPU usage, the program would crash. I spent days debugging, when I just decided to
 start from scratch in another language.
 
-Initially I tried PIL, imageio, and a few Python libraries, but they all had issues
-generating gifs. I spent weeks finding the best tool for this job, and came across [gifski](https://gif.ski/). This
+I then tried imageio, and a few Python libraries, but they all had some issues
+generating gifs. 
+
+I spent weeks finding the best tool for this job, and came across [gifski](https://gif.ski/). This
 creates incredibly clean gifs and worked the best.
 
 Now, generating 15 gifs takes < 30 seconds and renders with perfect pixel quality!
@@ -335,6 +338,13 @@ New Generative Gif Engine:
 - 15 NFT - 30 seconds with no pixel issues.
 - 100 NFT - 3 minutes and 17 seconds with no pixel issues.
 - 1000 NFT - 45 minutes with no pixel issues and no CPU issues.
+
+**NOTE**
+`imageio` was by far the best Python library, so I added it as an option in case you don't want
+to download `gifski`. `imageio` will work for most pixel art and I know some people had issues
+with `gifski` on Linux (not Windows or Mac).
+
+You can set which gif tool to use in `global_config.json` by setting `gifTool` to either `gifski` (default) or `imageio`.
 
 ### Rarity stats
 
