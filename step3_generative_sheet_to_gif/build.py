@@ -1,6 +1,7 @@
 import subprocess
 from PIL import Image
 import os, sys
+import imageio
 
 # In order to import utils/file.py we need to add this path.append
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -21,6 +22,12 @@ fps = global_config["framesPerSecond"]
 height = global_config["height"]
 width = global_config["width"]
 quality = global_config["quality"]
+gif_tool = global_config["gifTool"]
+
+
+class GifTool:
+    GIFSKI = "gifski"
+    IMAGEIO = "imageio"
 
 
 def crop_and_save(file_name: str) -> None:
@@ -61,6 +68,7 @@ def convert_pngs_to_gif(file_name: str, fps: int):
         setup_directory(images_directory)
     temp_img_folder = os.path.join(temp_directory, get_png_file_name(file_name))
 
+    images = []
     for filename in sorted(
         os.listdir(temp_img_folder), key=lambda img: int(get_png_file_name(img))
     ):
@@ -69,12 +77,26 @@ def convert_pngs_to_gif(file_name: str, fps: int):
             new_frame = Image.open(temp_img_path)
             if save_individual_frames:
                 new_frame.save(os.path.join(images_directory, filename), quality=95)
-
+            images.append(imageio.imread(temp_img_path))
+    
     gif_name = get_png_file_name(file_name) + ".gif"
-    subprocess.run(
-        f"gifski -o {os.path.join(output_gifs_directory, gif_name)} {temp_img_folder}/*.png --fps={fps} --quality={quality} -W={width}",
-        shell=True,
-    )
+    if gif_tool == GifTool.IMAGEIO:
+        with imageio.get_writer(
+            os.path.join(output_gifs_directory, gif_name),
+            fps=fps,
+            mode="I",
+            quantizer=0,
+            palettesize=256,
+        ) as writer:
+            for image in images:
+                writer.append_data(image)
+    elif gif_tool == GifTool.GIFSKI:
+        subprocess.run(
+            f"gifski -o {os.path.join(output_gifs_directory, gif_name)} {temp_img_folder}/*.png --fps={fps} --quality={quality} -W={width}",
+            shell=True,
+        )
+    else:
+        raise Exception(f"Passed in invalid gif_tool {gif_tool}, only options are gifski and imageio")
 
 
 def fps_to_ms_duration(fps: int) -> int:
