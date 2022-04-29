@@ -10,5 +10,6 @@
   "baseUri": "ipfs://NewUriToReplace",
   "startIndex": 0,
   "quality": 100,
-  "layersFolder": "layers"
+  "layersFolder": "layers",
+  "gifTool": "gifski"
 }
