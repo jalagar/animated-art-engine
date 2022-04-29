@@ -1,18 +1,22 @@
+from glob import glob
 from PIL import Image as PIL_Image
 from PIL.Image import Image
 from typing import List, Tuple
 import math
 
-# In order to import utils/file.py we need to add this path.append
-import os, sys
+import os
+import sys
 import shutil
 
+# In order to import utils/file.py we need to add this path.append
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.file import setup_directory, sort_function, parse_global_config
 
 global_config_json = parse_global_config()
 is_debug = global_config_json["debug"]
 num_frames = global_config_json["numberOfFrames"]
+width = global_config_json["width"]
+height = global_config_json["height"]
 
 LAYERS_DIRECTORY = f"./{global_config_json['layersFolder']}"
 TEMP_DIRECTORY = "./step1_layers_to_spritesheet/temp"
@@ -31,9 +35,12 @@ def combine_images(images: List[Image]) -> Image:
     if len(images) == 0:
         raise Exception("No images passed in")
 
-    width, height = images[0].size
     dst = PIL_Image.new("RGBA", (len(images) * width, height), (0, 0, 0, 0))
     for i, img in enumerate(images):
+        img_width, img_height = img.size
+        # Only resize if the height/width are not the same
+        if img_height != height or img_width != width:
+            img = img.resize((height, width))
         dst.paste(img, (i * width, 0))
     return dst
 
@@ -172,7 +179,8 @@ def parse_gifs_into_temp_directory(directory: str, output_directory: str) -> Non
             try:
                 for i in range(num_frames):
                     pil_gif.seek(i)
-                    pil_gif.save(os.path.join(output_directory, f"{i}.png"), quality=95)
+                    pil_gif.save(os.path.join(
+                        output_directory, f"{i}.png"), quality=95)
             except EOFError:
                 # Ran out of frames, not all gifs need to be the same length
                 break
