@@ -4,19 +4,19 @@ first_time_setup:
 	cd step2_spritesheet_to_generative_sheet; npm i
 
 step1:
-	python3 ./step1_layers_to_spritesheet/build.py
+	python3 step1_layers_to_spritesheet/build.py
 
 step2:
-	cd ./step2_spritesheet_to_generative_sheet; npm run generate
+	cd step2_spritesheet_to_generative_sheet; npm run generate
 
 solana:
-	cd ./step2_spritesheet_to_generative_sheet; npm run generate:solana
+	cd step2_spritesheet_to_generative_sheet; npm run generate:solana
 
 provenance:
-	cd ./step2_spritesheet_to_generative_sheet; node utils/provenance.js
+	cd step2_spritesheet_to_generative_sheet; node utils/provenance.js
 
 step3:
-	python3 ./step3_generative_sheet_to_gif/build.py
+	python3 step3_generative_sheet_to_gif/build.py
 
 all:
 	make step1
