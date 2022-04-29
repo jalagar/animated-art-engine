@@ -430,6 +430,9 @@ Be sure to follow me for more updates on this project:
 
 [Medium](https://jalagar-eth.medium.com/)
 
+My ETH address is 0x4233EfcB109BF6618071759335a7b9ab84F2F4f3 if you feel like being generous :). I just quit my job to work on NFTs full time
+so anything is appreciated.
+
 If you want to see this code in action, we're using it for my fitness and mental health company Fitness Friends:
 
 [Twitter](https://twitter.com/FitFriends_NFT)
