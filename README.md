@@ -429,3 +429,9 @@ Be sure to follow me for more updates on this project:
 [GitHub](https://github.com/jalagar/)
 
 [Medium](https://jalagar-eth.medium.com/)
+
+If you want to see this code in action, we're using it for my fitness and mental health company Fitness Friends:
+
+[Twitter](https://twitter.com/FitFriends_NFT)
+
+[Website](https://www.fitnessfriends.io/)
