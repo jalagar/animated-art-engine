@@ -408,7 +408,7 @@ See [Tezos README](step2_spritesheet_to_generative_sheet/documentation/other-blo
 
 ### Batching
 
-Do you want higher resolution, more frames, and larger images? Batching is for you! Currently step2 is limited by 32000 pixel files,
+Do you want higher resolution, more frames, and larger gifs? Batching is for you! Currently step2 is limited by 32000 pixel files,
 so in order to get around this we must batch the entire process into chunks and then combine them at the end.
 
 Set `useBatches` in `global_config.json` to `true` and then set `numFramesPerBatch` to an even divisible of `numberOfFrames`. 
