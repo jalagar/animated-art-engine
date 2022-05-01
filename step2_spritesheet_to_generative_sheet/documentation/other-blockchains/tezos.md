@@ -17,7 +17,7 @@ make tezos
 ```
 
 This will run `utils/tezos.js` which generates the metadata and also runs `utils/resize.js` which
-will output two more folders under `build/` directory. Now you can upload all these three folders to IPFS namely `build/displayUri/`, `build/thumbnailUri/` and `build/images`. After that you can update the base IPFS uri for these three folders in `/Tezos/tezosConfig.js`
+will output two more folders under `build/` directory. Now you can upload all these three folders to IPFS namely `build/tezos/displayUri/`, `build/tezos/thumbnailUri/` and `build/gifs`. After that you can update the base IPFS uri for these three folders in `/Tezos/tezosConfig.js`
 
 ```js
 const baseUriPrefix = "ipfs://BASE_ARTIFACT_URI"; 
