@@ -1,3 +1,4 @@
+from glob import glob
 import subprocess
 from PIL import Image
 import os, sys
@@ -12,10 +13,10 @@ from utils.file import (
     parse_global_config,
 )
 
-output_gifs_directory = "./build/gifs"
-output_images_directory = "./build/images"
-input_directory = "./step2_spritesheet_to_generative_sheet/output/images"
-temp_directory = "./step3_generative_sheet_to_gif/temp"
+OUTPUT_GIFS_DIRECTORY = "./build/gifs"
+OUTPUT_IMAGES_DIRECTORY = "./build/images"
+INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
+TEMP_DIRECTORY =  "./step3_generative_sheet_to_gif/temp"
 
 global_config = parse_global_config()
 fps = global_config["framesPerSecond"]
@@ -23,6 +24,8 @@ height = global_config["height"]
 width = global_config["width"]
 quality = global_config["quality"]
 gif_tool = global_config["gifTool"]
+use_batches = global_config["useBatches"]
+num_frames_per_batch = global_config["numFramesPerBatch"]
 
 
 class GifTool:
@@ -30,7 +33,13 @@ class GifTool:
     IMAGEIO = "imageio"
 
 
-def crop_and_save(file_name: str) -> None:
+def get_temp_directory(file_name: str):
+    temp_directory = os.path.join(TEMP_DIRECTORY, get_png_file_name(file_name))
+    setup_directory(temp_directory, delete_if_exists=False)
+    return temp_directory
+
+
+def crop_and_save(file_name: str, batch_number: int) -> None:
     """
     Crops image into squares and saves them into temp folder
 
@@ -39,35 +48,35 @@ def crop_and_save(file_name: str) -> None:
     :param width: width of each frame
     :returns: int - duration for each frame in milliseconds
     """
-    file = os.path.join(input_directory, file_name)
+    file = os.path.join(INPUT_DIRECTORY, file_name)
     im = Image.open(file)
-    k = 0
+    if use_batches:
+        k = batch_number * num_frames_per_batch
+    else:
+        k = 0
     imgwidth, imgheight = im.size
-    temp_folder_path = os.path.join(temp_directory, get_png_file_name(file_name))
-
-    if not os.path.exists(temp_folder_path):
-        os.mkdir(temp_folder_path)
+    temp_folder_path = get_temp_directory(file_name)
 
     for i in range(0, imgheight, height):
         for j in range(0, imgwidth, width):
             box = (j, i, j + width, i + height)
             a = im.crop(box)
-            file_path = os.path.join(temp_folder_path, "%s.png" % k)
+            file_path = os.path.join(temp_folder_path, f"{k}.png")
             a.save(file_path, quality=95)
             k += 1
 
 
-def convert_pngs_to_gif(file_name: str, fps: int):
+def convert_pngs_to_gif(file_name: str, fps: int, batch_number: int):
     global_config = parse_global_config()
     save_individual_frames = global_config["saveIndividualFrames"]
 
     images_directory = os.path.join(
-        output_images_directory, get_png_file_name(file_name)
+        OUTPUT_IMAGES_DIRECTORY, get_png_file_name(file_name)
     )
     if save_individual_frames:
         setup_directory(images_directory)
-    temp_img_folder = os.path.join(temp_directory, get_png_file_name(file_name))
 
+    temp_img_folder = get_temp_directory(file_name)
     images = []
     for filename in sorted(
         os.listdir(temp_img_folder), key=lambda img: int(get_png_file_name(img))
@@ -82,7 +91,7 @@ def convert_pngs_to_gif(file_name: str, fps: int):
     gif_name = get_png_file_name(file_name) + ".gif"
     if gif_tool == GifTool.IMAGEIO:
         with imageio.get_writer(
-            os.path.join(output_gifs_directory, gif_name),
+            os.path.join(OUTPUT_GIFS_DIRECTORY, gif_name),
             fps=fps,
             mode="I",
             quantizer=0,
@@ -92,7 +101,7 @@ def convert_pngs_to_gif(file_name: str, fps: int):
                 writer.append_data(image)
     elif gif_tool == GifTool.GIFSKI:
         subprocess.run(
-            f"gifski -o {os.path.join(output_gifs_directory, gif_name)} {temp_img_folder}/*.png --fps={fps} --quality={quality} -W={width}",
+            f"gifski -o {os.path.join(OUTPUT_GIFS_DIRECTORY, gif_name)} {temp_img_folder}/*.png --fps={fps} --quality={quality} -W={width}",
             shell=True,
         )
     else:
@@ -117,19 +126,25 @@ def fps_to_ms_duration(fps: int) -> int:
     return int(1000 / fps)
 
 
-def main():
+def main(batch_number:int = 0, generate_gifs:bool=True):
     print("Starting step 3: Converting sprite sheets to gifs")
 
-    for folder in [output_gifs_directory, output_images_directory, temp_directory]:
-        setup_directory(folder)
+    if use_batches:
+        print(f"Starting {batch_number} with generating_gifs flag {generate_gifs}")
 
-    for filename in sorted(os.listdir(input_directory), key=sort_function):
+    # Only set up folders if its the first batch
+    if not use_batches or batch_number == 0:
+        for folder in [OUTPUT_GIFS_DIRECTORY, OUTPUT_IMAGES_DIRECTORY, TEMP_DIRECTORY]:
+            setup_directory(folder)
+
+    for filename in sorted(os.listdir(INPUT_DIRECTORY), key=sort_function):
         if filename.endswith(".png"):
             print(f"Converting spritesheet to gif for {filename}")
             crop_and_save(
-                filename,
+                filename, batch_number
             )
-            convert_pngs_to_gif(filename, fps)
+            if not use_batches or generate_gifs:
+                convert_pngs_to_gif(filename, fps, batch_number)
 
 
 if __name__ == "__main__":

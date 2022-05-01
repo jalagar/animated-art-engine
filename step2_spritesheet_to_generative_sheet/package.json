@@ -1,6 +1,6 @@
 {
-  "name": "nft-kitchen-sink-generator",
-  "version": "2.0.4",
+  "name": "nft-gif-generator",
+  "version": "2.0.5",
   "description": "Jalagar Fork off of NFTChef Fork - Hard fork from HashLips Art Engine, is a tool used to create multiple different instances of animated artworks based on provided layers. Most config is the same as Hashlips",
   "main": "index.js",
   "bin": "index.js",
@@ -21,6 +21,7 @@
     "generate:solana": "node Solana/metaplex.js",
     "generate:tezos": "node utils/tezos.js && node utils/resize.js",
     "update_info:tezos": "node tezos/updateInfo.js",
+    "create_from_metadata": "node utils/createFromMetadata.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Daniel Eugene Botha (HashLips), NFTChef, Jalagar",

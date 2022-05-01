@@ -11,5 +11,7 @@
   "startIndex": 0,
   "quality": 100,
   "layersFolder": "layers",
-  "gifTool": "gifski"
+  "gifTool": "gifski",
+  "useBatches": false,
+  "numFramesPerBatch": 4
 }

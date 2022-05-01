@@ -13,7 +13,7 @@ const buildDir = path.join(basePath, "../build"); // JSON are written to json fo
  * General Generator Options
  ***********************/
 
-const { numberOfFrames, description, baseUri, height, width, startIndex, debug, totalSupply, layersFolder } = require(path.join(
+const { numFramesPerBatch, numberOfFrames, useBatches, description, baseUri, height, width, startIndex, debug, totalSupply, layersFolder } = require(path.join(
   basePath,
   "../global_config.json"
 ));
@@ -37,7 +37,7 @@ let layerConfigurations = [
 ]
 
 const format = {
-  width: width * numberOfFrames,
+  width: useBatches ? (width * numFramesPerBatch) : (width * numberOfFrames),
   height,
   smoothing: true, // set to false when up-scaling pixel art.
 };
