@@ -9,7 +9,6 @@
   * [Metadata](utils/metadata.md)
   * [Rarity](utils/rarity.md)
   * [Stats](utils/stats.md)
-  * [Regenerate](utils/regenerate.md)
 
 ## Other Blockchains
 

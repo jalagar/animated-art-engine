@@ -99,6 +99,8 @@ Update `global_config.json` with:
 9. **`'layersFolder'`**: this is the folder that you want to use for the layers. The default is `layers`, but this allows you to have multiple versions of layers and run them side by side. The current repo has four example folders, `layers`, `layers_grouping`, `layers_if_then`, `layers_z_index` which all demonstrate features from [nftchef's repo](https://generator.nftchef.dev/).
 10. **`'quality'`**: quality of the gif, 1-100.
 11. **`'gifTool'`**: pick which gif generation method to use, `gifski` or `imageio`. Gifski is better overall, but some people were having issues with it on Linux. Also `imageio` will work for more pixel art, so if you don't want to download Gifski you can set this to `imageio`.
+12. **`'useBatches'`**: set to `true` if you want to take advantage of [batching](#batching). Otherwise does nothing.
+13. **`'numFramesPerBatch'`**: number of frames for each batch. See [batching](#batching) for more information. Only does something if `useBatches` is set to `true`.
 
 Update `step2_spritesheet_to_generative_sheet/src/config.js` with your `layerConfigurations`. If you want the basic
 configuration, just edit `layersOrder`, but if you want to take advantage of [nftchef's repo](https://generator.nftchef.dev/), then scroll through the file for some examples and modify `layerConfigurations` accordingly.
@@ -403,6 +405,17 @@ I have not tried this on any test net or production Solana chain, so please flag
 I have not tried this on any test net or production Tezos chain, so please flag any issues or create a PR to fix them!
 
 See [Tezos README](step2_spritesheet_to_generative_sheet/documentation/other-blockchains/tezos.md) for more information.
+
+### Batching
+
+Do you want higher resolution, more frames, and larger images? Batching is for you! Currently step2 is limited by 32000 pixel files,
+so in order to get around this we must batch the entire process into chunks and then combine them at the end.
+
+Set `useBatches` in `global_config.json` to `true` and then set `numFramesPerBatch` to an even divisible of `numberOfFrames`. 
+
+Then run `make batch`. This under the hood first runs `make step1` + `make step2` to generate the initial metadata, then `python3 batch.py`
+which creates the remaining images based on the initial metadata.
+
 
 ## IMPORTANT NOTES
 

@@ -308,7 +308,7 @@ const addMetadata = (_dna, _edition, _prefixData) => {
     date: dateTime,
     ...extraMetadata,
     attributes: cleanedAttrs,
-    compiler: "HashLips Art Engine - NFTChef fork",
+    compiler: "HashLips Art Engine - Jalagar gif fork",
   };
   metadataList.push(tempMetadata);
   attributesList = [];
@@ -370,8 +370,6 @@ const constructLayerToDna = (_dna = [], _layers = []) => {
     );
     layerImages.forEach((img) => {
       const indexAddress = cleanDna(img);
-
-      //
 
       const indices = indexAddress.toString().split(".");
       // const firstAddress = indices.shift();

@@ -103,7 +103,7 @@ jsonFiles.forEach((file) => {
       ],
       category: "gif",
       creators: creators,
-      compiler: "HashLips Art Engine - NFTChef fork | qualifieddevs.io",
+      compiler: "HashLips Art Engine - Jalagar gif fork | qualifieddevs.io",
     },
   };
   fs.writeFileSync(
