@@ -8,8 +8,8 @@ const { Command } = require("commander");
 const program = new Command();
 
 const chalk = require("chalk");
-const jsonDir = `${basePath}/build/json`;
-const metadataFilePath = `${basePath}/build/json/_metadata.json`;
+const jsonDir = `${basePath}/../build/json`;
+const metadataFilePath = `${basePath}/../build/json/_metadata.json`;
 
 const getIndividualJsonFiles = () => {
   return fs
@@ -24,8 +24,8 @@ program
     const jsonFiles = getIndividualJsonFiles();
     options.debug
       ? console.log(
-          `Found ${jsonFiles.length} json files in "${jsonDir}" to process`
-        )
+        `Found ${jsonFiles.length} json files in "${jsonDir}" to process`
+      )
       : null;
 
     console.log(chalk.greenBright.inverse(`Removing ${trait}`));
@@ -55,8 +55,8 @@ program
 
       options.debug
         ? console.log(
-            hasTrait ? chalk.greenBright("Removed \n") : "…skipped \n"
-          )
+          hasTrait ? chalk.greenBright("Removed \n") : "…skipped \n"
+        )
         : null;
     });
   });

@@ -389,12 +389,20 @@ You can change the description and base Uri of your metadata even after running 
 🧪 BETA FEATURE
 
 After running `make all` you can run generate the Solana metadata in two steps:
-- Edit `step2_spritesheet_to_generative_sheet/Solana/solana_config.js`
+- Edit `step2_spritesheet_to_generative_sheet/Solana/solanaConfig.js`
 - `make solana` to generate the Solana metadata. This will create an output folder `build/solana`with the gifs and the metadata.
 
 Most of the code comes from [nftchef](https://github.com/nftchef/art-engine/blob/nested-folder-structure/utils/metaplex.js).
 
 I have not tried this on any test net or production Solana chain, so please flag any issues or create a PR to fix them!
+
+### Tezos metadata
+
+🧪 BETA FEATURE
+
+I have not tried this on any test net or production Tezos chain, so please flag any issues or create a PR to fix them!
+
+See [Tezos README](step2_spritesheet_to_generative_sheet/documentation/other-blockchains/tezos.md) for more information.
 
 ## IMPORTANT NOTES
 

@@ -16,7 +16,7 @@ const {
   external_url,
   royaltyFee,
   creators,
-} = require(path.join(basePath, "Solana/solana_config.js"));
+} = require(path.join(basePath, "Solana/solanaConfig.js"));
 const { startIndex, layersDir } = require(path.join(basePath, "/src/config.js"));
 const gifDir = `${basePath}/../build/gifs`;
 const jsonDir = `${basePath}/../build/json`;
@@ -65,7 +65,7 @@ imageFiles.forEach((file) => {
   fs.copyFile(
     `${gifDir}/${file}`,
     path.join(`${metaplexDir}`, "gifs", `${newEditionCount}.gif`),
-    () => {}
+    () => { }
   );
 });
 console.log(`\nFinished converting images to being metaplex-ready.\n`);

@@ -16,9 +16,9 @@ const program = new Command();
 const chalk = require("chalk");
 const keccak256 = require("keccak256");
 
-const builtImageDir = `${basePath}/build/images`;
-const builtJsonDir = `${basePath}/build/json`;
-const metadataFilePath = `${basePath}/build/json/_metadata.json`;
+const builtImageDir = `${basePath}/../build/images`;
+const builtJsonDir = `${basePath}/../build/json`;
+const metadataFilePath = `${basePath}/../build/json/_metadata.json`;
 
 const getIndividualJsonFiles = (sourcePath) => {
   return fs
@@ -111,8 +111,7 @@ const replace = (image, randomID, sourcePath, options) => {
     });
     if (updateIndex < 0) {
       throw new Error(
-        `Could not find the identifier, "${
-          options.identifier ? options.identifier : "edition"
+        `Could not find the identifier, "${options.identifier ? options.identifier : "edition"
         }" in _metadata.json. Check that it is correct and try again.`
       );
     }
@@ -175,10 +174,10 @@ program
     );
     options.debug
       ? console.log(
-          `\tFound ${imageFiles.length} images in "${imageSource}"
+        `\tFound ${imageFiles.length} images in "${imageSource}"
         and
         ${dataFiles.length} in ${dataSource}`
-        )
+      )
       : null;
 
     // Main functions in trycatch block for cleaner error logging if throwing errors.

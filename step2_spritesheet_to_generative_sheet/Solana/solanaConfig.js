@@ -40,7 +40,7 @@ const creators = [
 /**
  * Only change this if you need to generate data for video/VR/3d content
  */
-const propertyCategory = "image";
+const propertyCategory = "gif";
 
 module.exports = {
     symbol,

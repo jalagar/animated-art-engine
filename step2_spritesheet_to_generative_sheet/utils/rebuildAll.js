@@ -36,8 +36,8 @@ const {
   paintLayers,
 } = require("../src/main");
 
-const dnaFilePath = `${basePath}/build/_dna.json`;
-const outputDir = `${basePath}/build/rebuilt`;
+const dnaFilePath = `${basePath}/../build/_dna.json`;
+const outputDir = `${basePath}/../build/rebuilt`;
 
 const setup = () => {
   if (fs.existsSync(outputDir)) {
