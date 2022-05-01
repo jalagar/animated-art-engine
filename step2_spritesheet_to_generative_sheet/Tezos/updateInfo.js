@@ -26,31 +26,31 @@ const stringifySize = (obj) => {
 };
 data.forEach((item) => {
     // item.image = `${baseUri}/${item.edition}.png`;
-    item.artifactUri = `${baseUri}/${item.edition}.png`;
+    item.artifactUri = `${baseUri}/${item.edition}.gif`;
     item.displayUri = `${tezosConfig.baseDisplayUri}/${item.edition}.png`;
     item.thumbnailUri = `${tezosConfig.baseThumbnailUri}/${item.edition}.png`;
     item.description = description;
 
     item.formats = [
         {
-            mimeType: "image/png",
-            uri: `${baseUri}/${item.edition}.png`,
+            mimeType: "image/gif",
+            uri: `${baseUri}/${item.edition}.gif`,
             dimensions: {
                 value: stringifySize(tezosConfig.size.artifactUri),
                 unit: "px",
             },
         },
         {
-            mimeType: "image/png",
-            uri: `${tezosConfig.baseDisplayUri}/${item.edition}.png`,
+            mimeType: "image/gif",
+            uri: `${tezosConfig.baseDisplayUri}/${item.edition}.gif`,
             dimensions: {
                 value: stringifySize(tezosConfig.size.displayUri),
                 unit: "px",
             },
         },
         {
-            mimeType: "image/png",
-            uri: `${tezosConfig.baseThumbnailUri}/${item.edition}.png`,
+            mimeType: "image/gif",
+            uri: `${tezosConfig.baseThumbnailUri}/${item.edition}.gif`,
             dimensions: {
                 value: stringifySize(tezosConfig.size.thumbnailUri),
                 unit: "px",

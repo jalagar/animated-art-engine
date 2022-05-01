@@ -83,16 +83,16 @@ jsonFiles.forEach((file) => {
                 },
             },
             {
-                mimeType: "image/png",
-                uri: `${tezosConfig.baseDisplayUri}/${jsonData.edition}.png`,
+                mimeType: "image/gif",
+                uri: `${tezosConfig.baseDisplayUri}/${jsonData.edition}.gif`,
                 dimensions: {
                     value: stringifySize(tezosConfig.size.displayUri),
                     unit: "px",
                 },
             },
             {
-                mimeType: "image/png",
-                uri: `${tezosConfig.baseThumbnailUri}/${jsonData.edition}.png`,
+                mimeType: "image/gif",
+                uri: `${tezosConfig.baseThumbnailUri}/${jsonData.edition}.gif`,
                 dimensions: {
                     value: stringifySize(tezosConfig.size.thumbnailUri),
                     unit: "px",

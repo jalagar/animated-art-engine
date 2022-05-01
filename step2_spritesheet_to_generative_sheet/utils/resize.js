@@ -10,7 +10,7 @@ const path = require("path");
 
 const isLocal = typeof process.pkg === "undefined";
 const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
-const imagesDir = `${basePath}/../build/images`;
+const imagesDir = `${basePath}/../build/gifs`;
 const tezosConfig = require(`${basePath}/Tezos/tezosConfig.js`);
 
 const resizeImagePath = {
@@ -26,15 +26,16 @@ function getAllImages(dir) {
 
     const images = fs
         .readdirSync(imagesDir)
-        .map((subFolder) => {
-            const subFolderPath = path.join(imagesDir, subFolder);
-            const subFolderImages = fs.readdirSync(subFolderPath);
-            return {
-                filename: subFolder,
-                path: path.join(subFolderPath, subFolderImages[0])
+        .filter((item) => {
+            let extension = path.extname(`${dir}${item}`);
+            if (extension == ".gif") {
+                return item;
             }
-        });
-    console.log(images)
+        })
+        .map((i) => ({
+            filename: i,
+            path: `${dir}/${i}`,
+        }));
 
     return images;
 }
