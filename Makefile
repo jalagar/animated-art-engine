@@ -12,6 +12,9 @@ step2:
 solana:
 	cd step2_spritesheet_to_generative_sheet; npm run generate:solana
 
+tezos:
+	cd step2_spritesheet_to_generative_sheet; npm run generate:tezos
+
 provenance:
 	cd step2_spritesheet_to_generative_sheet; node utils/provenance.js
 
@@ -28,3 +31,6 @@ rarity:
 
 update_json:
 	cd step2_spritesheet_to_generative_sheet; node utils/updateInfo.js
+
+update_json_tezos:
+	cd step2_spritesheet_to_generative_sheet; npm run update_info:tezos

@@ -5,7 +5,7 @@
   "debug": false,
   "framesPerSecond": 12,
   "numberOfFrames": 12,
-  "saveIndividualFrames": false,
+  "saveIndividualFrames": true,
   "description": "Your description here",
   "baseUri": "ipfs://NewUriToReplace",
   "startIndex": 0,

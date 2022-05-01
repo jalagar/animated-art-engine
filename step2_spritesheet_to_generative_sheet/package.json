@@ -19,6 +19,8 @@
     "generate": "node index.js",
     "update:metadata": "node utils/updateInfo.js",
     "generate:solana": "node Solana/metaplex.js",
+    "generate:tezos": "node utils/tezos.js && node utils/resize.js",
+    "update_info:tezos": "node tezos/updateInfo.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Daniel Eugene Botha (HashLips), NFTChef, Jalagar",
