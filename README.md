@@ -101,6 +101,7 @@ Update `global_config.json` with:
 11. **`'gifTool'`**: pick which gif generation method to use, `gifski` or `imageio`. Gifski is better overall, but some people were having issues with it on Linux. Also `imageio` will work for more pixel art, so if you don't want to download Gifski you can set this to `imageio`.
 12. **`'useBatches'`**: set to `true` if you want to take advantage of [batching](#batching). Otherwise does nothing.
 13. **`'numFramesPerBatch'`**: number of frames for each batch. See [batching](#batching) for more information. Only does something if `useBatches` is set to `true`.
+14. **`'loopGif'`**: `true` if you want to loop the gif, `false` if you don't want to loop it.
 
 Update `step2_spritesheet_to_generative_sheet/src/config.js` with your `layerConfigurations`. If you want the basic
 configuration, just edit `layersOrder`, but if you want to take advantage of [nftchef's repo](https://generator.nftchef.dev/), then scroll through the file for some examples and modify `layerConfigurations` accordingly.
