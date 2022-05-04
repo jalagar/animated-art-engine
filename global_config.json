@@ -13,5 +13,6 @@
   "layersFolder": "layers",
   "gifTool": "gifski",
   "useBatches": false,
-  "numFramesPerBatch": 4
+  "numFramesPerBatch": 4,
+  "loopGif": true
 }
