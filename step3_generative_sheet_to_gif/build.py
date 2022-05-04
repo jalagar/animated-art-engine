@@ -26,7 +26,7 @@ quality = global_config["quality"]
 gif_tool = global_config["gifTool"]
 use_batches = global_config["useBatches"]
 num_frames_per_batch = global_config["numFramesPerBatch"]
-should_repeat = global_config["loopGif"]
+loop_gif = global_config["loopGif"]
 
 
 class GifTool:
@@ -97,13 +97,13 @@ def convert_pngs_to_gif(file_name: str, fps: int, batch_number: int):
             mode="I",
             quantizer=0,
             palettesize=256,
-            loop=0 if should_repeat else 1
+            loop=0 if loop_gif else 1
         ) as writer:
             for image in images:
                 writer.append_data(image)
     elif gif_tool == GifTool.GIFSKI:
         subprocess.run(
-            f"gifski -o {os.path.join(OUTPUT_GIFS_DIRECTORY, gif_name)} {temp_img_folder}/*.png --fps={fps} --quality={quality} -W={width} --repeat={0 if should_repeat else -1}",
+            f"gifski -o {os.path.join(OUTPUT_GIFS_DIRECTORY, gif_name)} {temp_img_folder}/*.png --fps={fps} --quality={quality} -W={width} --repeat={0 if loop_gif else -1}",
             shell=True,
         )
     else:
