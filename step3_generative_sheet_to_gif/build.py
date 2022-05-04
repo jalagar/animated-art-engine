@@ -16,7 +16,7 @@ from utils.file import (
 OUTPUT_GIFS_DIRECTORY = "./build/gifs"
 OUTPUT_IMAGES_DIRECTORY = "./build/images"
 INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
-TEMP_DIRECTORY =  "./step3_generative_sheet_to_gif/temp"
+TEMP_DIRECTORY = "./step3_generative_sheet_to_gif/temp"
 
 global_config = parse_global_config()
 fps = global_config["framesPerSecond"]
@@ -88,7 +88,7 @@ def convert_pngs_to_gif(file_name: str, fps: int, batch_number: int):
             if save_individual_frames:
                 new_frame.save(os.path.join(images_directory, filename), quality=95)
             images.append(imageio.imread(temp_img_path))
-    
+
     gif_name = get_png_file_name(file_name) + ".gif"
     if gif_tool == GifTool.IMAGEIO:
         with imageio.get_writer(
@@ -97,7 +97,7 @@ def convert_pngs_to_gif(file_name: str, fps: int, batch_number: int):
             mode="I",
             quantizer=0,
             palettesize=256,
-            loop=0 if loop_gif else 1
+            loop=0 if loop_gif else 1,
         ) as writer:
             for image in images:
                 writer.append_data(image)
@@ -107,7 +107,9 @@ def convert_pngs_to_gif(file_name: str, fps: int, batch_number: int):
             shell=True,
         )
     else:
-        raise Exception(f"Passed in invalid gif_tool {gif_tool}, only options are gifski and imageio")
+        raise Exception(
+            f"Passed in invalid gif_tool {gif_tool}, only options are gifski and imageio"
+        )
 
 
 def fps_to_ms_duration(fps: int) -> int:
@@ -128,7 +130,7 @@ def fps_to_ms_duration(fps: int) -> int:
     return int(1000 / fps)
 
 
-def main(batch_number:int = 0, generate_gifs:bool=True):
+def main(batch_number: int = 0, generate_gifs: bool = True):
     print("Starting step 3: Converting sprite sheets to gifs")
 
     if use_batches:
@@ -142,9 +144,7 @@ def main(batch_number:int = 0, generate_gifs:bool=True):
     for filename in sorted(os.listdir(INPUT_DIRECTORY), key=sort_function):
         if filename.endswith(".png"):
             print(f"Converting spritesheet to gif for {filename}")
-            crop_and_save(
-                filename, batch_number
-            )
+            crop_and_save(filename, batch_number)
             if not use_batches or generate_gifs:
                 convert_pngs_to_gif(filename, fps, batch_number)
 

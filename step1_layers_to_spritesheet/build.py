@@ -26,7 +26,7 @@ TEMP_DIRECTORY = "./step1_layers_to_spritesheet/temp"
 OUTPUT_DIRECTORY = "./step1_layers_to_spritesheet/output"
 
 
-def combine_images(images: List[Image], batch_number:int) -> Image:
+def combine_images(images: List[Image], batch_number: int) -> Image:
     """
     Combines images horizontally in a new image. This assumes
     all images are the same size.
@@ -40,7 +40,9 @@ def combine_images(images: List[Image], batch_number:int) -> Image:
 
     # For batches, slice only batch number of frames
     if use_batches:
-        images = images[batch_number*num_batch_frames: (batch_number + 1)*num_batch_frames]
+        images = images[
+            batch_number * num_batch_frames : (batch_number + 1) * num_batch_frames
+        ]
 
     dst = PIL_Image.new("RGBA", (len(images) * width, height), (0, 0, 0, 0))
     for i, img in enumerate(images):
@@ -104,7 +106,9 @@ def parse_attributes_into_images(
             # Final output path needs to be output_layer_path/attribute_folder
             output_attribute_path = os.path.join(output_path, attribute_folder)
             setup_directory(output_attribute_path, delete_if_exists=False)
-            parse_attribute_folders(filename, file_path, output_attribute_path, batch_number)
+            parse_attribute_folders(
+                filename, file_path, output_attribute_path, batch_number
+            )
 
     if len(images) == 0:
         return [], containsSubFolder
@@ -115,7 +119,9 @@ def parse_attributes_into_images(
 
 
 def parse_attribute_folders(
-    attribute_folder: str, attribute_path: str, output_path: str,
+    attribute_folder: str,
+    attribute_path: str,
+    output_path: str,
     batch_number: int,
 ) -> None:
     """
@@ -188,8 +194,7 @@ def parse_gifs_into_temp_directory(directory: str, output_directory: str) -> Non
             try:
                 for i in range(num_total_frames):
                     pil_gif.seek(i)
-                    pil_gif.save(os.path.join(
-                        output_directory, f"{i}.png"), quality=95)
+                    pil_gif.save(os.path.join(output_directory, f"{i}.png"), quality=95)
             except EOFError:
                 # Ran out of frames, not all gifs need to be the same length
                 break

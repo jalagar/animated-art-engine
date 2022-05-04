@@ -8,6 +8,7 @@ num_total_frames = global_config_json["numberOfFrames"]
 num_frames_per_batch = global_config_json["numFramesPerBatch"]
 total_supply = global_config_json["totalSupply"]
 
+
 def main():
     for i in range(num_total_frames // num_frames_per_batch):
         print(f"*******Starting Batch {i}*******")
@@ -19,6 +20,7 @@ def main():
             )
         # Only generate gif if its the last batch
         step3_main(i, generate_gifs=i == (num_total_frames // num_frames_per_batch - 1))
+
 
 if __name__ == "__main__":
     main()
