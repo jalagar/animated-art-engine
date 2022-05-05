@@ -17,7 +17,7 @@ const {
   royaltyFee,
   creators,
 } = require(path.join(basePath, "Solana/solanaConfig.js"));
-const { startIndex, layersDir } = require(path.join(basePath, "/src/config.js"));
+const { startIndex } = require(path.join(basePath, "/src/config.js"));
 const gifDir = `${basePath}/../build/gifs`;
 const jsonDir = `${basePath}/../build/json`;
 
@@ -80,7 +80,6 @@ console.log(
 jsonFiles.forEach((file) => {
   let nameWithoutExtension = file.slice(0, -4);
   let editionCountFromFileName = Number(nameWithoutExtension);
-  let newEditionCount = editionCountFromFileName - startIndex;
 
   const rawData = fs.readFileSync(`${jsonDir}/${file}`);
   const jsonData = JSON.parse(rawData);
@@ -90,14 +89,14 @@ jsonFiles.forEach((file) => {
     symbol: symbol,
     description: description,
     seller_fee_basis_points: royaltyFee,
-    image: `${newEditionCount}.gif`,
+    image: `${editionCountFromFileName}.gif`,
     ...(external_url !== "" && { external_url }),
     attributes: jsonData.attributes,
     properties: {
       edition: jsonData.edition,
       files: [
         {
-          uri: `${newEditionCount}.gif`,
+          uri: `${editionCountFromFileName}.gif`,
           type: "image/gif",
         },
       ],
@@ -107,7 +106,7 @@ jsonFiles.forEach((file) => {
     },
   };
   fs.writeFileSync(
-    path.join(`${metaplexDir}`, "json", `${newEditionCount}.json`),
+    path.join(`${metaplexDir}`, "json", `${editionCountFromFileName}.json`),
     JSON.stringify(tempMetadata, null, 2)
   );
 });
