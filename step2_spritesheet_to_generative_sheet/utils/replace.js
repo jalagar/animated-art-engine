@@ -1,10 +1,10 @@
 "use strict";
 
 /**
- * This utility tool is designed specifically for the scenario in which you 
+ * This utility tool is designed specifically for the scenario in which you
  * would like to replace one or many tokens with one off, non-generated items,
- * (or any image/metadata combo that does NOT conflict with the generators permutation DNA checks)
- 
+ * (or any gif/metadata combo that does NOT conflict with the generators permutation DNA checks)
+
  */
 
 const isLocal = typeof process.pkg === "undefined";
@@ -15,10 +15,11 @@ const { Command } = require("commander");
 const program = new Command();
 const chalk = require("chalk");
 const keccak256 = require("keccak256");
+const { start } = require("repl");
+const { startIndex } = require(path.join(basePath, "/src/config.js"));
 
-const builtImageDir = `${basePath}/../build/images`;
+const builtGifsDir = `${basePath}/../build/gifs`;
 const builtJsonDir = `${basePath}/../build/json`;
-const metadataFilePath = `${basePath}/../build/json/_metadata.json`;
 
 const getIndividualJsonFiles = (sourcePath) => {
   return fs
@@ -26,7 +27,7 @@ const getIndividualJsonFiles = (sourcePath) => {
     .filter((item) => /^[0-9]{1,6}.json/g.test(item));
 };
 
-const getIndividualImageFiles = (sourcePath) => {
+const getIndividualgifFiles = (sourcePath) => {
   return fs.readdirSync(sourcePath);
 };
 
@@ -54,39 +55,39 @@ function resolveNested(stringpath, obj) {
 }
 
 /**
- * Randomly selects a number within the range of built images.
- * Since images and json files in the build folder are assumed to be identical,
- * we index of the length of the images directory.
+ * Randomly selects a number within the range of built gifs.
+ * Since gifs and json files in the build folder are assumed to be identical,
+ * we index of the length of the gifs directory.
  *
- * @param {String} image incomong filename
- * @param {Number} randomID new index to replace existing image/json files
+ * @param {String} gif incomong filename
+ * @param {Number} randomID new index to replace existing gif/json files
  * @param {String} sourcePath path to source files
  * @param {Object} options command options object
  */
-const replace = (image, randomID, sourcePath, options) => {
+const replace = (gif, randomID, sourcePath, options) => {
   options.sneak
-    ? console.log(chalk.cyan(`Randomly replacing ${image} -> ${randomID} `))
+    ? console.log(chalk.cyan(`Randomly replacing ${gif} -> ${randomID} `))
     : null;
-  // console.log({ image, index, sourcePath });
-  const imageNum = image.substr(0, image.lastIndexOf(".")) || image;
-  const imageExtension = image.split(".").pop();
+  // console.log({ gif, index, sourcePath });
+  const gifNum = gif.substr(0, gif.lastIndexOf(".")) || gif;
+  const gifExtension = gif.split(".").pop();
 
   // read the data, replace the numbers
-  const currentImage = fs.readFileSync(path.join(sourcePath, "images", image));
+  const currentGif = fs.readFileSync(path.join(sourcePath, "gifs", gif));
   try {
     const currentData = fs.readFileSync(
-      path.join(sourcePath, "json", `${imageNum}.json`)
+      path.join(sourcePath, "json", `${gifNum}.json`)
     );
 
     const newMetadata = JSON.parse(currentData);
-    // hash the image
-    const imageHash = hash(currentImage);
-    newMetadata.imageHash = imageHash;
+    // hash the gif
+    const gifHash = hash(currentGif);
+    newMetadata.imageHash = gifHash;
 
     // replace all ## with proper edition number
     const symbol = options.replacementSymbol
       ? new RegExp(options.replacementSymbol, "gm")
-      : /##/gm;
+      : /"##"|##/gm;
 
     options.debug ? console.log({ symbol }) : null;
     const updatedMetadata = JSON.stringify(newMetadata, null, 2).replace(
@@ -95,7 +96,7 @@ const replace = (image, randomID, sourcePath, options) => {
     );
 
     options.debug
-      ? console.log(`Generating hash from ${image}`, imageHash)
+      ? console.log(`Generating hash from ${gif}`, gifHash)
       : null;
 
     const globalMetadata = JSON.parse(
@@ -128,20 +129,20 @@ const replace = (image, randomID, sourcePath, options) => {
       path.join(builtJsonDir, `${randomID}.json`),
       updatedMetadata
     );
-    // overwrite the build image file
+    // overwrite the build gif file
     fs.writeFileSync(
-      path.join(builtImageDir, `${randomID}.${imageExtension}`),
-      currentImage
+      path.join(builtGifsDir, `${randomID}.${gifExtension}`),
+      currentGif
     );
 
-    // overwrite the build image file
+    // overwrite the build gif file
     fs.writeFileSync(
       path.join(builtJsonDir, "_metadata.json"),
       JSON.stringify(updatedGlobalMetadata, null, 2)
     );
   } catch (error) {
     console.error(error);
-    throw new Error(`Image ${imageNum} is missing a matching JSON file`);
+    throw new Error(`Gif ${gifNum} is missing a matching JSON file`);
   }
 };
 
@@ -161,20 +162,20 @@ program
     // get source to replace from
     // replaceFrom source/ -> destination
 
-    // get source to replace to, image + json
-    const imageSource = path.join(basePath, source, `/images`);
+    // get source to replace to, gif + json
+    const gifSource = path.join(basePath, source, `/gifs`);
     const dataSource = path.join(basePath, source, `/json`);
-    const imageFiles = getIndividualImageFiles(imageSource);
+    const gifFiles = getIndividualgifFiles(gifSource);
     const dataFiles = getIndividualJsonFiles(dataSource);
     // global variable to keep track of which ID's have been used.
     const randomIDs = new Set();
 
     console.log(
-      chalk.greenBright.inverse(`\nPulling images and data from ${source}`)
+      chalk.greenBright.inverse(`\nPulling gif and data from ${source}`)
     );
     options.debug
       ? console.log(
-        `\tFound ${imageFiles.length} images in "${imageSource}"
+        `\tFound ${gifFiles.length} gifs in "${gifSource}"
         and
         ${dataFiles.length} in ${dataSource}`
       )
@@ -182,28 +183,28 @@ program
 
     // Main functions in trycatch block for cleaner error logging if throwing errors.
     // try {
-    if (imageFiles.length !== dataFiles.length) {
+    if (gifFiles.length !== dataFiles.length) {
       throw new Error(
-        "Number of images and number of metadata JSON files do not match. \n Are you Missing one?"
+        "Number of gifs and number of metadata JSON files do not match. \n Are you Missing one?"
       );
     }
-    // get the length of images in the build folder
-    const totalCount = fs.readdirSync(builtImageDir).length;
-    while (randomIDs.size < imageFiles.length) {
-      randomIDs.add(Math.floor(Math.random() * (totalCount - 1 + 1) + 1));
+    // get the length of gifs in the build folder
+    const totalCount = fs.readdirSync(builtGifsDir).length;
+    while (randomIDs.size < gifFiles.length) {
+      randomIDs.add(Math.floor(Math.random() * (totalCount + startIndex - 1)));
     }
     const randomIDArray = Array.from(randomIDs);
 
     // randomly choose a number
-    imageFiles.forEach((image, index) =>
-      replace(image, randomIDArray[index], path.join(basePath, source), options)
+    gifFiles.forEach((gif, index) =>
+      replace(gif, randomIDArray[index], path.join(basePath, source), options)
     );
-    // if image is missing accompanying json, throw error.
+    // if gif is missing accompanying json, throw error.
     console.log(
       chalk.green(
         `\nSuccessfully inserted ${chalk.bgGreenBright.black(
-          imageFiles.length
-        )} Images and Data Files into the build directories\n`
+          gifFiles.length
+        )} gifs and Data Files into the build directories\n`
       )
     );
     // } catch (error) {

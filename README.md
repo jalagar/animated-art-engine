@@ -274,7 +274,7 @@ is set in global_config.json.
 Step 2 takes the spritesheets from step 1 and generates all possible combinations based on rarity. This is where
 all the magic happens! The output is a bunch of spritesheets with all the layers layered on top of each other.
 
-The original idea came from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) but now most of the code in this step is forked from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). 
+The original idea came from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) but now most of the code in this step is forked from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node).
 Please check out Hashlip's [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) for a more in depth explanation on how the generative process works.
 
 I recently modified this section to use the code from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which adds the following features:
@@ -309,7 +309,7 @@ some of the pixel hex colors were off. Also depending on CPU usage, the program 
 start from scratch in another language.
 
 I then tried imageio, and a few Python libraries, but they all had some issues
-generating gifs. 
+generating gifs.
 
 I spent weeks finding the best tool for this job, and came across [gifski](https://gif.ski/). This
 creates incredibly clean gifs and worked the best.
@@ -387,6 +387,53 @@ You can change the description and base Uri of your metadata even after running 
 
         make update_json
 
+# Randomly Insert Rare items - Replace Util
+
+If you would like to manually add 'hand drawn' or unique versions into the pool of generated items, this utility takes a source folder (of your new artwork) and inserts it into the `build` directory, assigning them to random id's.
+
+## Requirements
+
+- Place gifs into ultraRares/gifs
+- Put matching, sequential json files in the ultraRares/json folder
+
+example:
+
+```
+├── ultraRares
+│   ├── gifs
+│   │   ├── 0.gif
+│   │   └── 1.gif
+│   └── json
+│       ├── 0.json
+│       └── 1.json
+```
+
+**You must have matching json files for each of your images.**
+
+## Setting up the JSON.
+
+Because this script randomizes which tokens to replace/place, _it is important_ to update the metadata properly with the resulting tokenId #.
+
+**_Everywhere_ you need the edition number in the metadata should use the `##` identifier.**
+
+```json
+  "edition": "##",
+```
+
+**Don't forget the image URI!**
+
+```json
+  "name": "## super rare sunburn ",
+  "image": "ipfs://NewUriToReplace/##.png",
+  "edition": "##",
+```
+
+## Running
+
+Run with `make replace`. If you need to replace the folder name, you may have to edit the `Makefile` directly with the folder.
+
+**Note this will not update _dna.json because these new JSONs don't have DNA. This will modify _metadata.json though.**
+
 ### Solana metadata
 
 🧪 BETA FEATURE
@@ -412,7 +459,7 @@ See [Tezos README](step2_spritesheet_to_generative_sheet/documentation/other-blo
 Do you want higher resolution, more frames, and larger gifs? Batching is for you! Currently step2 is limited by 32000 pixel files,
 so in order to get around this we must batch the entire process into chunks and then combine them at the end.
 
-Set `useBatches` in `global_config.json` to `true` and then set `numFramesPerBatch` to an even divisible of `numberOfFrames`. 
+Set `useBatches` in `global_config.json` to `true` and then set `numFramesPerBatch` to an even divisible of `numberOfFrames`.
 
 Then run `make batch`. This under the hood first runs `make step1` + `make step2` to generate the initial metadata, then `python3 batch.py`
 which creates the remaining images based on the initial metadata.

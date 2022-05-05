@@ -22,6 +22,7 @@
     "generate:tezos": "node utils/tezos.js",
     "update_info:tezos": "node tezos/updateInfo.js",
     "create_from_metadata": "node utils/createFromMetadata.js",
+    "replace": "node utils/replace.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Daniel Eugene Botha (HashLips), NFTChef, Jalagar",

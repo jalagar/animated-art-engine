@@ -1,0 +1,23 @@
+{
+  "name": "Bouncing Ball Z-Index Example: #0",
+  "description": "Your description here",
+  "image": "ipfs://NewUriToReplace/0.gif",
+  "imageName": "##.gif",
+  "edition": "##",
+  "date": 1651752720849,
+  "attributes": [
+    {
+      "trait_type": "Background",
+      "value": "Yellow"
+    },
+    {
+      "trait_type": "Landscape",
+      "value": "Cupcake"
+    },
+    {
+      "trait_type": "Ball",
+      "value": "Basketball"
+    }
+  ],
+  "compiler": "HashLips Art Engine - Jalagar gif fork"
+}
