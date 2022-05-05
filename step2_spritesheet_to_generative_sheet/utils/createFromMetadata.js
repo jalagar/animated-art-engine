@@ -22,7 +22,6 @@ const {
   background,
   layerConfigurations,
   outputJPEG,
-  startIndex,
 } = require(path.join(basePath, "/src/config.js"));
 
 const {
@@ -30,12 +29,9 @@ const {
   layersSetup,
   constructLayerToDna,
   loadLayerImg,
-  addMetadata,
-  postProcessMetadata,
+  sortZIndex,
 } = require(path.join(basePath, "/src/main.js"));
 
-let failedCount = 0;
-let attributesList = [];
 const canvas = createCanvas(format.width, format.height);
 const ctxMain = canvas.getContext("2d");
 
@@ -49,9 +45,7 @@ const createItem = (_id, layers) => {
   return { existingDna, layerImages: constructLayerToDna(existingDna, layers) };
 };
 
-const outputFiles = (_id, layerData, options) => {
-  const { existingDna, abstractedIndexes } = layerData;
-
+const outputFiles = (_id) => {
   // Save the image
   fs.writeFileSync(
     `${imageDir}/${_id}${outputJPEG ? ".jpg" : ".png"}`,
@@ -79,9 +73,10 @@ const regenerateItem = (_id, options) => {
     return [...images, ...layer.selectedElements];
   }, []);
 
-  const loadedElements = allImages.reduce((acc, layer) => {
-    return [...acc, loadLayerImg(layer)];
-  }, []);
+  const loadedElements = [];
+  sortZIndex(allImages).forEach((layer) => {
+    loadedElements.push(loadLayerImg(layer));
+  });
 
   Promise.all(loadedElements).then((renderObjectArray) => {
     const layerData = {
