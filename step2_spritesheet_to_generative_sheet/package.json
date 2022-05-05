@@ -19,7 +19,7 @@
     "generate": "node index.js",
     "update:metadata": "node utils/updateInfo.js",
     "generate:solana": "node Solana/metaplex.js",
-    "generate:tezos": "node utils/tezos.js && node utils/resize.js",
+    "generate:tezos": "node utils/tezos.js",
     "update_info:tezos": "node tezos/updateInfo.js",
     "create_from_metadata": "node utils/createFromMetadata.js",
     "test": "echo \"Error: no test specified\" && exit 1"

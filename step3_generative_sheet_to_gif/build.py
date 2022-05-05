@@ -22,11 +22,13 @@ global_config = parse_global_config()
 fps = global_config["framesPerSecond"]
 height = global_config["height"]
 width = global_config["width"]
+height = global_config["height"]
 quality = global_config["quality"]
 gif_tool = global_config["gifTool"]
 use_batches = global_config["useBatches"]
 num_frames_per_batch = global_config["numFramesPerBatch"]
 loop_gif = global_config["loopGif"]
+save_individual_frames = global_config["saveIndividualFrames"]
 
 
 class GifTool:
@@ -40,7 +42,7 @@ def get_temp_directory(file_name: str):
     return temp_directory
 
 
-def crop_and_save(file_name: str, batch_number: int) -> None:
+def crop_and_save(file_name: str, batch_number: int, width: int, height: int) -> None:
     """
     Crops image into squares and saves them into temp folder
 
@@ -67,14 +69,18 @@ def crop_and_save(file_name: str, batch_number: int) -> None:
             k += 1
 
 
-def convert_pngs_to_gif(file_name: str, fps: int, batch_number: int):
-    global_config = parse_global_config()
-    save_individual_frames = global_config["saveIndividualFrames"]
-
+def convert_pngs_to_gif(
+    file_name: str,
+    fps: int,
+    output_gif_directory: str,
+    is_resize: bool,
+    width: int,
+    height: int,
+):
     images_directory = os.path.join(
         OUTPUT_IMAGES_DIRECTORY, get_png_file_name(file_name)
     )
-    if save_individual_frames:
+    if save_individual_frames and not is_resize:
         setup_directory(images_directory)
 
     temp_img_folder = get_temp_directory(file_name)
@@ -85,14 +91,14 @@ def convert_pngs_to_gif(file_name: str, fps: int, batch_number: int):
         if filename.endswith(".png"):
             temp_img_path = os.path.join(temp_img_folder, filename)
             new_frame = Image.open(temp_img_path)
-            if save_individual_frames:
+            if save_individual_frames and not is_resize:
                 new_frame.save(os.path.join(images_directory, filename), quality=95)
             images.append(imageio.imread(temp_img_path))
 
     gif_name = get_png_file_name(file_name) + ".gif"
     if gif_tool == GifTool.IMAGEIO:
         with imageio.get_writer(
-            os.path.join(OUTPUT_GIFS_DIRECTORY, gif_name),
+            os.path.join(output_gif_directory, gif_name),
             fps=fps,
             mode="I",
             quantizer=0,
@@ -103,7 +109,7 @@ def convert_pngs_to_gif(file_name: str, fps: int, batch_number: int):
                 writer.append_data(image)
     elif gif_tool == GifTool.GIFSKI:
         subprocess.run(
-            f"gifski -o {os.path.join(OUTPUT_GIFS_DIRECTORY, gif_name)} {temp_img_folder}/*.png --fps={fps} --quality={quality} -W={width} --repeat={0 if loop_gif else -1}",
+            f"gifski -o {os.path.join(output_gif_directory, gif_name)} {temp_img_folder}/*.png --fps={fps} --quality={quality} -W={width} -H={height} --repeat={0 if loop_gif else -1}",
             shell=True,
         )
     else:
@@ -130,23 +136,47 @@ def fps_to_ms_duration(fps: int) -> int:
     return int(1000 / fps)
 
 
-def main(batch_number: int = 0, generate_gifs: bool = True):
+def main(
+    batch_number: int = 0,
+    generate_gifs: bool = True,
+    output_gif_directory=None,
+    is_resize=False,
+    output_width=None,
+    output_height=None,
+):
     print("Starting step 3: Converting sprite sheets to gifs")
+
+    if not output_gif_directory:
+        output_gif_directory = OUTPUT_GIFS_DIRECTORY
+
+    if not output_width:
+        output_width = width
+
+    if not output_height:
+        output_height = height
 
     if use_batches:
         print(f"Starting {batch_number} with generating_gifs flag {generate_gifs}")
 
     # Only set up folders if its the first batch
     if not use_batches or batch_number == 0:
-        for folder in [OUTPUT_GIFS_DIRECTORY, OUTPUT_IMAGES_DIRECTORY, TEMP_DIRECTORY]:
+        for folder in [output_gif_directory, OUTPUT_IMAGES_DIRECTORY, TEMP_DIRECTORY]:
             setup_directory(folder)
 
     for filename in sorted(os.listdir(INPUT_DIRECTORY), key=sort_function):
         if filename.endswith(".png"):
             print(f"Converting spritesheet to gif for {filename}")
-            crop_and_save(filename, batch_number)
+            # Use global_config here from step2, not the override width/height
+            crop_and_save(filename, batch_number, width, height)
             if not use_batches or generate_gifs:
-                convert_pngs_to_gif(filename, fps, batch_number)
+                convert_pngs_to_gif(
+                    filename,
+                    fps,
+                    output_gif_directory,
+                    is_resize,
+                    output_width,
+                    output_height,
+                )
 
 
 if __name__ == "__main__":
