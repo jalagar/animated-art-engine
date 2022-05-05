@@ -387,11 +387,11 @@ You can change the description and base Uri of your metadata even after running 
 
         make update_json
 
-# Randomly Insert Rare items - Replace Util
+### Randomly Insert Rare items - Replace Util
 
 If you would like to manually add 'hand drawn' or unique versions into the pool of generated items, this utility takes a source folder (of your new artwork) and inserts it into the `build` directory, assigning them to random id's.
 
-## Requirements
+#### Requirements
 
 - Place gifs into ultraRares/gifs
 - Put matching, sequential json files in the ultraRares/json folder
@@ -410,7 +410,7 @@ example:
 
 **You must have matching json files for each of your images.**
 
-## Setting up the JSON.
+#### Setting up the JSON.
 
 Because this script randomizes which tokens to replace/place, _it is important_ to update the metadata properly with the resulting tokenId #.
 
@@ -428,7 +428,7 @@ Because this script randomizes which tokens to replace/place, _it is important_ 
   "edition": "##",
 ```
 
-## Running
+#### Running
 
 Run with `make replace`. If you need to replace the folder name, you may have to edit the `Makefile` directly with the folder.
 
