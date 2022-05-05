@@ -8,7 +8,7 @@
   "saveIndividualFrames": false,
   "description": "Your description here",
   "baseUri": "ipfs://NewUriToReplace",
-  "startIndex": 2,
+  "startIndex": 0,
   "quality": 100,
   "layersFolder": "layers",
   "gifTool": "gifski",
