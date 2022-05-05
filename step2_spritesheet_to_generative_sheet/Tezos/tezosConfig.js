@@ -26,7 +26,7 @@ const external_url = ""; // add optional external URL here, e.g, https://0n10nDi
 
 /**
  * How to write the % here ?
- * Royalties and royalty-splits should be defined in the token-metadata with the following format: 
+ * Royalties and royalty-splits should be defined in the token-metadata with the following format:
 ```json
 {
     [...],
@@ -65,8 +65,8 @@ const size = {
         height,
         width
     },
-    displayUri: reduceByFraction(0.75),
-    thumbnailUri: reduceByFraction(0.5),
+    displayUri: reduceByFraction(0.75), // Make sure to update step3/resize.py
+    thumbnailUri: reduceByFraction(0.5), // Make sure to update step3/resize.py
 };
 
 /**
