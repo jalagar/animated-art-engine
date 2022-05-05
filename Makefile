@@ -14,6 +14,7 @@ solana:
 
 tezos:
 	cd step2_spritesheet_to_generative_sheet; npm run generate:tezos
+	python3 step3_generative_sheet_to_gif/resize.py
 
 provenance:
 	cd step2_spritesheet_to_generative_sheet; node utils/provenance.js
