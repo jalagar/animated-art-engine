@@ -40,3 +40,6 @@ all_batch:
 	make step1
 	make step2
 	python3 batch.py
+
+replace:
+	cd step2_spritesheet_to_generative_sheet; npm run replace ../ultraRares
