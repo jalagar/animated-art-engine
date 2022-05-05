@@ -1,4 +1,4 @@
-# Welcome to the **Generative GIF Engine v2.0.4** 🐤
+# Welcome to the **Generative GIF Engine v2.0.5** 🐤
 
 [8 minute read]
 
