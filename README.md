@@ -465,15 +465,22 @@ Then run `make batch`. This under the hood first runs `make step1` + `make step2
 which creates the remaining images based on the initial metadata.
 
 
+### Preview Gif
+
+If you want a preview gif of a subset of gifs (like Hashlips), run
+
+`make preview`
+
+This will output `preview.gif` in the `build` folder. The default number of previews is 4 but you can change this in
+`step3_generative_sheet_to_gif/preview.py` at the top `NUM_PREVIEW_GIFS`. Currently it will randomly select the gifs,
+if you want to output the first X, set `SORT_ORDER` to `OrderEnum.ASC` and if you want to output the last X,
+set `SORT_ORDER` to `OrderEnum.DESC`.
+
+
 ## IMPORTANT NOTES
 
 All of the code in step1 and step3 was written by me. The original idea for the repo came from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) but now most of the code in step 2 is forked from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node).
 
-**_ Things to work on: _**
-
-- [X] Update step2 with latest features from [Hashlips art engine](https://github.com/HashLips/hashlips_art_engine).
-- [X] Add layer functionality to step2 from [nftchef art engine](https://github.com/nftchef/art-engine).
-- [X] Allow passing in gifs into step1 to split into spritesheets.
 
 **FAQ**
 

@@ -43,3 +43,7 @@ all_batch:
 
 replace:
 	cd step2_spritesheet_to_generative_sheet; npm run replace ../ultraRares
+
+
+preview:
+	python3 step3_generative_sheet_to_gif/preview.py
