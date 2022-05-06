@@ -12,11 +12,12 @@ from utils.file import (
     sort_function,
     parse_global_config,
 )
-
-OUTPUT_GIFS_DIRECTORY = "./build/gifs"
-OUTPUT_IMAGES_DIRECTORY = "./build/images"
-INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
-TEMP_DIRECTORY = "./step3_generative_sheet_to_gif/temp"
+from constants import (
+    OUTPUT_GIFS_DIRECTORY,
+    OUTPUT_IMAGES_DIRECTORY,
+    INPUT_DIRECTORY,
+    TEMP_DIRECTORY,
+)
 
 global_config = parse_global_config()
 fps = global_config["framesPerSecond"]
@@ -27,8 +28,8 @@ quality = global_config["quality"]
 gif_tool = global_config["gifTool"]
 use_batches = global_config["useBatches"]
 num_frames_per_batch = global_config["numFramesPerBatch"]
-loop_gif = global_config["loopGif"]
 save_individual_frames = global_config["saveIndividualFrames"]
+loop_gif = global_config["loopGif"]
 
 
 class GifTool:
@@ -42,7 +43,14 @@ def get_temp_directory(file_name: str):
     return temp_directory
 
 
-def crop_and_save(file_name: str, batch_number: int, width: int, height: int) -> None:
+def crop_and_save(
+    file_name: str,
+    batch_number: int,
+    width: int,
+    height: int,
+    temp_folder_name: str = None,
+    file_prefix: str = "",
+) -> None:
     """
     Crops image into squares and saves them into temp folder
 
@@ -58,13 +66,13 @@ def crop_and_save(file_name: str, batch_number: int, width: int, height: int) ->
     else:
         k = 0
     imgwidth, imgheight = im.size
-    temp_folder_path = get_temp_directory(file_name)
+    temp_folder_path = get_temp_directory(temp_folder_name or file_name)
 
     for i in range(0, imgheight, height):
         for j in range(0, imgwidth, width):
             box = (j, i, j + width, i + height)
             a = im.crop(box)
-            file_path = os.path.join(temp_folder_path, f"{k}.png")
+            file_path = os.path.join(temp_folder_path, f"{file_prefix}{k}.png")
             a.save(file_path, quality=95)
             k += 1
 
@@ -109,7 +117,13 @@ def convert_pngs_to_gif(
                 writer.append_data(image)
     elif gif_tool == GifTool.GIFSKI:
         subprocess.run(
-            f"gifski -o {os.path.join(output_gif_directory, gif_name)} {temp_img_folder}/*.png --fps={fps} --quality={quality} -W={width} -H={height} --repeat={0 if loop_gif else -1}",
+            f"gifski -o {os.path.join(output_gif_directory, gif_name)} "
+            f"{temp_img_folder}/*.png "
+            f"--fps={fps} "
+            f"--quality={quality} "
+            f"-W={width} "
+            f"-H={height} "
+            f"--repeat={0 if loop_gif else -1}",
             shell=True,
         )
     else:
