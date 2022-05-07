@@ -2,7 +2,6 @@
   "totalSupply": 10,
   "height": 1000,
   "width": 1000,
-  "debug": false,
   "framesPerSecond": 12,
   "numberOfFrames": 12,
   "saveIndividualFrames": false,
@@ -14,5 +13,6 @@
   "gifTool": "gifski",
   "useBatches": false,
   "numFramesPerBatch": 4,
-  "loopGif": true
+  "loopGif": true,
+  "debug": false
 }

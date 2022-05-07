@@ -45,10 +45,15 @@ Install the latest version of [Python 3](https://www.python.org/downloads/). I a
 Install [gifski](https://gif.ski/). I recommend using brew `brew install gifski` if you're on Mac OSX. If you don't have brew you can install it using [brew](https://brew.sh/) on Mac OSX. Or if you're on Windows
 you can install it using [Chocolatey](https://community.chocolatey.org/): `choco install gifski`.
 
+If you're on Linux, some people were having issues with `gifski` so you can skip installing it. You will have to set
+the `gifTool` config to `imageio` instead (see later instructions).
+
 If none of those methods work, follow instructions on gifski [gifski Github](https://github.com/ImageOptim/gifski). Gifski is crucial for this tool because it provides the best gif generation
 out of all the tools I checked out (PIL, imageio, ImageMagic, js libraries).
 
 If you plan on developing on this repository, run `pre-commit` to install pre-commit hooks.
+
+If you're on Windows you can optionally install [Make](https://www.gnu.org/software/make/) by running `choco install make`. Make is already pre-installed on Mac.
 
 ### Installation
 
@@ -61,9 +66,7 @@ If you have any issues with this command, try running each separate command:
 
        python3 -m pip install --upgrade Pillow && pip3 install -r requirements.txt
 
-       cd step2_spritesheet_to_generative_sheet; npm i
-
-       brew install gifski
+       cd step2_spritesheet_to_generative_sheet && npm i
 
 Each environment can be different, so try Google your issues. I'll add a few known issues below:
 
@@ -71,7 +74,7 @@ Known issues:
 
 - [M1 Mac: Canvas prebuild isn't built for ARM computers](https://github.com/Automattic/node-canvas/issues/1825) so you need to install it [from their Github](https://github.com/Automattic/node-canvas/wiki#installation-guides)
 - `cd` command might not work on Windows depending on what Terminal you are using. You may have to edit the `Makefile` to use `CHDIR` or the equivalent.
-- If you're on Windows 10 you might get a 'make' is not recognized. Try follow these [instructions](https://pakstech.com/blog/make-windows/#:~:text=make%20%3A%20The%20term%20'make',choose%20Path%20and%20click%20Edit). Otherwise you can copy and paste the instructions manually in `Makefile`.
+- If you're on Windows 10 you might get a 'make' is not recognized. Try `choco install make` or follow these [instructions](https://pakstech.com/blog/make-windows/#:~:text=make%20%3A%20The%20term%20'make',choose%20Path%20and%20click%20Edit). Otherwise you can copy and paste the instructions manually in `Makefile`.
 - If you're on Windows you might get an error where 'python3' does not exist, try modify the `Makefile` and replace python3 with python. Thank you!
 - If you don't have brew installed, look at [gifski](https://github.com/ImageOptim/gifski) docs for another way to install gifski.
 
