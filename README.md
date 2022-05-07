@@ -355,21 +355,9 @@ You can check the rarity stats of your collection with:
 
         make rarity
 
-### Provenance Hash Generation - IN PROGRESS
+### Provenance Hash Generation
 
-THIS SECTION IS STILL IN PROGRESS, IT DOES NOT GENERATE PROVENANCE HASH CORRECTLY
-
-If you need to generate a provenance hash (and, yes, you should, [read about it here](https://medium.com/coinmonks/the-elegance-of-the-nft-provenance-hash-solution-823b39f99473) ), make sure the following in config.js is set to `true`
-
-```js
-// IF you need a provenance hash, turn this on
-const hashImages = true;
-```
-
-Then…
-After generating images and data, each metadata file will include an `imageHash` property, which is a Keccak256 hash of the output image.
-
-### To generate the **Provenance Hash**
+If you need to generate a provenance hash (and, yes, you should, [read about it here](https://medium.com/coinmonks/the-elegance-of-the-nft-provenance-hash-solution-823b39f99473) ),
 
 run the following util
 
@@ -377,9 +365,12 @@ run the following util
 make provenance
 ```
 
-**The Provenance information is saved** to the build directory in `_prevenance.json`. This file contains the final hash as well as the (long) concatenated hash string.
+This will add a `imageHash` to each `.json` file and then concatenate them
+and hash the file value into one string which is the `provenance` hash.
 
-\*Note, if you regenerate the images, **You will also need to regenerate this hash**.
+**The Provenance information is saved** to the build directory in `_provenance.json`. This file contains the final provenance hash as well as the (long) concatenated hash string.
+
+\*Note, if you regenerate the gifs, **You will also need to regenerate this hash**.
 
 ### Update your metadata info
 
