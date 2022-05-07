@@ -46,7 +46,7 @@ Install [gifski](https://gif.ski/). I recommend using brew `brew install gifski`
 you can install it using [Chocolatey](https://community.chocolatey.org/): `choco install gifski`.
 
 If you're on Linux, some people were having issues with `gifski` so you can skip installing it. You will have to set
-the gif generation tool to use `imageio` instead (see later instructions).
+the `gifTool` config to `imageio` instead (see later instructions).
 
 If none of those methods work, follow instructions on gifski [gifski Github](https://github.com/ImageOptim/gifski). Gifski is crucial for this tool because it provides the best gif generation
 out of all the tools I checked out (PIL, imageio, ImageMagic, js libraries).
