@@ -1,5 +1,0 @@
-OUTPUT_GIFS_DIRECTORY = "./build/gifs"
-OUTPUT_IMAGES_DIRECTORY = "./build/images"
-INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
-TEMP_DIRECTORY = "./step3_generative_sheet_to_gif/temp"
-BUILD_DIRECTORY = "./build/"
