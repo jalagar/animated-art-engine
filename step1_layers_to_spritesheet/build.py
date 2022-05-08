@@ -1,5 +1,3 @@
-from glob import glob
-from tracemalloc import start
 from PIL import Image as PIL_Image
 from PIL.Image import Image
 from typing import List, Tuple
@@ -8,6 +6,7 @@ import math
 import os
 import sys
 import shutil
+import multiprocessing
 
 # In order to import utils/file.py we need to add this path.append
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -20,6 +19,8 @@ num_batch_frames = global_config_json["numFramesPerBatch"]
 use_batches = global_config_json["useBatches"]
 width = global_config_json["width"]
 height = global_config_json["height"]
+use_multiprocessing = global_config_json["useMultiprocessing"]
+cpu_count = global_config_json["cpuCount"]
 
 LAYERS_DIRECTORY = f"./{global_config_json['layersFolder']}"
 TEMP_DIRECTORY = "./step1_layers_to_spritesheet/temp"
@@ -206,6 +207,27 @@ def parse_gifs_into_temp_directory(directory: str, output_directory: str) -> Non
             parse_gifs_into_temp_directory(file_path, output_path)
 
 
+def process_layer_folder(layers_directory, layer_folder, batch_number):
+    layer_path = os.path.join(layers_directory, layer_folder)
+    # hidden files should be ignored
+    if layer_folder.startswith("."):
+        return
+    output_layer_path = os.path.join(OUTPUT_DIRECTORY, layer_folder)
+
+    setup_directory(output_layer_path)
+    if os.path.isdir(layer_path):
+        print(f"Parsing layer folder {layer_folder}")
+        for attribute_folder in os.listdir(layer_path):
+            attribute_path = os.path.join(layer_path, attribute_folder)
+            if os.path.isdir(attribute_path):
+                parse_attribute_folders(
+                    attribute_folder,
+                    attribute_path,
+                    output_layer_path,
+                    batch_number,
+                )
+
+
 def main(batch_number=0):
     print("********Starting step 1: Converting pngs to spritesheets********")
 
@@ -221,26 +243,30 @@ def main(batch_number=0):
         layers_directory = TEMP_DIRECTORY
     else:
         layers_directory = LAYERS_DIRECTORY
-    for layer_folder in os.listdir(layers_directory):
-        layer_path = os.path.join(layers_directory, layer_folder)
 
-        output_layer_path = os.path.join(OUTPUT_DIRECTORY, layer_folder)
-        # hidden files should be ignored
-        if layer_folder.startswith("."):
-            continue
+    if use_multiprocessing:
+        if cpu_count > multiprocessing.cpu_count():
+            raise Exception(
+                f"You are trying to use too many processors, you passed in {cpu_count} "
+                f"but your computer can only handle {multiprocessing.cpu_count()}. Change this value and run make step3 again."
+            )
 
-        setup_directory(output_layer_path)
-        if os.path.isdir(layer_path):
-            print(f"Parsing layer folder {layer_folder}")
-            for attribute_folder in os.listdir(layer_path):
-                attribute_path = os.path.join(layer_path, attribute_folder)
-                if os.path.isdir(attribute_path):
-                    parse_attribute_folders(
-                        attribute_folder,
-                        attribute_path,
-                        output_layer_path,
-                        batch_number,
-                    )
+        args = [
+            (
+                layers_directory,
+                layer_folder,
+                batch_number,
+            )
+            for layer_folder in os.listdir(layers_directory)
+        ]
+        with multiprocessing.Pool(cpu_count) as pool:
+            pool.starmap(
+                process_layer_folder,
+                args,
+            )
+    else:
+        for layer_folder in os.listdir(layers_directory):
+            process_layer_folder(layers_directory, layer_folder, batch_number)
 
 
 if __name__ == "__main__":

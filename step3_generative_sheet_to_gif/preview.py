@@ -12,12 +12,13 @@ from utils.file import (
     parse_global_config,
 )
 from build import crop_and_save, convert_pngs_to_gif
-from constants import (
-    BUILD_DIRECTORY,
-    INPUT_DIRECTORY,
-    TEMP_DIRECTORY,
-)
+
 import random
+
+
+INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
+TEMP_DIRECTORY = "./step3_generative_sheet_to_gif/temp"
+BUILD_DIRECTORY = "./build/"
 
 global_config = parse_global_config()
 total_supply = global_config["totalSupply"]

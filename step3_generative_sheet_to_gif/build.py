@@ -1,5 +1,5 @@
-from glob import glob
 import subprocess
+import multiprocessing
 from PIL import Image
 import os, sys
 import imageio
@@ -12,12 +12,11 @@ from utils.file import (
     sort_function,
     parse_global_config,
 )
-from constants import (
-    OUTPUT_GIFS_DIRECTORY,
-    OUTPUT_IMAGES_DIRECTORY,
-    INPUT_DIRECTORY,
-    TEMP_DIRECTORY,
-)
+
+OUTPUT_GIFS_DIRECTORY = "./build/gifs"
+OUTPUT_IMAGES_DIRECTORY = "./build/images"
+INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
+TEMP_DIRECTORY = "./step3_generative_sheet_to_gif/temp"
 
 global_config = parse_global_config()
 fps = global_config["framesPerSecond"]
@@ -30,6 +29,8 @@ use_batches = global_config["useBatches"]
 num_frames_per_batch = global_config["numFramesPerBatch"]
 save_individual_frames = global_config["saveIndividualFrames"]
 loop_gif = global_config["loopGif"]
+use_multiprocessing = global_config["useMultiprocessing"]
+cpu_count = global_config["cpuCount"]
 
 
 class GifTool:
@@ -150,9 +151,32 @@ def fps_to_ms_duration(fps: int) -> int:
     return int(1000 / fps)
 
 
+def generate_gif(
+    filename: str,
+    batch_number: int,
+    generate_gifs: bool,
+    output_gif_directory: str,
+    is_resize: bool,
+    output_width: int,
+    output_height: int,
+):
+    print(f"Converting spritesheet to gif for {filename}")
+    # Use global_config here from step2, not the override width/height
+    crop_and_save(filename, batch_number, width, height)
+    if not use_batches or generate_gifs:
+        convert_pngs_to_gif(
+            filename,
+            fps,
+            output_gif_directory,
+            is_resize,
+            output_width,
+            output_height,
+        )
+
+
 def main(
     batch_number: int = 0,
-    generate_gifs: bool = True,
+    generate_gifs: bool = True,  # Flag to determine if we should generate the final gifs or not
     output_gif_directory=None,
     is_resize=False,
     output_width=None,
@@ -177,15 +201,38 @@ def main(
         for folder in [output_gif_directory, OUTPUT_IMAGES_DIRECTORY, TEMP_DIRECTORY]:
             setup_directory(folder)
 
-    for filename in sorted(os.listdir(INPUT_DIRECTORY), key=sort_function):
-        if filename.endswith(".png"):
-            print(f"Converting spritesheet to gif for {filename}")
-            # Use global_config here from step2, not the override width/height
-            crop_and_save(filename, batch_number, width, height)
-            if not use_batches or generate_gifs:
-                convert_pngs_to_gif(
+    if use_multiprocessing:
+        if cpu_count > multiprocessing.cpu_count():
+            raise Exception(
+                f"You are trying to use too many processors, you passed in {cpu_count} "
+                f"but your computer can only handle {multiprocessing.cpu_count()}. Change this value and run make step3 again."
+            )
+
+        args = [
+            (
+                filename,
+                batch_number,
+                generate_gifs,
+                output_gif_directory,
+                is_resize,
+                output_width,
+                output_height,
+            )
+            for filename in sorted(os.listdir(INPUT_DIRECTORY), key=sort_function)
+            if filename.endswith(".png")
+        ]
+        with multiprocessing.Pool(cpu_count) as pool:
+            pool.starmap(
+                generate_gif,
+                args,
+            )
+    else:
+        for filename in sorted(os.listdir(INPUT_DIRECTORY), key=sort_function):
+            if filename.endswith(".png"):
+                generate_gif(
                     filename,
-                    fps,
+                    batch_number,
+                    generate_gifs,
                     output_gif_directory,
                     is_resize,
                     output_width,
