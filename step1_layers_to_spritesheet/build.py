@@ -259,7 +259,7 @@ def main(batch_number=0):
             )
             for layer_folder in os.listdir(layers_directory)
         ]
-        with multiprocessing.Pool(multiprocessing.cpu_count()) as pool:
+        with multiprocessing.Pool(cpu_count) as pool:
             pool.starmap(
                 process_layer_folder,
                 args,

@@ -221,7 +221,7 @@ def main(
             for filename in sorted(os.listdir(INPUT_DIRECTORY), key=sort_function)
             if filename.endswith(".png")
         ]
-        with multiprocessing.Pool(multiprocessing.cpu_count()) as pool:
+        with multiprocessing.Pool(cpu_count) as pool:
             pool.starmap(
                 generate_gif,
                 args,
