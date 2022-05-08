@@ -20,7 +20,7 @@ use_batches = global_config_json["useBatches"]
 width = global_config_json["width"]
 height = global_config_json["height"]
 use_multiprocessing = global_config_json["useMultiprocessing"]
-cpu_count = global_config_json["cpuCount"]
+processor_count = global_config_json["processorCount"]
 
 LAYERS_DIRECTORY = f"./{global_config_json['layersFolder']}"
 TEMP_DIRECTORY = "./step1_layers_to_spritesheet/temp"
@@ -245,9 +245,9 @@ def main(batch_number=0):
         layers_directory = LAYERS_DIRECTORY
 
     if use_multiprocessing:
-        if cpu_count > multiprocessing.cpu_count():
+        if processor_count > multiprocessing.cpu_count():
             raise Exception(
-                f"You are trying to use too many processors, you passed in {cpu_count} "
+                f"You are trying to use too many processors, you passed in {processor_count} "
                 f"but your computer can only handle {multiprocessing.cpu_count()}. Change this value and run make step3 again."
             )
 
@@ -259,7 +259,7 @@ def main(batch_number=0):
             )
             for layer_folder in os.listdir(layers_directory)
         ]
-        with multiprocessing.Pool(cpu_count) as pool:
+        with multiprocessing.Pool(processor_count) as pool:
             pool.starmap(
                 process_layer_folder,
                 args,

@@ -105,8 +105,8 @@ Update `global_config.json` with:
 12. **`'useBatches'`**: set to `true` if you want to take advantage of [batching](#batching). Otherwise does nothing.
 13. **`'numFramesPerBatch'`**: number of frames for each batch. See [batching](#batching) for more information. Only does something if `useBatches` is set to `true`.
 14. **`'loopGif'`**: `true` if you want to loop the gif, `false` if you don't want to loop it.
-15. **`'useMultiprocessing'`**: `true` if you want to use multi-processing which will speed up step1 and step3. You can configure how many CPU to use with `cpuCount`. Use at your own discretion, I would recommend slowly increase `cpuCount` and monitor CPU usage, this could crash your computer.
-16. **`'cpuCount'`**: Number of CPUs to use with multi-processing. The cap is `multiprocessing.cpu_count()`. Use at your own discretion.
+15. **`'useMultiprocessing'`**: `true` if you want to use multi-processing which will speed up step1 and step3. You can configure how many processors to use with `processorCount`. Use at your own discretion, I would recommend slowly increase `processorCount` and monitor CPU usage, this could crash your computer.
+16. **`'processorCount'`**: Number of processors to use with multi-processing. The cap is `multiprocessing.cpu_count()`. Use at your own discretion.
 
 Update `step2_spritesheet_to_generative_sheet/src/config.js` with your `layerConfigurations`. If you want the basic
 configuration, just edit `layersOrder`, but if you want to take advantage of [nftchef's repo](https://generator.nftchef.dev/), then scroll through the file for some examples and modify `layerConfigurations` accordingly.

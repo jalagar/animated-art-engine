@@ -30,7 +30,7 @@ num_frames_per_batch = global_config["numFramesPerBatch"]
 save_individual_frames = global_config["saveIndividualFrames"]
 loop_gif = global_config["loopGif"]
 use_multiprocessing = global_config["useMultiprocessing"]
-cpu_count = global_config["cpuCount"]
+processor_count = global_config["processorCount"]
 
 
 class GifTool:
@@ -126,6 +126,8 @@ def convert_pngs_to_gif(
             f"-H={height} "
             f"--repeat={0 if loop_gif else -1}",
             shell=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
         )
     else:
         raise Exception(
@@ -202,9 +204,9 @@ def main(
             setup_directory(folder)
 
     if use_multiprocessing:
-        if cpu_count > multiprocessing.cpu_count():
+        if processor_count > multiprocessing.cpu_count():
             raise Exception(
-                f"You are trying to use too many processors, you passed in {cpu_count} "
+                f"You are trying to use too many processors, you passed in {processor_count} "
                 f"but your computer can only handle {multiprocessing.cpu_count()}. Change this value and run make step3 again."
             )
 
@@ -221,7 +223,7 @@ def main(
             for filename in sorted(os.listdir(INPUT_DIRECTORY), key=sort_function)
             if filename.endswith(".png")
         ]
-        with multiprocessing.Pool(cpu_count) as pool:
+        with multiprocessing.Pool(processor_count) as pool:
             pool.starmap(
                 generate_gif,
                 args,
