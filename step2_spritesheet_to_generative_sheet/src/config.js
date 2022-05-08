@@ -95,9 +95,6 @@ const layerConfigurationsIfThen = [
       {
         name: "Ball",
       },
-      // {
-      //   name: "Hat",
-      // },
     ],
   },
 ]
@@ -138,11 +135,12 @@ const emptyLayerName = "NONE";
  * first as the Key, and the incompatible items that _may_ come after.
  * The current version requires all layers to have unique names, or you may
  * accidentally set incompatibilities for the _wrong_ item.
+ *
+ * Try run it with layers_incompatible and see that the Flashing background
+ * will not have the flashing ball
  */
 const incompatible = {
-  //   Red: ["Dark Long"],
-  //   // directory incompatible with directory example
-  //   White: ["rare-Pink-Pompadour"],
+  // Flashing: ["Multicolor"],
 };
 
 /**
