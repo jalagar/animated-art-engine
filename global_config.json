@@ -1,5 +1,5 @@
 {
-  "totalSupply": 100,
+  "totalSupply": 4,
   "height": 1000,
   "width": 1000,
   "framesPerSecond": 12,
@@ -15,6 +15,6 @@
   "debug": false,
   "useBatches": false,
   "numFramesPerBatch": 4,
-  "useMultiprocessing": true,
-  "processorCount": 8
+  "useMultiprocessing": false,
+  "processorCount": 1
 }
