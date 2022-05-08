@@ -22,7 +22,7 @@ on [OpenSea](https://opensea.io/collection/genesis-bouncing-ball).
 
 <img src="./README_Assets/0.gif" width="200"><img src="./README_Assets/1.gif" width="200"><img src="./README_Assets/2.gif" width="200"><img src="./README_Assets/3.gif" width="200">
 
-**EDIT tool now supports z-index/stacking, grouping, if-then statements, and incompatibilities**. See [this section for more information](). Here is an example of having one layer that is both in front and behind the ball.
+**EDIT tool now supports z-index/stacking, grouping, if-then statements, and incompatibilities**. See [this section for more information](#nftchef-improvements-z-indexstacking-grouping-if-then-statements-and-incompatibilities). Here is an example of having one layer that is both in front and behind the ball.
 
 <img src="./README_Assets/z-index/0.gif" width="200">
 
