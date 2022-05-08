@@ -248,7 +248,7 @@ def main(batch_number=0):
         if processor_count > multiprocessing.cpu_count():
             raise Exception(
                 f"You are trying to use too many processors, you passed in {processor_count} "
-                f"but your computer can only handle {multiprocessing.cpu_count()}. Change this value and run make step3 again."
+                f"but your computer can only handle {multiprocessing.cpu_count()}. Change this value and run make step1 again."
             )
 
         args = [
