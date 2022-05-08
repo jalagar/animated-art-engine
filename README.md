@@ -22,17 +22,9 @@ on [OpenSea](https://opensea.io/collection/genesis-bouncing-ball).
 
 <img src="./README_Assets/0.gif" width="200"><img src="./README_Assets/1.gif" width="200"><img src="./README_Assets/2.gif" width="200"><img src="./README_Assets/3.gif" width="200">
 
-**EDIT tool now supports z-index/stacking, grouping, if-then statements, and incompatibilities**. See [nftchef's docs](https://generator.nftchef.dev/readme/) for more information. Here is an example of having one layer that is both in front and behind the ball.
+**EDIT tool now supports z-index/stacking, grouping, if-then statements, and incompatibilities**. See [this section for more information](). Here is an example of having one layer that is both in front and behind the ball.
 
 <img src="./README_Assets/z-index/0.gif" width="200">
-
-TLDR if you don't want to read the doc:
-
-- **z-index/stacking**: You can have the same layer appear in front and behind of another layer (see basketball above). You do this by specifying
-a `z_,` in front of the name, for example `z1,` or `z2,`. See `layers_z_index` for an example, and try setting the `layersFolder` to `layers_z_index` to see this in action and checkout `layerConfigurationsZIndex` in the `config.js` for the configuration.
-- **grouping**: You can group traits together into groups, like common/rare. Then you can specify how much supply you want of each. See `layers_grouping` folder and `layerConfigurationsGrouping` in the `config.js`.
-- **if-then**: You can specify if this trait then have this other trait. For example, if ball is pink, then pick these two hats. See `layers_if_then` folder and `layerConfigurationsIfThen` in `config.js`.
-- **incompatibilities**: You can specify if you want a layer to be incompatible with another layer. For example, if you don't want the flashing background to have a multicolor ball. NOTE, this only works if layer names are all unique or else this may lead to unintended behavior. See `layers_incompatible` and `const incompatible` in `config.js`. You can uncomment the line, and run the code with `layersFolder` set to `layers_incompatible` to see it working in action.
 
 ## Requirements
 
@@ -359,6 +351,20 @@ to download `gifski`. `imageio` will work for most pixel art and I know some peo
 with `gifski` on Linux (not Windows or Mac).
 
 You can set which gif tool to use in `global_config.json` by setting `gifTool` to either `gifski` (default) or `imageio`.
+
+### NFTChef improvements: z-index/stacking, grouping, if-then statements, and incompatibilities
+
+Tool now supports z-index/stacking, grouping, if-then statements, and incompatibilities. See [nftchef's docs](https://generator.nftchef.dev/readme/) for more information.
+
+TLDR if you don't want to read the doc:
+
+- **z-index/stacking**: You can have the same layer appear in front and behind of another layer (see basketball above). You do this by specifying
+a `z_,` in front of the name, for example `z1,` or `z2,`. See `layers_z_index` for an example, and try setting the `layersFolder` to `layers_z_index` to see this in action and checkout `layerConfigurationsZIndex` in the `config.js` for the configuration.
+- **grouping**: You can group traits together into groups, like common/rare. Then you can specify how much supply you want of each. See `layers_grouping` folder and `layerConfigurationsGrouping` in the `config.js`.
+- **if-then**: You can specify if this trait then have this other trait. For example, if ball is pink, then pick these two hats. See `layers_if_then` folder and `layerConfigurationsIfThen` in `config.js`.
+- **incompatibilities**: You can specify if you want a layer to be incompatible with another layer. For example, if you don't want the flashing background to have a multicolor ball. NOTE, this only works if layer names are all unique or else this may lead to unintended behavior. See `layers_incompatible` and `const incompatible` in `config.js`. You can uncomment the line, and run the code with `layersFolder` set to `layers_incompatible` to see it working in action.
+
+
 
 ### Rarity stats
 
