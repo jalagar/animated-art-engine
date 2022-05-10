@@ -61,7 +61,7 @@ def main():
                 width,
                 height,
                 temp_folder_name="preview",
-                file_prefix=f"{filename}_",
+                file_prefix=f"{get_png_file_name(filename)}_",
             )
 
     convert_pngs_to_gif(
