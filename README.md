@@ -2,6 +2,8 @@
 
 [8 minute read]
 
+**Check out this [Youtube Tutorial](https://www.youtube.com/watch?v=z3jMEx6PRUc) on how it works!**
+
 This python and node app generates layered-based gifs to create NFT gif art! It is faster, simpler, and
 produces higher quality gifs than any other open source gif generative tool out there. Export your animation as a png image sequence,
 organize your layer folders with rarity, and the code does the rest! I plan to actively maintain this repo
