@@ -537,11 +537,6 @@
     "strip-ansi" "^3.0.1"
     "wide-align" "^1.1.0"
 
-"gif-encoder-2@^1.0.5":
-  "integrity" "sha512-fsRAKbZuUoZ7FYGjpFElmflTkKwsn/CzAmL/xDl4558aTAgysIDCUF6AXWO8dmai/ApfZACbPVAM+vPezJXlFg=="
-  "resolved" "https://registry.npmjs.org/gif-encoder-2/-/gif-encoder-2-1.0.5.tgz"
-  "version" "1.0.5"
-
 "github-from-package@0.0.0":
   "integrity" "sha1-l/tdlr/eiXMxPyDoKI75oWf6ZM4="
   "resolved" "https://registry.npmjs.org/github-from-package/-/github-from-package-0.0.0.tgz"
