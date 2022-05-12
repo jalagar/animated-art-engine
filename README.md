@@ -286,7 +286,8 @@ Please check out Hashlip's [📺 Youtube](https://www.youtube.com/channel/UC1LV4
 
 I recently modified this section to use the code from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which adds the following features:
 - if-then statements. You can have generative art code that says if this layer, then select these layers. There is an example layers under `layers_if_then` which has logic for if the ball is pink, wear a birthday or cowboy hat, or if the ball is purple, wear a mini ball hat. See [nftchef's docs](https://generator.nftchef.dev/readme/branching-if-then) for more information.
-- grouping statements. You can now group traits into certain groups. So in the `layers_grouping` we have common balls and hats, and rare balls and hats, and the first `totalSupply - 1` balls are common, and the last one is rare.
+- grouping statements. You can now group traits into certain groups. So in the `layers_grouping` we have common balls and hats, and rare balls and hats, and the first `totalSupply - 1` balls are common, and the last one is rare. This will output in order, but you
+can shuffle the layers by setting `shuffleLayerConfigurations` in `config.js` to `true`.
 - z-index otherwise known as stack order. You can now have multiple stacks for the same layer, for example a basketball hoop landscape which has art in front and behind the ball. See [nftchef's docs](https://generator.nftchef.dev/readme/z-index-layer-order) for more information.
 
 You will need to update `global_config.json` and also update `layerConfigurations` in `step2_spritesheet_to_generative_sheet/src/config.js`.
