@@ -36,8 +36,6 @@ update_json_tezos:
 	cd step2_spritesheet_to_generative_sheet && npm run update_info:tezos && cd ..
 
 all_batch:
-	make step1
-	make step2
 	python3 batch.py
 
 replace:
