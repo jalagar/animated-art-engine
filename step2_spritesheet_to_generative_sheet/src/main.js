@@ -46,9 +46,6 @@ const canvas = createCanvas(format.width, format.height);
 const ctxMain = canvas.getContext("2d");
 ctxMain.imageSmoothingEnabled = format.smoothing;
 
-let metadataList = [];
-let attributesList = [];
-
 let dnaList = new Set();
 const DNA_DELIMITER = "*";
 
@@ -284,7 +281,7 @@ const drawBackground = (canvasContext) => {
   canvasContext.fillRect(0, 0, format.width, format.height);
 };
 
-const addMetadata = (_dna, _edition, _prefixData) => {
+const addMetadata = (_dna, _edition, _prefixData, attributesList) => {
   let dateTime = Date.now();
   const { _prefix, _offset } = _prefixData;
 
@@ -310,12 +307,10 @@ const addMetadata = (_dna, _edition, _prefixData) => {
     attributes: cleanedAttrs,
     compiler: "HashLips Art Engine - Jalagar gif fork",
   };
-  metadataList.push(tempMetadata);
-  attributesList = [];
   return tempMetadata;
 };
 
-const addAttributes = (_element) => {
+const addAttributes = (_element, attributesList) => {
   let selectedElement = _element.layer;
   const layerAttributes = {
     trait_type: _element.layer.trait,
@@ -343,7 +338,7 @@ const loadLayerImg = async (_layer) => {
   });
 };
 
-const drawElement = (_renderObject, mainCanvas) => {
+const drawElement = (_renderObject, mainCanvas, attributesList) => {
   const layerCanvas = createCanvas(format.width, format.height);
   const layerctx = layerCanvas.getContext("2d");
   layerctx.imageSmoothingEnabled = format.smoothing;
@@ -356,20 +351,23 @@ const drawElement = (_renderObject, mainCanvas) => {
     format.height
   );
 
-  addAttributes(_renderObject);
+  addAttributes(_renderObject, attributesList);
   mainCanvas.drawImage(layerCanvas, 0, 0, format.width, format.height);
   return layerCanvas;
 };
 
 const constructLayerToDna = (_dna = [], _layers = []) => {
   const dna = _dna.split(DNA_DELIMITER);
+  // console.log(_layers)
   let mappedDnaToLayers = _layers.map((layer, index) => {
     let selectedElements = [];
     const layerImages = dna.filter(
       (element) => element.split(".")[0] == layer.id
     );
+    // console.log(layerImages)
     layerImages.forEach((img) => {
       const indexAddress = cleanDna(img);
+      // console.log(indexAddress)
 
       const indices = indexAddress.toString().split(".");
       // const firstAddress = indices.shift();
@@ -663,8 +661,7 @@ const writeDnaLog = (_data) => {
   fs.writeFileSync(`${buildDir}/_dna.json`, _data);
 };
 
-const saveMetaDataSingleFile = (_editionCount) => {
-  let metadata = metadataList.find((meta) => meta.edition == _editionCount);
+const saveMetaDataSingleFile = (_editionCount, metadata) => {
   debugLogs
     ? console.log(
       `Writing metadata for ${_editionCount}: ${JSON.stringify(metadata)}`
@@ -697,7 +694,7 @@ function shuffle(array) {
  * @param {Object} layerData data passed from the current iteration of the loop or configured dna-set
  *
  */
-const paintLayers = (canvasContext, renderObjectArray, layerData) => {
+const paintLayers = (canvasContext, renderObjectArray, layerData, attributesList) => {
   debugLogs ? console.log("\nClearing canvas") : null;
   canvasContext.clearRect(0, 0, format.width, format.height);
 
@@ -710,7 +707,7 @@ const paintLayers = (canvasContext, renderObjectArray, layerData) => {
     canvasContext.globalAlpha = renderObject.layer.opacity;
     canvasContext.globalCompositeOperation = renderObject.layer.blendmode;
     canvasContext.drawImage(
-      drawElement(renderObject, canvasContext),
+      drawElement(renderObject, canvasContext, attributesList),
       0,
       0,
       format.weight,
@@ -747,19 +744,21 @@ const postProcessMetadata = (layerData) => {
   };
 };
 
-const outputFiles = (abstractedIndexes, layerData) => {
-  const { newDna, layerConfigIndex } = layerData;
+const outputFiles = (abstractedIndexes, layerData, metadataList, attributesList) => {
+  const { newDna, _ } = layerData;
   // Save the canvas buffer to file
   saveImage(abstractedIndexes[0]);
 
   const { _prefix, _offset } = postProcessMetadata(layerData);
 
-  addMetadata(newDna, abstractedIndexes[0], {
+  const metadata = addMetadata(newDna, abstractedIndexes[0], {
     _prefix,
     _offset,
-  });
+  }, attributesList);
+  metadataList.push(metadata);
+  attributesList.length = 0;
 
-  saveMetaDataSingleFile(abstractedIndexes[0]);
+  saveMetaDataSingleFile(abstractedIndexes[0], metadata);
   console.log(
     chalk.cyan(
       `Created edition: ${abstractedIndexes[0]}, with DNA: ${hash(newDna)}`
@@ -772,6 +771,8 @@ const startCreating = async (storedDNA) => {
     console.log(`using stored dna of ${storedDNA.size}`);
     dnaList = storedDNA;
   }
+  const metadataList = [];
+  const attributesList = [];
   let layerConfigIndex = 0;
   let editionCount = 1; //used for the growEditionSize while loop, not edition number
   let failedCount = 0;
@@ -818,8 +819,8 @@ const startCreating = async (storedDNA) => {
             abstractedIndexes,
             _background: background,
           };
-          paintLayers(ctxMain, renderObjectArray, layerData);
-          outputFiles(abstractedIndexes, layerData);
+          paintLayers(ctxMain, renderObjectArray, layerData, attributesList);
+          outputFiles(abstractedIndexes, layerData, metadataList, attributesList);
         });
 
         dnaList.add(filterDNAOptions(newDna));
@@ -854,9 +855,14 @@ module.exports = {
   isDnaUnique,
   layersSetup,
   loadLayerImg,
+  outputFiles,
   paintLayers,
   parseQueryString,
   postProcessMetadata,
+  saveMetaDataSingleFile,
   startCreating,
   sortZIndex,
+  sortLayers,
+  writeDnaLog,
+  writeMetaData,
 };

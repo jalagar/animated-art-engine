@@ -86,7 +86,7 @@ const regenerateItem = (_id, options) => {
       _background: background,
     };
     // paint layers to global canvas context.. no return value
-    paintLayers(ctxMain, renderObjectArray, layerData);
+    paintLayers(ctxMain, renderObjectArray, layerData, []);
     outputFiles(_id, layerData, options);
   });
 };

@@ -21,7 +21,10 @@
     "generate:solana": "node Solana/metaplex.js",
     "generate:tezos": "node utils/tezos.js",
     "update_info:tezos": "node tezos/updateInfo.js",
-    "create_from_metadata": "node utils/createFromMetadata.js",
+    "create_from_dna": "node utils/createFromDNA.js",
+    "regenerate_dna": "node utils/regenerateDNA.js",
+    "regenerate_metadata": "node utils/regenerateMetadata.js",
+    "regenerate_metadata_from_dna": "node utils/regenerateMetadataFromDNA.js",
     "replace": "node utils/replace.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
