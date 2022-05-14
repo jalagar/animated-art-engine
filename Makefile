@@ -8,6 +8,14 @@ step1:
 step2:
 	cd step2_spritesheet_to_generative_sheet && npm run generate && cd ..
 
+step3:
+	python3 step3_generative_sheet_to_gif/build.py
+
+all:
+	make step1
+	make step2
+	make step3
+
 solana:
 	cd step2_spritesheet_to_generative_sheet && npm run generate:solana && cd ..
 
@@ -18,13 +26,6 @@ tezos:
 provenance:
 	cd step2_spritesheet_to_generative_sheet && node utils/provenance.js && cd ..
 
-step3:
-	python3 step3_generative_sheet_to_gif/build.py
-
-all:
-	make step1
-	make step2
-	make step3
 
 rarity:
 	cd step2_spritesheet_to_generative_sheet &&node utils/rarityData.js && cd ..
@@ -43,3 +44,6 @@ replace:
 
 preview:
 	python3 step3_generative_sheet_to_gif/preview.py
+
+regenerate:
+	python3 regenerate.py

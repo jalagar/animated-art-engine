@@ -22,7 +22,7 @@ def main():
         else:
             for edition in range(total_supply):
                 subprocess.run(
-                    f"cd step2_spritesheet_to_generative_sheet && npm run create_from_metadata {edition}",
+                    f"cd step2_spritesheet_to_generative_sheet && npm run create_from_dna {edition}",
                     shell=True,
                 )
         # Only generate gif if its the last batch
