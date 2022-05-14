@@ -31,6 +31,7 @@ save_individual_frames = global_config["saveIndividualFrames"]
 loop_gif = global_config["loopGif"]
 use_multiprocessing = global_config["useMultiprocessing"]
 processor_count = global_config["processorCount"]
+start_index = global_config["startIndex"]
 
 
 class GifTool:
@@ -65,7 +66,7 @@ def crop_and_save(
     if use_batches:
         k = batch_number * num_frames_per_batch
     else:
-        k = 0
+        k = start_index
     imgwidth, imgheight = im.size
     temp_folder_path = get_temp_directory(temp_folder_name or file_name)
 

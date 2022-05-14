@@ -22,6 +22,8 @@ const {
   background,
   layerConfigurations,
   outputJPEG,
+  startIndex,
+  outputDir,
 } = require(path.join(basePath, "/src/config.js"));
 
 const {
@@ -41,7 +43,7 @@ const getDNA = () => {
 };
 
 const createItem = (_id, layers) => {
-  const existingDna = getDNA()[_id];
+  const existingDna = getDNA()[_id - startIndex];
   return { existingDna, layerImages: constructLayerToDna(existingDna, layers) };
 };
 
@@ -66,6 +68,9 @@ const regenerateItem = (_id, options) => {
   const layers = layersSetup(layerConfigurations[layerConfigIndex].layersOrder);
 
   const { existingDna, layerImages } = createItem(_id, layers);
+  if (!existingDna) {
+    return;
+  }
   options.debug ? console.log({ existingDna }) : null;
 
   // regenerate an image using main functions

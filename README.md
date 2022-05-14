@@ -384,7 +384,12 @@ This is the most accurate and consistent way of generating GIFs based on existin
 the DNA based on the JSON. This should work, but there may be features that are not backwards compatible so let me know if you come across such a case.
 3. You don't have a `_metadata.json` file. Load all the individual `.json` files into `build/json`. Setup layers, setup `global_config.json`, `config.js` and run `make regenerate`. This is more annoying to do (if you have a ton of files), but will regenerate the `_metadata.json`, the `_dna.json`, and then regenerate the collection.
 
-If you need more than 32 frames at 1000x1000, follow the batches configuration and then run `make regenerate`.
+If you only want to regenerate spritesheets, you can set `SKIP_STEP_ONE` to `True` and `SKIP_STEP_THREE` to `True` in `regenerate.py`. Then instead
+of putting your layers in the `layers` folder, you put them in `step1_layers_to_spritesheet/output` as an entire layer, and then
+run `make regenerate`. The spritesheets will be in `step2_spritesheet_to_generative_sheet/output`.
+
+If you need more than 32 frames at 1000x1000, follow the batches configuration and then run `make regenerate`. This will only work if you are doing
+all the steps and not skipping any.
 
 Please let me know if you have any issues or use cases I did not think of.
 

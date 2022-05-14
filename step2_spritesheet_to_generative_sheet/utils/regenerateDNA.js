@@ -9,6 +9,7 @@ const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
 const fs = require("fs");
 const path = require("path");
 const { Command } = require("commander");
+const { startIndex } = require("../src/config");
 const program = new Command();
 
 const {
@@ -47,10 +48,13 @@ const regenerateDNA = (options) => {
             const { id: parentId, elements } = trait;
             const layer = elements.find((element) => element.name == value);
 
+            let dnaString;
             if (!layer) {
-                throw new Error("No corresponding layer, did you potentially misname something?");
+                console.log(`No corresponding layer for ${_id + startIndex}, skipping assuming this is a legendary`);
+                dnaString = '';
+            } else {
+                dnaString = `${parentId}.${layer.id}:${layer.zindex}${layer.filename}`;
             }
-            let dnaString = `${parentId}.${layer.id}:${layer.zindex}${layer.filename}`;
             dnaSequence.push(dnaString)
         })
         dnaList.push(dnaSequence.join(DNA_DELIMITER));

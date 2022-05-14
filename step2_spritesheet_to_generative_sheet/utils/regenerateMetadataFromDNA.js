@@ -4,7 +4,6 @@ const isLocal = typeof process.pkg === "undefined";
 const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
 const fs = require("fs");
 const path = require("path");
-const jsonDir = `${basePath}/../build/json`;
 const dnaFilePath = `${basePath}/../build/_dna.json`;
 const rawDNAData = fs.readFileSync(dnaFilePath);
 const DNAData = JSON.parse(rawDNAData);
@@ -20,11 +19,15 @@ const {
     writeMetaData,
 } = require(path.join(basePath, "/src/main.js"));
 
+const {
+    startIndex,
+} = require(path.join(basePath, "/src/config.js"));
+
 const metadataList = [];
 
 DNAData.forEach((dna, index) => {
     const tempMetadata = addMetadata(
-        dna, index, {
+        dna, index + startIndex, {
         _offset: 0,
         _prefix: "",
     }, []);
@@ -32,7 +35,7 @@ DNAData.forEach((dna, index) => {
     tempMetadata.attributes = existingMetadata.attributes;
     tempMetadata.dna = hash(dna);
     metadataList.push(tempMetadata);
-    saveMetaDataSingleFile(index, tempMetadata);
+    saveMetaDataSingleFile(index + startIndex, tempMetadata);
 })
 
 writeMetaData(JSON.stringify(metadataList, null, 2));
