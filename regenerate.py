@@ -10,8 +10,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.file import setup_directory
 import multiprocessing
 
-SKIP_STEP_ONE = True
-SKIP_STEP_THREE = True
+SKIP_STEP_ONE = False
+SKIP_STEP_THREE = False
 
 global_config_json = parse_global_config()
 num_total_frames = global_config_json["numberOfFrames"]
