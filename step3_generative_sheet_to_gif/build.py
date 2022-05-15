@@ -74,7 +74,8 @@ def crop_and_save(
         for j in range(0, imgwidth, width):
             box = (j, i, j + width, i + height)
             a = im.crop(box)
-            file_path = os.path.join(temp_folder_path, f"{file_prefix}{k}.png")
+            output_file_name = f"{file_prefix}{f'0{k}' if k < 10 else k}.png"
+            file_path = os.path.join(temp_folder_path, output_file_name)
             a.save(file_path, quality=95)
             k += 1
 

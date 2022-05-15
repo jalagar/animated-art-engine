@@ -37,8 +37,8 @@ let layerConfigurations = [
 ]
 
 const format = {
-  width: 5000,
-  height: 5000,
+  width: useBatches ? (width * numFramesPerBatch) : (width * numberOfFrames),
+  height,
   smoothing: true, // set to false when up-scaling pixel art.
 };
 
