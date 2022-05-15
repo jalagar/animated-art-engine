@@ -1,11 +1,17 @@
-# Welcome to the **Generative GIF Engine v2.0.5** 🐤
+# Welcome to the **Generative Animated Engine v2.0.6** 🐤
 
 [8 minute read]
 
+**This repo used to be called jalagar/Generative_Gif_Engine but because it now supports GIF, MP4, it was renamed to jalagar/animated-art-engine** 
+
 **Check out this [Youtube Tutorial](https://www.youtube.com/watch?v=z3jMEx6PRUc) on how it works!**
 
-This python and node app generates layered-based gifs to create NFT gif art! It is faster, simpler, and
-produces higher quality gifs than any other open source gif generative tool out there. Export your animation as a png image sequence,
+This python and node app generates layered-based gifs/mp4 to create animated NFT art! It is faster, simpler, and
+produces higher quality gifs and mp4s than any other open source animated generative tool out there. It also
+contains many more features including but not limited to stacking layers, if-then, ETH/Solana/Tezos, preview images,
+inserting legendaries, mp4 + gif, batching to support hundreds of layers, and multiprocessing.
+
+Export your animation as a png image sequence,
 organize your layer folders with rarity, and the code does the rest! I plan to actively maintain this repo
 and enhance it with various tools for months to come so be sure to ask questions in the discussion and write issues.
 
@@ -15,7 +21,7 @@ There are three steps:
    is useful if you want to start with png files and makes the artist's life easier!
 2. [Node] Create generative spritesheets from the layers from step 1.
    - The original idea came from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) but now most of the code in this step is forked from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out Hashlip's [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) for a more in depth explanation on how the generative process works.
-3. [Python + gifski] Convert spritesheets to gifs using Python and [gifski](https://github.com/ImageOptim/gifski).
+3. [Python + gifski/ffmpeg] Convert spritesheets to gifs/mp4 using Python and [gifski](https://github.com/ImageOptim/gifski) or [ffmpeg](https://ffmpeg.org/).
 
 Checkout this [Medium post](https://jalagar-eth.medium.com/how-to-create-generative-animated-nft-art-in-under-an-hour-e7dab1785c56) and [How does it work?](#how-does-it-work) for more information!
 
@@ -44,6 +50,8 @@ Install the latest version of [Python 3](https://www.python.org/downloads/). I a
 
         python3 --version
 
+If you want to output gifs then:
+
 Install [gifski](https://gif.ski/). I recommend using brew `brew install gifski` if you're on Mac OSX. If you don't have brew you can install it using [brew](https://brew.sh/) on Mac OSX. Or if you're on Windows
 you can install it using [Chocolatey](https://community.chocolatey.org/): `choco install gifski`.
 
@@ -52,6 +60,11 @@ the `gifTool` config to `imageio` instead (see later instructions).
 
 If none of those methods work, follow instructions on gifski [gifski Github](https://github.com/ImageOptim/gifski). Gifski is crucial for this tool because it provides the best gif generation
 out of all the tools I checked out (PIL, imageio, ImageMagic, js libraries).
+
+If you want to output mp4s then:
+
+Install [ffmpeg](https://ffmpeg.org/). I recommend using brew `brew install ffmpeg` if you're on Mac OSX. If you don't have brew you can install it using [brew](https://brew.sh/) on Mac OSX. Or if you're on Windows
+you can install it using [Chocolatey](https://community.chocolatey.org/): `choco install ffmpeg`.
 
 If you plan on developing on this repository, run `pre-commit` to install pre-commit hooks.
 

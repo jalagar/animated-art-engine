@@ -106,35 +106,49 @@ def convert_pngs_to_gif(
                 new_frame.save(os.path.join(images_directory, filename), quality=95)
             images.append(imageio.imread(temp_img_path))
 
-    gif_name = get_png_file_name(file_name) + ".gif"
-    if gif_tool == GifTool.IMAGEIO:
-        with imageio.get_writer(
-            os.path.join(output_gif_directory, gif_name),
-            fps=fps,
-            mode="I",
-            quantizer=0,
-            palettesize=256,
-            loop=0 if loop_gif else 1,
-        ) as writer:
-            for image in images:
-                writer.append_data(image)
-    elif gif_tool == GifTool.GIFSKI:
+    if True:
+        # ffmpeg uses quality 0 - 50, where 0 is the best, 50 is the worst.
+        # so 50 - quality / 2 gives you the correct scale. Ex. quality = 100 will be 50 - 100 / 2 = 50
+        mp4_name = get_png_file_name(file_name) + ".mp4"
         subprocess.run(
-            f"gifski -o {os.path.join(output_gif_directory, gif_name)} "
-            f"{temp_img_folder}/*.png "
-            f"--fps={fps} "
-            f"--quality={quality} "
-            f"-W={width} "
-            f"-H={height} "
-            f"--repeat={0 if loop_gif else -1}",
+            f"ffmpeg -i {temp_img_folder}/%02d.png "
+            f"-c:v libx264 -vf fps={fps} "
+            f"-crf {50 - (quality / 2)} "
+            f"-pix_fmt yuv420p {os.path.join(output_gif_directory, mp4_name)}",
             shell=True,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
     else:
-        raise Exception(
-            f"Passed in invalid gif_tool {gif_tool}, only options are gifski and imageio"
-        )
+        gif_name = get_png_file_name(file_name) + ".gif"
+        if gif_tool == GifTool.IMAGEIO:
+            with imageio.get_writer(
+                os.path.join(output_gif_directory, gif_name),
+                fps=fps,
+                mode="I",
+                quantizer=0,
+                palettesize=256,
+                loop=0 if loop_gif else 1,
+            ) as writer:
+                for image in images:
+                    writer.append_data(image)
+        elif gif_tool == GifTool.GIFSKI:
+            subprocess.run(
+                f"gifski -o {os.path.join(output_gif_directory, gif_name)} "
+                f"{temp_img_folder}/*.png "
+                f"--fps={fps} "
+                f"--quality={quality} "
+                f"-W={width} "
+                f"-H={height} "
+                f"--repeat={0 if loop_gif else -1}",
+                shell=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+        else:
+            raise Exception(
+                f"Passed in invalid gif_tool {gif_tool}, only options are gifski and imageio"
+            )
 
 
 def fps_to_ms_duration(fps: int) -> int:
