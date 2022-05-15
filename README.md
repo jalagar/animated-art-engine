@@ -374,6 +374,8 @@ a `z_,` in front of the name, for example `z1,` or `z2,`. See `layers_z_index` f
 
 🧪 BETA FEATURE
 
+[Video Walkthrough](https://www.youtube.com/watch?v=HvXOdGGspGo)
+
 If you have existing metadata for an existing collection and want to either create a new collection with GIFs or send GIF version of the static image to holders,
 this feature is for you!
 
