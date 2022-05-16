@@ -4,7 +4,7 @@
   "width": 1000,
   "framesPerSecond": 12,
   "numberOfFrames": 12,
-  "saveIndividualFrames": true,
+  "saveIndividualFrames": false,
   "description": "Your description here",
   "baseUri": "ipfs://NewUriToReplace",
   "startIndex": 0,
