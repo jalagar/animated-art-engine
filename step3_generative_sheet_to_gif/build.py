@@ -51,7 +51,6 @@ def crop_and_save(
     width: int,
     height: int,
     temp_folder_name: str = None,
-    file_prefix: str = "",
 ) -> None:
     """
     Crops image into squares and saves them into temp folder
@@ -74,7 +73,7 @@ def crop_and_save(
         for j in range(0, imgwidth, width):
             box = (j, i, j + width, i + height)
             a = im.crop(box)
-            output_file_name = f"{file_prefix}{f'0{k}' if k < 10 else k}.png"
+            output_file_name = f"{f'0{k}' if k < 10 else k}.png"
             file_path = os.path.join(temp_folder_path, output_file_name)
             a.save(file_path, quality=95)
             k += 1
@@ -87,27 +86,37 @@ def convert_pngs_to_gif(
     is_resize: bool,
     width: int,
     height: int,
+    temp_img_folder: str,
+    sort_function=None,
 ):
+    """
+    Loop through temp_img_folder using the sort_function and save individual frames
+    and then using either IMAGEIO or GIFSKI save the gif
+    """
+    if not sort_function:
+        sort_function = lambda img: int(get_png_file_name(img))
+
     images_directory = os.path.join(
         OUTPUT_IMAGES_DIRECTORY, get_png_file_name(file_name)
     )
     if save_individual_frames and not is_resize:
         setup_directory(images_directory)
 
-    temp_img_folder = get_temp_directory(file_name)
-    images = []
-    for filename in sorted(
-        os.listdir(temp_img_folder), key=lambda img: int(get_png_file_name(img))
-    ):
+    for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
         if filename.endswith(".png"):
             temp_img_path = os.path.join(temp_img_folder, filename)
-            new_frame = Image.open(temp_img_path)
             if save_individual_frames and not is_resize:
+                new_frame = Image.open(temp_img_path)
                 new_frame.save(os.path.join(images_directory, filename), quality=95)
-            images.append(imageio.imread(temp_img_path))
 
     gif_name = get_png_file_name(file_name) + ".gif"
     if gif_tool == GifTool.IMAGEIO:
+        images = []
+        for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
+            if filename.endswith(".png"):
+                temp_img_path = os.path.join(temp_img_folder, filename)
+                images.append(imageio.imread(temp_img_path))
+
         with imageio.get_writer(
             os.path.join(output_gif_directory, gif_name),
             fps=fps,
@@ -163,6 +172,7 @@ def generate_gif(
     is_resize: bool,
     output_width: int,
     output_height: int,
+    temp_img_folder: str,
 ):
     print(f"Converting spritesheet to gif for {filename}")
     # Use global_config here from step2, not the override width/height
@@ -175,6 +185,7 @@ def generate_gif(
             is_resize,
             output_width,
             output_height,
+            temp_img_folder,
         )
 
 
@@ -241,6 +252,7 @@ def main(
                     is_resize,
                     output_width,
                     output_height,
+                    get_temp_directory(filename),
                 )
 
 
