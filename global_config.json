@@ -12,7 +12,7 @@
   "layersFolder": "layers",
   "gifTool": "gifski",
   "mp4Tool": "ffmpeg",
-  "outputType": "mp4",
+  "outputType": "gif",
   "loopGif": true,
   "debug": false,
   "useBatches": false,
