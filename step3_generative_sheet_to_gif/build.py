@@ -232,6 +232,7 @@ def main(
                 is_resize,
                 output_width,
                 output_height,
+                get_temp_directory(filename),
             )
             for filename in sorted(os.listdir(INPUT_DIRECTORY), key=sort_function)
             if filename.endswith(".png")
