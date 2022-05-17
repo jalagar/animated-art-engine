@@ -99,24 +99,28 @@ def convert_pngs_to_output(
     is_resize: bool,
     width: int,
     height: int,
+    temp_img_folder: str,
+    sort_function=None,
 ):
+    """
+    Loop through temp_img_folder using the sort_function and save individual frames
+    and then using either IMAGEIO or GIFSKI save the gif
+    """
+    if not sort_function:
+        sort_function = lambda img: int(get_png_file_name(img))
+
     images_directory = os.path.join(
         OUTPUT_IMAGES_DIRECTORY, get_png_file_name(file_name)
     )
     if save_individual_frames and not is_resize:
         setup_directory(images_directory)
 
-    temp_img_folder = get_temp_directory(file_name)
-    images = []
-    for filename in sorted(
-        os.listdir(temp_img_folder), key=lambda img: int(get_png_file_name(img))
-    ):
+    for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
         if filename.endswith(".png"):
             temp_img_path = os.path.join(temp_img_folder, filename)
-            new_frame = Image.open(temp_img_path)
             if save_individual_frames and not is_resize:
+                new_frame = Image.open(temp_img_path)
                 new_frame.save(os.path.join(images_directory, filename), quality=95)
-            images.append(imageio.imread(temp_img_path))
 
     if output_type == OutputType.MP4:
         # ffmpeg uses quality 0 - 50, where 0 is the best, 50 is the worst.
@@ -136,6 +140,12 @@ def convert_pngs_to_output(
     elif output_type == OutputType.GIF:
         gif_name = get_png_file_name(file_name) + ".gif"
         if gif_tool == GifTool.IMAGEIO:
+            images = []
+            for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
+                if filename.endswith(".png"):
+                    temp_img_path = os.path.join(temp_img_folder, filename)
+                    images.append(imageio.imread(temp_img_path))
+
             with imageio.get_writer(
                 os.path.join(output_directory, gif_name),
                 fps=fps,
@@ -195,6 +205,7 @@ def generate_output(
     is_resize: bool,
     output_width: int,
     output_height: int,
+    temp_img_folder: str,
 ):
     print(f"Converting spritesheet to {output_type} for {filename}")
     # Use global_config here from step2, not the override width/height
@@ -207,6 +218,7 @@ def generate_output(
             is_resize,
             output_width,
             output_height,
+            temp_img_folder,
         )
 
 
@@ -255,6 +267,7 @@ def main(
                 is_resize,
                 output_width,
                 output_height,
+                get_temp_directory(filename),
             )
             for filename in sorted(os.listdir(INPUT_DIRECTORY), key=sort_function)
             if filename.endswith(".png")
@@ -275,6 +288,7 @@ def main(
                     is_resize,
                     output_width,
                     output_height,
+                    get_temp_directory(filename),
                 )
 
 
