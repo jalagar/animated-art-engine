@@ -10,13 +10,13 @@ from utils.file import (
     sort_function,
     parse_global_config,
 )
-from build import crop_and_save, convert_pngs_to_gif
+from build import crop_and_save, convert_pngs_to_output
 
 import random
 
 
 INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
-TEMP_DIRECTORY = "./step3_generative_sheet_to_gif/temp"
+TEMP_DIRECTORY = "./step3_generative_sheet_to_output/temp"
 BUILD_DIRECTORY = "./build/"
 TEMP_PREVIEW_DIRECTORY = os.path.join(TEMP_DIRECTORY, "preview")
 
@@ -25,8 +25,9 @@ total_supply = global_config["totalSupply"]
 height = global_config["height"]
 width = global_config["width"]
 fps = global_config["framesPerSecond"]
+output_type = global_config["outputType"]
 
-NUM_PREVIEW_GIFS = 4
+NUM_PREVIEW_OUTPUT = 4
 
 
 class OrderEnum:
@@ -48,9 +49,9 @@ def main():
 
     setup_directory(TEMP_PREVIEW_DIRECTORY)
     for folder in sorted(os.listdir(TEMP_DIRECTORY), key=sort_function)[
-        :NUM_PREVIEW_GIFS
+        :NUM_PREVIEW_OUTPUT
     ]:
-        print(f"Including {folder} in the preview gif")
+        print(f"Including {folder} in the preview {output_type}")
         folder_path = os.path.join(TEMP_DIRECTORY, folder)
         for image in os.listdir(folder_path):
             shutil.copy2(
@@ -59,7 +60,7 @@ def main():
             )
 
     print("Converting images to a gif")
-    convert_pngs_to_gif(
+    convert_pngs_to_output(
         "preview",
         fps,
         BUILD_DIRECTORY,

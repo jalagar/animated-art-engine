@@ -11,6 +11,8 @@
   "quality": 100,
   "layersFolder": "layers",
   "gifTool": "gifski",
+  "mp4Tool": "ffmpeg",
+  "outputType": "gif",
   "loopGif": true,
   "debug": false,
   "useBatches": false,

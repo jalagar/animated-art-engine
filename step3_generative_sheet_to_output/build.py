@@ -13,30 +13,39 @@ from utils.file import (
     parse_global_config,
 )
 
-OUTPUT_GIFS_DIRECTORY = "./build/gifs"
+
 OUTPUT_IMAGES_DIRECTORY = "./build/images"
 INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
-TEMP_DIRECTORY = "./step3_generative_sheet_to_gif/temp"
+TEMP_DIRECTORY = "./step3_generative_sheet_to_output/temp"
 
-global_config = parse_global_config()
-fps = global_config["framesPerSecond"]
-height = global_config["height"]
-width = global_config["width"]
-height = global_config["height"]
-quality = global_config["quality"]
-gif_tool = global_config["gifTool"]
-use_batches = global_config["useBatches"]
-num_frames_per_batch = global_config["numFramesPerBatch"]
-save_individual_frames = global_config["saveIndividualFrames"]
-loop_gif = global_config["loopGif"]
-use_multiprocessing = global_config["useMultiprocessing"]
-processor_count = global_config["processorCount"]
-start_index = global_config["startIndex"]
+global_config_json = parse_global_config()
+fps = global_config_json["framesPerSecond"]
+height = global_config_json["height"]
+width = global_config_json["width"]
+height = global_config_json["height"]
+quality = global_config_json["quality"]
+gif_tool = global_config_json["gifTool"]
+use_batches = global_config_json["useBatches"]
+num_frames = global_config_json["numberOfFrames"]
+num_frames_per_batch = global_config_json["numFramesPerBatch"]
+save_individual_frames = global_config_json["saveIndividualFrames"]
+loop_gif = global_config_json["loopGif"]
+use_multiprocessing = global_config_json["useMultiprocessing"]
+processor_count = global_config_json["processorCount"]
+start_index = global_config_json["startIndex"]
+output_type = global_config_json["outputType"]
+
+OUTPUT_DIRECTORY = f"./build/{output_type}"
 
 
 class GifTool:
     GIFSKI = "gifski"
     IMAGEIO = "imageio"
+
+
+class OutputType:
+    GIF = "gif"
+    MP4 = "mp4"
 
 
 def get_temp_directory(file_name: str):
@@ -64,8 +73,12 @@ def crop_and_save(
     im = Image.open(file)
     if use_batches:
         k = batch_number * num_frames_per_batch
+    # Number 0 - X for preview
+    elif temp_folder_name == "preview":
+        k = batch_number * num_frames
     else:
         k = start_index
+
     imgwidth, imgheight = im.size
     temp_folder_path = get_temp_directory(temp_folder_name or file_name)
 
@@ -79,10 +92,10 @@ def crop_and_save(
             k += 1
 
 
-def convert_pngs_to_gif(
+def convert_pngs_to_output(
     file_name: str,
     fps: int,
-    output_gif_directory: str,
+    output_directory: str,
     is_resize: bool,
     width: int,
     height: int,
@@ -109,40 +122,60 @@ def convert_pngs_to_gif(
                 new_frame = Image.open(temp_img_path)
                 new_frame.save(os.path.join(images_directory, filename), quality=95)
 
-    gif_name = get_png_file_name(file_name) + ".gif"
-    if gif_tool == GifTool.IMAGEIO:
-        images = []
-        for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
-            if filename.endswith(".png"):
-                temp_img_path = os.path.join(temp_img_folder, filename)
-                images.append(imageio.imread(temp_img_path))
+    if output_type == OutputType.MP4:
+        # ffmpeg uses quality 0 - 50, where 0 is the best, 50 is the worst.
+        # so 50 - quality / 2 gives you the correct scale. Ex. quality = 100 will be 50 - 100 / 2 = 50
+        # however I was having issues with 0 lossless, so pad 3 quality
+        mp4_name = get_png_file_name(file_name) + ".mp4"
+        mp4_quality = int(50 - quality / 2) + 3
 
-        with imageio.get_writer(
-            os.path.join(output_gif_directory, gif_name),
-            fps=fps,
-            mode="I",
-            quantizer=0,
-            palettesize=256,
-            loop=0 if loop_gif else 1,
-        ) as writer:
-            for image in images:
-                writer.append_data(image)
-    elif gif_tool == GifTool.GIFSKI:
         subprocess.run(
-            f"gifski -o {os.path.join(output_gif_directory, gif_name)} "
-            f"{temp_img_folder}/*.png "
-            f"--fps={fps} "
-            f"--quality={quality} "
-            f"-W={width} "
-            f"-H={height} "
-            f"--repeat={0 if loop_gif else -1}",
+            f"ffmpeg -r {fps} -f image2 -s {width}x{height}"
+            f" -i {temp_img_folder}/%02d.png -vcodec libx264 "
+            f"-crf {mp4_quality} -pix_fmt yuv420p {os.path.join(output_directory, mp4_name)}",
             shell=True,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
+    elif output_type == OutputType.GIF:
+        gif_name = get_png_file_name(file_name) + ".gif"
+        if gif_tool == GifTool.IMAGEIO:
+            images = []
+            for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
+                if filename.endswith(".png"):
+                    temp_img_path = os.path.join(temp_img_folder, filename)
+                    images.append(imageio.imread(temp_img_path))
+
+            with imageio.get_writer(
+                os.path.join(output_directory, gif_name),
+                fps=fps,
+                mode="I",
+                quantizer=0,
+                palettesize=256,
+                loop=0 if loop_gif else 1,
+            ) as writer:
+                for image in images:
+                    writer.append_data(image)
+        elif gif_tool == GifTool.GIFSKI:
+            subprocess.run(
+                f"gifski -o {os.path.join(output_directory, gif_name)} "
+                f"{temp_img_folder}/*.png "
+                f"--fps={fps} "
+                f"--quality={quality} "
+                f"-W={width} "
+                f"-H={height} "
+                f"--repeat={0 if loop_gif else -1}",
+                shell=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+        else:
+            raise Exception(
+                f"Passed in invalid gif_tool {gif_tool}, only options are gifski and imageio"
+            )
     else:
         raise Exception(
-            f"Passed in invalid gif_tool {gif_tool}, only options are gifski and imageio"
+            f"Passed in invalid output type {output_type}, only options are gif and mp4"
         )
 
 
@@ -164,24 +197,24 @@ def fps_to_ms_duration(fps: int) -> int:
     return int(1000 / fps)
 
 
-def generate_gif(
+def generate_output(
     filename: str,
     batch_number: int,
-    generate_gifs: bool,
-    output_gif_directory: str,
+    should_generate_output: bool,
+    output_directory: str,
     is_resize: bool,
     output_width: int,
     output_height: int,
     temp_img_folder: str,
 ):
-    print(f"Converting spritesheet to gif for {filename}")
+    print(f"Converting spritesheet to {output_type} for {filename}")
     # Use global_config here from step2, not the override width/height
     crop_and_save(filename, batch_number, width, height)
-    if not use_batches or generate_gifs:
-        convert_pngs_to_gif(
+    if not use_batches or should_generate_output:
+        convert_pngs_to_output(
             filename,
             fps,
-            output_gif_directory,
+            output_directory,
             is_resize,
             output_width,
             output_height,
@@ -191,16 +224,16 @@ def generate_gif(
 
 def main(
     batch_number: int = 0,
-    generate_gifs: bool = True,  # Flag to determine if we should generate the final gifs or not
-    output_gif_directory=None,
+    should_generate_output: bool = True,  # Flag to determine if we should generate the final output or not
+    output_directory=None,
     is_resize=False,
     output_width=None,
     output_height=None,
 ):
-    print("Starting step 3: Converting sprite sheets to gifs")
+    print(f"Starting step 3: Converting sprite sheets to {output_type}")
 
-    if not output_gif_directory:
-        output_gif_directory = OUTPUT_GIFS_DIRECTORY
+    if not output_directory:
+        output_directory = OUTPUT_DIRECTORY
 
     if not output_width:
         output_width = width
@@ -209,11 +242,13 @@ def main(
         output_height = height
 
     if use_batches:
-        print(f"Starting {batch_number} with generating_gifs flag {generate_gifs}")
+        print(
+            f"Starting {batch_number} with should_generate_output flag {should_generate_output}"
+        )
 
     # Only set up folders if its the first batch
     if not use_batches or batch_number == 0:
-        for folder in [output_gif_directory, OUTPUT_IMAGES_DIRECTORY, TEMP_DIRECTORY]:
+        for folder in [output_directory, OUTPUT_IMAGES_DIRECTORY, TEMP_DIRECTORY]:
             setup_directory(folder)
 
     if use_multiprocessing:
@@ -227,8 +262,8 @@ def main(
             (
                 filename,
                 batch_number,
-                generate_gifs,
-                output_gif_directory,
+                should_generate_output,
+                output_directory,
                 is_resize,
                 output_width,
                 output_height,
@@ -239,17 +274,17 @@ def main(
         ]
         with multiprocessing.Pool(processor_count) as pool:
             pool.starmap(
-                generate_gif,
+                generate_output,
                 args,
             )
     else:
         for filename in sorted(os.listdir(INPUT_DIRECTORY), key=sort_function):
             if filename.endswith(".png"):
-                generate_gif(
+                generate_output(
                     filename,
                     batch_number,
-                    generate_gifs,
-                    output_gif_directory,
+                    should_generate_output,
+                    output_directory,
                     is_resize,
                     output_width,
                     output_height,
