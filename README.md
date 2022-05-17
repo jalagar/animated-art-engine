@@ -1,15 +1,15 @@
-# Welcome to the **Generative Animated Engine v2.0.6** 🐤
+# Welcome to the **Generative Animated Engine v3.0.1** 🐤
 
 [8 minute read]
 
-**This repo used to be called jalagar/Generative_Gif_Engine but because it now supports GIF, MP4, it was renamed to jalagar/animated-art-engine** 
+**This repo used to be called jalagar/Generative_Gif_Engine but because it now supports GIF, MP4, it was renamed to jalagar/animated-art-engine. v3.0.1 is the beginning of the animated era.**
 
 **Check out this [Youtube Tutorial](https://www.youtube.com/watch?v=z3jMEx6PRUc) on how it works!**
 
-This python and node app generates layered-based gifs/mp4 to create animated NFT art! It is faster, simpler, and
-produces higher quality gifs and mp4s than any other open source animated generative tool out there. It also
+This python and node app generates layered-based gifs/MP4 to create animated NFT art! It is faster, simpler, and
+produces higher quality gifs/MP4s than any other open source animated generative tool out there. It also
 contains many more features including but not limited to stacking layers, if-then, ETH/Solana/Tezos, preview images,
-inserting legendaries, mp4 + gif, batching to support hundreds of layers, and multiprocessing.
+inserting legendaries, gifs/MP4, batching to support hundreds of layers, and multiprocessing.
 
 Export your animation as a png image sequence,
 organize your layer folders with rarity, and the code does the rest! I plan to actively maintain this repo
@@ -21,7 +21,7 @@ There are three steps:
    is useful if you want to start with png files and makes the artist's life easier!
 2. [Node] Create generative spritesheets from the layers from step 1.
    - The original idea came from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) but now most of the code in this step is forked from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Please check out Hashlip's [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) for a more in depth explanation on how the generative process works.
-3. [Python + gifski/ffmpeg] Convert spritesheets to gifs/mp4 using Python and [gifski](https://github.com/ImageOptim/gifski) or [ffmpeg](https://ffmpeg.org/).
+3. [Python + gifski/ffmpeg] Convert spritesheets to gifs/MP4 using Python and [gifski](https://github.com/ImageOptim/gifski) or [ffmpeg](https://ffmpeg.org/) for MP4.
 
 Checkout this [Medium post](https://jalagar-eth.medium.com/how-to-create-generative-animated-nft-art-in-under-an-hour-e7dab1785c56) and [How does it work?](#how-does-it-work) for more information!
 
@@ -61,7 +61,7 @@ the `gifTool` config to `imageio` instead (see later instructions).
 If none of those methods work, follow instructions on gifski [gifski Github](https://github.com/ImageOptim/gifski). Gifski is crucial for this tool because it provides the best gif generation
 out of all the tools I checked out (PIL, imageio, ImageMagic, js libraries).
 
-If you want to output mp4s then:
+If you want to output MP4s then:
 
 Install [ffmpeg](https://ffmpeg.org/). I recommend using brew `brew install ffmpeg` if you're on Mac OSX. If you don't have brew you can install it using [brew](https://brew.sh/) on Mac OSX. Or if you're on Windows
 you can install it using [Chocolatey](https://community.chocolatey.org/): `choco install ffmpeg`.
@@ -91,7 +91,7 @@ Known issues:
 - `cd` command might not work on Windows depending on what Terminal you are using. You may have to edit the `Makefile` to use `CHDIR` or the equivalent.
 - If you're on Windows 10 you might get a 'make' is not recognized. Try `choco install make` or follow these [instructions](https://pakstech.com/blog/make-windows/#:~:text=make%20%3A%20The%20term%20'make',choose%20Path%20and%20click%20Edit). Otherwise you can copy and paste the instructions manually in `Makefile`.
 - If you're on Windows you might get an error where 'python3' does not exist, try modify the `Makefile` and replace python3 with python. Thank you!
-- If you don't have brew installed, look at [gifski](https://github.com/ImageOptim/gifski) docs for another way to install gifski.
+- If you don't have brew installed, look at [gifski](https://github.com/ImageOptim/gifski) docs for another way to install gifski or look at [ffmpeg](https://ffmpeg.org/) for MP4.
 
 ## How to run?
 
@@ -105,7 +105,7 @@ and as long as you pass `numberOfFrames` = 20, then the layers will be repeated 
 
 Update `global_config.json` with:
 
-1.  **`'totalSupply'`** : total number of gifs to generate.
+1.  **`'totalSupply'`** : total number of gifs/MP4 to generate.
 2.  **`'height'`** : height of one frame. This should be equal to width.
 3.  **`'width'`** : width of one frame. This should be equal to height.
 4.  **`'framesPerSecond'`** : number of frames per second. This will not be exact because PIL takes in integer milliseconds per frame
@@ -115,13 +115,15 @@ Update `global_config.json` with:
 7.  **`'baseUri'`** : baseUri to be put in the metadata.
 8.  **`'saveIndividualFrames'`** : this is if you want to save the individual final frames, for example if you want to let people pick just one frame for a profile page.
 9. **`'layersFolder'`**: this is the folder that you want to use for the layers. The default is `layers`, but this allows you to have multiple versions of layers and run them side by side. The current repo has four example folders, `layers`, `layers_grouping`, `layers_if_then`, `layers_z_index` which all demonstrate features from [nftchef's repo](https://generator.nftchef.dev/).
-10. **`'quality'`**: quality of the gif, 1-100.
+10. **`'quality'`**: quality of the output, 1-100.
 11. **`'gifTool'`**: pick which gif generation method to use, `gifski` or `imageio`. Gifski is better overall, but some people were having issues with it on Linux. Also `imageio` will work for more pixel art, so if you don't want to download Gifski you can set this to `imageio`.
-12. **`'useBatches'`**: set to `true` if you want to take advantage of [batching](#batching). Otherwise does nothing.
-13. **`'numFramesPerBatch'`**: number of frames for each batch. See [batching](#batching) for more information. Only does something if `useBatches` is set to `true`.
-14. **`'loopGif'`**: `true` if you want to loop the gif, `false` if you don't want to loop it.
-15. **`'useMultiprocessing'`**: `true` if you want to use multi-processing which will speed up step1 and step3. You can configure how many processors to use with `processorCount`. Use at your own discretion, I would recommend slowly increase `processorCount` and monitor CPU usage, this could crash your computer.
-16. **`'processorCount'`**: Number of processors to use with multi-processing. The cap is `multiprocessing.cpu_count()`. Use at your own discretion.
+12. **`'MP4Tool'`**: pick which MP4 generation method to use. Only supports `ffmpeg` at the moment.
+13. **`'outputType'`**: select `gif` or `mp4`.
+14. **`'useBatches'`**: set to `true` if you want to take advantage of [batching](#batching). Otherwise does nothing.
+15. **`'numFramesPerBatch'`**: number of frames for each batch. See [batching](#batching) for more information. Only does something if `useBatches` is set to `true`.
+16. **`'loopGif'`**: `true` if you want to loop the gif, `false` if you don't want to loop it.
+17. **`'useMultiprocessing'`**: `true` if you want to use multi-processing which will speed up step1 and step3. You can configure how many processors to use with `processorCount`. Use at your own discretion, I would recommend slowly increase `processorCount` and monitor CPU usage, this could crash your computer.
+18. **`'processorCount'`**: Number of processors to use with multi-processing. The cap is `multiprocessing.cpu_count()`. Use at your own discretion.
 
 Update `step2_spritesheet_to_generative_sheet/src/config.js` with your `layerConfigurations`. If you want the basic
 configuration, just edit `layersOrder`, but if you want to take advantage of [nftchef's repo](https://generator.nftchef.dev/), then scroll through the file for some examples and modify `layerConfigurations` accordingly.
@@ -130,8 +132,10 @@ configuration, just edit `layersOrder`, but if you want to take advantage of [nf
 
         make all
 
-Your output gifs and JSON metadata will appear in `build/gifs` and `build/json`. Try it yourself with the default settings
+Your output gifs will appear in `build/gifs`, and your output MP4 will appear in `build/mp4`. The ETH JSON will appear in `build/json`. Try it yourself with the default settings
 and layers!
+
+If you want to switch between generating GIFs vs. MP4, you can change the `global_config.json` and just run `make step3`.
 
 ## How does it work?
 
@@ -322,7 +326,7 @@ Example output with the `layers_z_index` folder:
 
 ### Step 3
 
-Step 3 takes the spritesheets from step 2 and creates gifs in `builds/gifs`. This is where Python libraries really shine. Initially I used [PIL](https://pillow.readthedocs.io/en/stable/), but found some issues with pixel quality.
+Step 3 takes the spritesheets from step 2 and creates gifs/MP4. Initially I used [PIL](https://pillow.readthedocs.io/en/stable/), but found some issues with pixel quality.
 
 In MichaPipo's original repo, they used javascript libraries to
 create the gifs. These copied pixel by pixel, and the logic was a bit complicated. Creating just 15 gifs would take 4 minutes, and I noticed
@@ -370,6 +374,8 @@ with `gifski` on Linux (not Windows or Mac).
 
 You can set which gif tool to use in `global_config.json` by setting `gifTool` to either `gifski` (default) or `imageio`.
 
+If you want to switch between generating gif vs. MP4, you need to change `outputType` to `mp4` and only run `make step3`.
+
 ### NFTChef improvements: z-index/stacking, grouping, if-then statements, and incompatibilities
 
 Tool now supports z-index/stacking, grouping, if-then statements, and incompatibilities. See [nftchef's docs](https://generator.nftchef.dev/readme/) for more information.
@@ -383,14 +389,14 @@ a `z_,` in front of the name, for example `z1,` or `z2,`. See `layers_z_index` f
 - **incompatibilities**: You can specify if you want a layer to be incompatible with another layer. For example, if you don't want the flashing background to have a multicolor ball. NOTE, this only works if layer names are all unique or else this may lead to unintended behavior. See `layers_incompatible` and `const incompatible` in `config.js`. You can uncomment the line, and run the code with `layersFolder` set to `layers_incompatible` to see it working in action.
 
 
-### Extend existing collection into GIFs
+### Extend existing collection into GIF/MP4
 
 🧪 BETA FEATURE
 
 [Video Walkthrough](https://www.youtube.com/watch?v=HvXOdGGspGo)
 
-If you have existing metadata for an existing collection and want to either create a new collection with GIFs or send GIF version of the static image to holders,
-this feature is for you!
+If you have existing metadata for an existing collection and want to either create a new collection with GIFs/MP4 or send GIF/MP4 version of the static image to holders,
+this feature is for you! OR if you want to export as a spritesheet that can be imported into a pixel metaverse, this feature is for you!
 
 There are a few configurations to you can use the tool:
 1. If you already have a `_dna.json` generated by NFT Chef's repo, and a `_metadata.json` file which contains all the JSON files. Load the `_dna.json` into the `build` folder, and load the `_metadata.json` into the `build/json` folder. Setup your layers following the format above. Setup `global_config.json` and `config.js` and run `make regenerate`.
@@ -522,7 +528,7 @@ See [Tezos README](step2_spritesheet_to_generative_sheet/documentation/other-blo
 
 ### Batching
 
-Do you want higher resolution, more frames, and larger gifs? Batching is for you! Currently step2 is limited by 32000 pixel files,
+Do you want higher resolution, more frames, and larger gifs/MP4? Batching is for you! Currently step2 is limited by 32000 pixel files,
 so in order to get around this we must batch the entire process into chunks and then combine them at the end.
 
 Set `useBatches` in `global_config.json` to `true` and then set `numFramesPerBatch` to an even divisible of `numberOfFrames`.
@@ -538,7 +544,7 @@ If you want a preview gif of a subset of gifs (like Hashlips), run
 `make preview`
 
 This will output `preview.gif` in the `build` folder. The default number of previews is 4 but you can change this in
-`step3_generative_sheet_to_gif/preview.py` at the top `NUM_PREVIEW_GIFS`. Currently it will randomly select the gifs,
+`step3_generative_sheet_to_output/preview.py` at the top `NUM_PREVIEW_GIFS`. Currently it will randomly select the gifs,
 if you want to output the first X, set `SORT_ORDER` to `OrderEnum.ASC` and if you want to output the last X,
 set `SORT_ORDER` to `OrderEnum.DESC`.
 
@@ -563,6 +569,16 @@ Q: Why didn't you use Python for step 2?
 A: The NFT dev community which writes the complicated logic for generative art mainly codes in javascript. I want to make it easy to update
 my code and incorporate the best features of other repos as easily as possible, and porting everything to Python would be a pain. You can imagine
 step 1 and step 3 are just helper tools in Python, and step 2 is where most of the business logic comes from.
+
+Q: What file types do you support?
+
+Input type: gif or png
+
+Output type: gif or MP4
+
+Q: What blockchains do you support?
+
+Ethereum, Solana, Tezos.
 
 Be sure to follow me for more updates on this project:
 

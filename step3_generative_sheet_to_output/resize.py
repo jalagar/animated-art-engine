@@ -21,13 +21,13 @@ THUMBNAIL_URI_FRACTION = 0.5
 
 def main():
     step3_main(
-        output_gif_directory=DISPLAY_URI_DIRECTORY,
+        output_directory=DISPLAY_URI_DIRECTORY,
         is_resize=True,
         output_width=int(DISPLAY_URI_FRACTION * global_config_width),
         output_height=int(DISPLAY_URI_FRACTION * global_config_height),
     )
     step3_main(
-        output_gif_directory=THUMBNAIL_URI_DIRECTORY,
+        output_directory=THUMBNAIL_URI_DIRECTORY,
         is_resize=True,
         output_width=int(THUMBNAIL_URI_FRACTION * global_config_width),
         output_height=int(THUMBNAIL_URI_FRACTION * global_config_height),

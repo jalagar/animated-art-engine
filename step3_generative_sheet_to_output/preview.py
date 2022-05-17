@@ -11,13 +11,13 @@ from utils.file import (
     sort_function,
     parse_global_config,
 )
-from build import crop_and_save, convert_pngs_to_gif
+from build import crop_and_save, convert_pngs_to_output
 
 import random
 
 
 INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
-TEMP_DIRECTORY = "./step3_generative_sheet_to_gif/temp"
+TEMP_DIRECTORY = "./step3_generative_sheet_to_output/temp"
 BUILD_DIRECTORY = "./build/"
 
 global_config = parse_global_config()
@@ -25,6 +25,7 @@ total_supply = global_config["totalSupply"]
 height = global_config["height"]
 width = global_config["width"]
 fps = global_config["framesPerSecond"]
+output_type = global_config["outputType"]
 
 NUM_PREVIEW_GIFS = 4
 
@@ -51,20 +52,19 @@ def main():
     input_directory_files = sorted(os.listdir(INPUT_DIRECTORY), key=sort_function)[
         :NUM_PREVIEW_GIFS
     ]
-    for filename in input_directory_files:
+    for i, filename in enumerate(input_directory_files):
         if filename.endswith(".png"):
-            print(f"Including {filename} in preview gif")
+            print(f"Including {filename} in preview {output_type}")
             # Save all files to the same folder
             crop_and_save(
                 filename,
-                0,
+                i,
                 width,
                 height,
                 temp_folder_name="preview",
-                file_prefix=f"{get_png_file_name(filename)}_",
             )
 
-    convert_pngs_to_gif(
+    convert_pngs_to_output(
         "preview",
         fps,
         BUILD_DIRECTORY,

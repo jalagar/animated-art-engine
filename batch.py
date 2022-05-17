@@ -1,5 +1,5 @@
 from step1_layers_to_spritesheet.build import main as step1_main
-from step3_generative_sheet_to_gif.build import main as step3_main
+from step3_generative_sheet_to_output.build import main as step3_main
 import subprocess
 from utils.file import parse_global_config
 
@@ -26,7 +26,10 @@ def main():
                     shell=True,
                 )
         # Only generate gif if its the last batch
-        step3_main(i, generate_gifs=i == (num_total_frames // num_frames_per_batch - 1))
+        step3_main(
+            i,
+            should_generate_output=i == (num_total_frames // num_frames_per_batch - 1),
+        )
 
 
 if __name__ == "__main__":

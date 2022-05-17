@@ -1,4 +1,4 @@
-# Generative Gif Engine specific git ignore
+# Generative animated Engine specific git ignore
 .DS_Store
 temp/
 output/

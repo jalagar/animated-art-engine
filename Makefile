@@ -9,7 +9,7 @@ step2:
 	cd step2_spritesheet_to_generative_sheet && npm run generate && cd ..
 
 step3:
-	python3 step3_generative_sheet_to_gif/build.py
+	python3 step3_generative_sheet_to_output/build.py
 
 all:
 	make step1
@@ -21,7 +21,7 @@ solana:
 
 tezos:
 	cd step2_spritesheet_to_generative_sheet && npm run generate:tezos && cd ..
-	python3 step3_generative_sheet_to_gif/resize.py
+	python3 step3_generative_sheet_to_output/resize.py
 
 provenance:
 	cd step2_spritesheet_to_generative_sheet && node utils/provenance.js && cd ..
@@ -43,7 +43,7 @@ replace:
 	cd step2_spritesheet_to_generative_sheet && npm run replace ../ultraRares && cd ..
 
 preview:
-	python3 step3_generative_sheet_to_gif/preview.py
+	python3 step3_generative_sheet_to_output/preview.py
 
 regenerate:
 	python3 regenerate.py
