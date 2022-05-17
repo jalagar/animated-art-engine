@@ -537,14 +537,14 @@ Then run `make batch`. This under the hood first runs `make step1` + `make step2
 which creates the remaining images based on the initial metadata.
 
 
-### Preview Gif
+### Preview Gif/MP4
 
-If you want a preview gif of a subset of gifs (like Hashlips), run
+If you want a preview gif/MP4 of a subset of gifs (like Hashlips), run
 
 `make preview`
 
-This will output `preview.gif` in the `build` folder. The default number of previews is 4 but you can change this in
-`step3_generative_sheet_to_output/preview.py` at the top `NUM_PREVIEW_GIFS`. Currently it will randomly select the gifs,
+This will output `preview.gif`/`preview.mp4` in the `build` folder. The default number of previews is 4 but you can change this in
+`step3_generative_sheet_to_output/preview.py` at the top `NUM_PREVIEW_OUTPUT`. Currently it will randomly select the gifs/MP4,
 if you want to output the first X, set `SORT_ORDER` to `OrderEnum.ASC` and if you want to output the last X,
 set `SORT_ORDER` to `OrderEnum.DESC`.
 

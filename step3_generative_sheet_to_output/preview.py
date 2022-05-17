@@ -27,7 +27,7 @@ width = global_config["width"]
 fps = global_config["framesPerSecond"]
 output_type = global_config["outputType"]
 
-NUM_PREVIEW_GIFS = 4
+NUM_PREVIEW_OUTPUT = 4
 
 
 class OrderEnum:
@@ -50,7 +50,7 @@ def main():
     elif SORT_ORDER == OrderEnum.DESC:
         sort_function = lambda file: -int(get_png_file_name(file))
     input_directory_files = sorted(os.listdir(INPUT_DIRECTORY), key=sort_function)[
-        :NUM_PREVIEW_GIFS
+        :NUM_PREVIEW_OUTPUT
     ]
     for i, filename in enumerate(input_directory_files):
         if filename.endswith(".png"):
