@@ -54,16 +54,16 @@ def main():
         print(f"Including {folder} in the preview {output_type}")
         folder_path = os.path.join(TEMP_DIRECTORY, folder)
         for image in os.listdir(folder_path):
-            file_name = i * num_frames + int(get_png_file_name(image))
+            file_num = i * num_frames + int(get_png_file_name(image))
             shutil.copy2(
                 os.path.join(folder_path, image),
                 os.path.join(
                     TEMP_PREVIEW_DIRECTORY,
-                    f"0{file_name}.png" if file_name < 10 else f"{file_name}.png",
+                    f"{file_num}.png",
                 ),
             )
 
-    print("Converting images to a gif")
+    print(f"Converting images to a {output_type}")
     convert_pngs_to_output(
         "preview",
         fps,

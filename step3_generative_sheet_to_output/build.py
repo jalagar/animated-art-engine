@@ -26,7 +26,6 @@ height = global_config_json["height"]
 quality = global_config_json["quality"]
 gif_tool = global_config_json["gifTool"]
 use_batches = global_config_json["useBatches"]
-num_frames = global_config_json["numberOfFrames"]
 num_frames_per_batch = global_config_json["numFramesPerBatch"]
 save_individual_frames = global_config_json["saveIndividualFrames"]
 loop_gif = global_config_json["loopGif"]
@@ -83,7 +82,7 @@ def crop_and_save(
         for j in range(0, imgwidth, width):
             box = (j, i, j + width, i + height)
             a = im.crop(box)
-            output_file_name = f"{f'0{k}' if k < 10 else k}.png"
+            output_file_name = f"{k}.png"
             file_path = os.path.join(temp_folder_path, output_file_name)
             a.save(file_path, quality=95)
             k += 1
@@ -125,10 +124,9 @@ def convert_pngs_to_output(
         # however I was having issues with 0 lossless, so pad 3 quality
         mp4_name = get_png_file_name(file_name) + ".mp4"
         mp4_quality = int(50 - quality / 2) + 3
-
         subprocess.run(
-            f"ffmpeg -r {fps} -f image2 -s {width}x{height}"
-            f" -i {temp_img_folder}/%02d.png -vcodec libx264 "
+            f"ffmpeg -y -r {fps} -f image2 -s {width}x{height}"
+            f" -i {temp_img_folder}/%d.png -vcodec libx264 "
             f"-crf {mp4_quality} -pix_fmt yuv420p {os.path.join(output_directory, mp4_name)}",
             shell=True,
             stdout=subprocess.DEVNULL,
