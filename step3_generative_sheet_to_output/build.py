@@ -73,9 +73,6 @@ def crop_and_save(
     im = Image.open(file)
     if use_batches:
         k = batch_number * num_frames_per_batch
-    # Number 0 - X for preview
-    elif temp_folder_name == "preview":
-        k = batch_number * num_frames
     else:
         k = start_index
 

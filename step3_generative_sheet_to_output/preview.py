@@ -7,7 +7,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.file import (
     get_png_file_name,
     setup_directory,
-    sort_function,
     parse_global_config,
 )
 from build import crop_and_save, convert_pngs_to_output
@@ -26,6 +25,7 @@ height = global_config["height"]
 width = global_config["width"]
 fps = global_config["framesPerSecond"]
 output_type = global_config["outputType"]
+num_frames = global_config["numberOfFrames"]
 
 NUM_PREVIEW_OUTPUT = 4
 
@@ -48,15 +48,19 @@ def main():
         sort_function = lambda file: -int(get_png_file_name(file))
 
     setup_directory(TEMP_PREVIEW_DIRECTORY)
-    for folder in sorted(os.listdir(TEMP_DIRECTORY), key=sort_function)[
-        :NUM_PREVIEW_OUTPUT
-    ]:
+    for i, folder in enumerate(
+        sorted(os.listdir(TEMP_DIRECTORY), key=sort_function)[:NUM_PREVIEW_OUTPUT]
+    ):
         print(f"Including {folder} in the preview {output_type}")
         folder_path = os.path.join(TEMP_DIRECTORY, folder)
         for image in os.listdir(folder_path):
+            file_name = i * num_frames + int(get_png_file_name(image))
             shutil.copy2(
                 os.path.join(folder_path, image),
-                os.path.join(TEMP_PREVIEW_DIRECTORY, f"{folder}_{image}"),
+                os.path.join(
+                    TEMP_PREVIEW_DIRECTORY,
+                    f"0{file_name}.png" if file_name < 10 else f"{file_name}.png",
+                ),
             )
 
     print("Converting images to a gif")
