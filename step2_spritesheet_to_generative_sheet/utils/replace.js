@@ -18,7 +18,7 @@ const keccak256 = require("keccak256");
 const { start } = require("repl");
 const { startIndex } = require(path.join(basePath, "/src/config.js"));
 
-const builtGifsDir = `${basePath}/../build/gifs`;
+const builtGifsDir = `${basePath}/../build/gif`;
 const builtJsonDir = `${basePath}/../build/json`;
 
 const getIndividualJsonFiles = (sourcePath) => {

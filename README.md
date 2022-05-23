@@ -132,7 +132,7 @@ configuration, just edit `layersOrder`, but if you want to take advantage of [nf
 
         make all
 
-Your output gifs will appear in `build/gifs`, and your output MP4 will appear in `build/mp4`. The ETH JSON will appear in `build/json`. Try it yourself with the default settings
+Your output gifs will appear in `build/gif`, and your output MP4 will appear in `build/mp4`. The ETH JSON will appear in `build/json`. Try it yourself with the default settings
 and layers!
 
 If you want to switch between generating GIFs vs. MP4, you can change the `global_config.json` and just run `make step3`.

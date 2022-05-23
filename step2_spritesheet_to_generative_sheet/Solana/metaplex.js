@@ -18,7 +18,7 @@ const {
   creators,
 } = require(path.join(basePath, "Solana/solanaConfig.js"));
 const { startIndex } = require(path.join(basePath, "/src/config.js"));
-const gifDir = `${basePath}/../build/gifs`;
+const gifDir = `${basePath}/../build/gif`;
 const jsonDir = `${basePath}/../build/json`;
 
 const metaplexFilePath = `${basePath}/../build/solana`;
