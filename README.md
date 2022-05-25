@@ -106,8 +106,8 @@ and as long as you pass `numberOfFrames` = 20, then the layers will be repeated 
 Update `global_config.json` with:
 
 1.  **`'totalSupply'`** : total number of gifs/MP4 to generate.
-2.  **`'height'`** : height of one frame. This should be equal to width.
-3.  **`'width'`** : width of one frame. This should be equal to height.
+2.  **`'height'`** : height of one frame. This should be equal to width. Default is 350 (see [https://docs.opensea.io/docs/metadata-standards#:~:text=We%20recommend%20using%20a%20350%20x%20350%20image](OpenSea recommendation))
+3.  **`'width'`** : width of one frame. This should be equal to height. Default is 350 (see [https://docs.opensea.io/docs/metadata-standards#:~:text=We%20recommend%20using%20a%20350%20x%20350%20image](OpenSea recommendation))
 4.  **`'framesPerSecond'`** : number of frames per second. This will not be exact because PIL takes in integer milliseconds per frame
     (so 12fps = 83.3ms per frame but rounded to an int = 83ms). This will not be recognizable by the human eye, but worth calling out.
 5.  **`'numberOfFrames'`** : number of total frames. For example you could have 24 frames, but you want to render it 12fps.
