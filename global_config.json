@@ -1,7 +1,7 @@
 {
   "totalSupply": 4,
-  "height": 1000,
-  "width": 1000,
+  "height": 350,
+  "width": 350,
   "framesPerSecond": 12,
   "numberOfFrames": 12,
   "saveIndividualFrames": false,
