@@ -33,6 +33,7 @@ use_multiprocessing = global_config_json["useMultiprocessing"]
 processor_count = global_config_json["processorCount"]
 start_index = global_config_json["startIndex"]
 output_type = global_config_json["outputType"]
+debug = global_config_json["debug"]
 
 OUTPUT_DIRECTORY = f"./build/{output_type}"
 
@@ -129,8 +130,8 @@ def convert_pngs_to_output(
             f" -i {temp_img_folder}/%d.png -vcodec libx264 "
             f"-crf {mp4_quality} -pix_fmt yuv420p {os.path.join(output_directory, mp4_name)}",
             shell=True,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL if not debug else subprocess.STDOUT,
+            stderr=subprocess.DEVNULL if not debug else subprocess.STDOUT,
         )
     elif output_type == OutputType.GIF:
         gif_name = get_png_file_name(file_name) + ".gif"
