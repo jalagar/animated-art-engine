@@ -130,7 +130,7 @@ def convert_pngs_to_output(
             f" -i {temp_img_folder}/%d.png -vcodec libx264 "
             f"-crf {mp4_quality} -pix_fmt yuv420p {os.path.join(output_directory, mp4_name)}",
             shell=True,
-            stdout=subprocess.DEVNULL if not debug else subprocess.STDOUT,
+            stdout=subprocess.DEVNULL if not debug else subprocess.PIPE,
             stderr=subprocess.DEVNULL if not debug else subprocess.STDOUT,
         )
     elif output_type == OutputType.GIF:
@@ -162,8 +162,8 @@ def convert_pngs_to_output(
                 f"-H={height} "
                 f"--repeat={0 if loop_gif else -1}",
                 shell=True,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL if not debug else subprocess.PIPE,
+                stderr=subprocess.DEVNULL if not debug else subprocess.STDOUT,
             )
         else:
             raise Exception(
