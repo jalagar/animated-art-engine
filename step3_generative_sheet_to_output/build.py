@@ -205,10 +205,10 @@ def generate_output(
     output_height: int,
     temp_img_folder: str,
 ):
-    print(f"Converting spritesheet to {output_type} for {filename}")
     # Use global_config here from step2, not the override width/height
     crop_and_save(filename, batch_number, width, height)
     if not use_batches or should_generate_output:
+        print(f"Converting spritesheet to {output_type} for {filename}")
         convert_pngs_to_output(
             filename,
             fps,
