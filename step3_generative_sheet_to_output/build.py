@@ -119,6 +119,10 @@ def convert_pngs_to_output(
                 new_frame = Image.open(temp_img_path)
                 new_frame.save(os.path.join(images_directory, filename), quality=95)
 
+    kwargs = {}
+    if not debug:
+        kwargs = {"stdout": subprocess.DEVNULL, "stderr": subprocess.DEVNULL}
+
     if output_type == OutputType.MP4:
         # ffmpeg uses quality 0 - 50, where 0 is the best, 50 is the worst.
         # so 50 - quality / 2 gives you the correct scale. Ex. quality = 100 will be 50 - 100 / 2 = 50
@@ -130,8 +134,7 @@ def convert_pngs_to_output(
             f" -i {temp_img_folder}/%d.png -vcodec libx264 "
             f"-crf {mp4_quality} -pix_fmt yuv420p {os.path.join(output_directory, mp4_name)}",
             shell=True,
-            stdout=subprocess.DEVNULL if not debug else subprocess.PIPE,
-            stderr=subprocess.DEVNULL if not debug else subprocess.STDOUT,
+            **kwargs,
         )
     elif output_type == OutputType.GIF:
         gif_name = get_png_file_name(file_name) + ".gif"
@@ -162,8 +165,7 @@ def convert_pngs_to_output(
                 f"-H={height} "
                 f"--repeat={0 if loop_gif else -1}",
                 shell=True,
-                stdout=subprocess.DEVNULL if not debug else subprocess.PIPE,
-                stderr=subprocess.DEVNULL if not debug else subprocess.STDOUT,
+                **kwargs,
             )
         else:
             raise Exception(
