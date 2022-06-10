@@ -533,7 +533,7 @@ so in order to get around this we must batch the entire process into chunks and 
 
 Set `useBatches` in `global_config.json` to `true` and then set `numFramesPerBatch` to an even divisible of `numberOfFrames`.
 
-Then run `make batch`. This under the hood first runs `make step1` + `make step2` to generate the initial metadata, then `python3 batch.py`
+Then run `make all_batch`. This under the hood first runs `make step1` + `make step2` to generate the initial metadata, then `python3 batch.py`
 which creates the remaining images based on the initial metadata.
 
 
