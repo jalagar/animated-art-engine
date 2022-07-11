@@ -453,6 +453,16 @@ and hash the file value into one string which is the `provenance` hash.
 
 \*Note, if you regenerate the gifs, **You will also need to regenerate this hash**.
 
+### Remove trait
+
+If you need to remove a trait from the generated attributes for ALL the generated metadata .json files, you can use the removeTrait util command.
+
+`cd step2_spritesheet_to_generative_sheet && node utils/removeTrait.js "Trait Name"`
+
+If you would like to print additional logging, use the -d flag
+
+`cd step2_spritesheet_to_generative_sheet && node utils/removeTrait.js "Trait Name" -d`
+
 ### Update your metadata info
 
 You can change the description and base Uri of your metadata even after running the code by updating `global_config.json` and running:

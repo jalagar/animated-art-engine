@@ -22,6 +22,7 @@
     "generate:tezos": "node utils/tezos.js",
     "update_info:tezos": "node tezos/updateInfo.js",
     "create_from_dna": "node utils/createFromDNA.js",
+    "remove_trait": "node utils/removeTrait.js",
     "regenerate_dna": "node utils/regenerateDNA.js",
     "regenerate_metadata": "node utils/regenerateMetadata.js",
     "regenerate_metadata_from_dna": "node utils/regenerateMetadataFromDNA.js",

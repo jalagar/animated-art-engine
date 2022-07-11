@@ -28,7 +28,7 @@ provenance:
 
 
 rarity:
-	cd step2_spritesheet_to_generative_sheet &&node utils/rarityData.js && cd ..
+	cd step2_spritesheet_to_generative_sheet && node utils/rarityData.js && cd ..
 
 update_json:
 	cd step2_spritesheet_to_generative_sheet && node utils/updateInfo.js && cd ..
