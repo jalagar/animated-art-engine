@@ -5,13 +5,13 @@ const path = require("path");
 const isLocal = typeof process.pkg === "undefined";
 const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
 
-const { buildDir } = require(path.join(basePath, "/src/config.js"));
+const { buildDir, outputType } = require(path.join(basePath, "/src/config.js"));
 
 /**
  * Given some input, creates a sha256 hash.
  * @param {Object} input
  */
- const hash = (input) => {
+const hash = (input) => {
   const hashable = typeof input === Buffer ? input : JSON.stringify(input);
   return keccak256(hashable).toString("hex");
 };
@@ -35,7 +35,7 @@ let data = JSON.parse(rawdata);
 data.forEach((item, i) => {
   // Metadata options
   const savedFile = fs.readFileSync(
-    `${buildDir}/gifs/${item.imageName}`
+    `${buildDir}/${outputType}/${item.imageName}`
   );
   item.imageHash = hash(savedFile);
 

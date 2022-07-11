@@ -13,7 +13,7 @@ const buildDir = path.join(basePath, "../build"); // JSON are written to json fo
  * General Generator Options
  ***********************/
 
-const { numFramesPerBatch, numberOfFrames, useBatches, description, baseUri, height, width, startIndex, debug, totalSupply, layersFolder } = require(path.join(
+const { numFramesPerBatch, numberOfFrames, useBatches, description, baseUri, height, width, startIndex, debug, totalSupply, layersFolder, outputType } = require(path.join(
   basePath,
   "../global_config.json"
 ));
@@ -225,4 +225,5 @@ module.exports = {
   traitValueOverrides,
   uniqueDnaTorrance,
   useRootTraitType,
+  outputType,
 };
