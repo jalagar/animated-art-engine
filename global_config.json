@@ -18,5 +18,6 @@
   "useBatches": false,
   "numFramesPerBatch": 4,
   "useMultiprocessing": false,
-  "processorCount": 1
+  "processorCount": 1,
+  "useFileNumbering": true
 }

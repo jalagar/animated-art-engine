@@ -15,6 +15,7 @@ def parse_global_config() -> dict:
 
 global_config_json = parse_global_config()
 is_debug = global_config_json["debug"]
+use_file_numbering = global_config_json["useFileNumbering"]
 
 
 def setup_directory(directory_path: str, delete_if_exists: bool = True) -> None:
@@ -42,6 +43,8 @@ def sort_function(file: str) -> int:
     :returns: int
     """
     try:
-        return int(get_png_file_name(file))
+        if use_file_numbering:
+            return int(get_png_file_name(file))
+        return get_png_file_name(file)
     except:
         return 0

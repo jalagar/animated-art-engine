@@ -103,6 +103,8 @@ In each attribute folder, the frames should be named `0.png` -> `X.png` or `0.gi
 will handle any number of layers, so you could have a layer with two frames, another layer with one frame, and another with 20 frames,
 and as long as you pass `numberOfFrames` = 20, then the layers will be repeated until they hit 20.
 
+**EDIT** You can leave the frame names whatever you want, and set `useFileNumbering` to `false`. This makes it easier if you have hundreds of frames and don't want to rename each one.
+
 Update `global_config.json` with:
 
 1.  **`'totalSupply'`** : total number of gifs/MP4 to generate.
@@ -124,6 +126,7 @@ Update `global_config.json` with:
 16. **`'loopGif'`**: `true` if you want to loop the gif, `false` if you don't want to loop it.
 17. **`'useMultiprocessing'`**: `true` if you want to use multi-processing which will speed up step1 and step3. You can configure how many processors to use with `processorCount`. Use at your own discretion, I would recommend slowly increase `processorCount` and monitor CPU usage, this could crash your computer.
 18. **`'processorCount'`**: Number of processors to use with multi-processing. The cap is `multiprocessing.cpu_count()`. Use at your own discretion.
+19. **`'useFileNumbering'`**: Use 0.png -> X.png numbering or not. If you want to just use the render farm file names, set this to false.
 
 Update `step2_spritesheet_to_generative_sheet/src/config.js` with your `layerConfigurations`. If you want the basic
 configuration, just edit `layersOrder`, but if you want to take advantage of [nftchef's repo](https://generator.nftchef.dev/), then scroll through the file for some examples and modify `layerConfigurations` accordingly.
