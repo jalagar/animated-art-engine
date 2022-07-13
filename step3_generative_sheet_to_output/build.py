@@ -170,11 +170,20 @@ def convert_pngs_to_output(
             metadata_json = get_metadata_json()
             metadata = metadata_json[int(index) - start_index]
             attributes = metadata["attributes"]
-            audio_file_path = ""
+            audio_file_paths = []
             for attribute_config in attributes:
-                if audio_file_path:
-                    raise Exception("Multiple audio files for attribute")
                 audio_file_path = get_audio_file_from_json(attribute_config)
+                if audio_file_path:
+                    audio_file_paths.append(audio_file_path)
+
+            if len(audio_file_paths) > 1:
+                raise Exception(
+                    f"Multiple audio files for attribute {audio_file_paths}"
+                )
+
+            audio_file_path = ""
+            if len(audio_file_paths) == 1:
+                audio_file_path = audio_file_paths[0]
 
             if audio_file_path:
                 ffmpeg_string = f"-i '{audio_file_path}' -bitexact "
