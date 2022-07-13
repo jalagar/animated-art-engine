@@ -127,7 +127,7 @@ Update `global_config.json` with:
 17. **`'useMultiprocessing'`**: `true` if you want to use multi-processing which will speed up step1 and step3. You can configure how many processors to use with `processorCount`. Use at your own discretion, I would recommend slowly increase `processorCount` and monitor CPU usage, this could crash your computer.
 18. **`'processorCount'`**: Number of processors to use with multi-processing. The cap is `multiprocessing.cpu_count()`. Use at your own discretion.
 19. **`'useFileNumbering'`**: Use 0.png -> X.png numbering or not. If you want to just use the render farm file names, set this to false.
-20. **`'enableAudio'`**: BETA FEATURE. You can now add specific audio files per layer. See [#adding-specific-audio-per-trait](Add specific audio trait section) for more info.
+20. **`'enableAudio'`**: BETA FEATURE. You can now add specific audio files per layer. See [Add specific audio trait section](#adding-specific-audio-per-trait) for more info.
 
 Update `step2_spritesheet_to_generative_sheet/src/config.js` with your `layerConfigurations`. If you want the basic
 configuration, just edit `layersOrder`, but if you want to take advantage of [nftchef's repo](https://generator.nftchef.dev/), then scroll through the file for some examples and modify `layerConfigurations` accordingly.
