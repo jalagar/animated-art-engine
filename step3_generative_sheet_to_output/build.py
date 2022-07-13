@@ -33,6 +33,7 @@ output_type = global_config_json["outputType"]
 debug = global_config_json["debug"]
 layers_folder = global_config_json["layersFolder"]
 enable_audio = global_config_json["enableAudio"]
+num_loop = global_config_json["numLoopMP4"]
 
 OUTPUT_DIRECTORY = f"./build/{output_type}"
 OUTPUT_IMAGES_DIRECTORY = "./build/images"
@@ -189,7 +190,7 @@ def convert_pngs_to_output(
                 ffmpeg_string = f"-i '{audio_file_path}' -bitexact "
 
         subprocess.run(
-            f"ffmpeg -y -r {fps} -f image2 -s {width}x{height} -i {temp_img_folder}/%d.png "
+            f"ffmpeg -stream_loop {num_loop} -y -r {fps} -f image2 -s {width}x{height} -i {temp_img_folder}/%d.png "
             + ffmpeg_string
             + f"-shortest -vcodec libx264 "
             f"-crf {mp4_quality} -pix_fmt yuv420p {os.path.join(output_directory, mp4_name)}",
