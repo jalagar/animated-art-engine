@@ -9,15 +9,16 @@
   "baseUri": "ipfs://NewUriToReplace",
   "startIndex": 0,
   "quality": 100,
-  "layersFolder": "layers",
+  "layersFolder": "layers_mp3",
   "gifTool": "gifski",
   "mp4Tool": "ffmpeg",
-  "outputType": "gif",
+  "outputType": "mp4",
   "loopGif": true,
-  "debug": false,
+  "debug": true,
   "useBatches": false,
   "numFramesPerBatch": 4,
   "useMultiprocessing": false,
   "processorCount": 1,
-  "useFileNumbering": true
+  "useFileNumbering": true,
+  "enableAudio": true
 }

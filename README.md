@@ -127,6 +127,7 @@ Update `global_config.json` with:
 17. **`'useMultiprocessing'`**: `true` if you want to use multi-processing which will speed up step1 and step3. You can configure how many processors to use with `processorCount`. Use at your own discretion, I would recommend slowly increase `processorCount` and monitor CPU usage, this could crash your computer.
 18. **`'processorCount'`**: Number of processors to use with multi-processing. The cap is `multiprocessing.cpu_count()`. Use at your own discretion.
 19. **`'useFileNumbering'`**: Use 0.png -> X.png numbering or not. If you want to just use the render farm file names, set this to false.
+20. **`'enableAudio'`**: BETA FEATURE. You can now add specific audio files per layer. See [#]
 
 Update `step2_spritesheet_to_generative_sheet/src/config.js` with your `layerConfigurations`. If you want the basic
 configuration, just edit `layersOrder`, but if you want to take advantage of [nftchef's repo](https://generator.nftchef.dev/), then scroll through the file for some examples and modify `layerConfigurations` accordingly.
@@ -391,6 +392,15 @@ a `z_,` in front of the name, for example `z1,` or `z2,`. See `layers_z_index` f
 - **if-then**: You can specify if this trait then have this other trait. For example, if ball is pink, then pick these two hats. See `layers_if_then` folder and `layerConfigurationsIfThen` in `config.js`.
 - **incompatibilities**: You can specify if you want a layer to be incompatible with another layer. For example, if you don't want the flashing background to have a multicolor ball. NOTE, this only works if layer names are all unique or else this may lead to unintended behavior. See `layers_incompatible` and `const incompatible` in `config.js`. You can uncomment the line, and run the code with `layersFolder` set to `layers_incompatible` to see it working in action.
 
+### Adding specific audio per trait
+
+🧪 BETA FEATURE
+
+You can now add specific audio per trait. For example if you want wind noises with a wind background,
+and forest noises with a forest background.
+
+Just put the audio file in the corresponding layer folder, and step3 will take that and put it on the mp4. You can see an example in the `layers_audio` folder. Try it out by setting `layersFolder` to `layers_audio` and `enableAudio` to `true`, then run `make all`. The mp4 will be the length of frames
+and the audio will get truncated if it is too long.
 
 ### Extend existing collection into GIF/MP4
 
