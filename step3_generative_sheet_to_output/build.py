@@ -3,6 +3,8 @@ import multiprocessing
 from PIL import Image
 import os, sys
 import imageio
+import json
+from typing import Dict
 
 # In order to import utils/file.py we need to add this path.append
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -12,11 +14,6 @@ from utils.file import (
     sort_function,
     parse_global_config,
 )
-
-
-OUTPUT_IMAGES_DIRECTORY = "./build/images"
-INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
-TEMP_DIRECTORY = "./step3_generative_sheet_to_output/temp"
 
 global_config_json = parse_global_config()
 fps = global_config_json["framesPerSecond"]
@@ -34,8 +31,17 @@ processor_count = global_config_json["processorCount"]
 start_index = global_config_json["startIndex"]
 output_type = global_config_json["outputType"]
 debug = global_config_json["debug"]
+layers_folder = global_config_json["layersFolder"]
+enable_audio = global_config_json["enableAudio"]
 
 OUTPUT_DIRECTORY = f"./build/{output_type}"
+OUTPUT_IMAGES_DIRECTORY = "./build/images"
+INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
+TEMP_DIRECTORY = "./step3_generative_sheet_to_output/temp"
+JSON_DIRECTORY = f"./build/json"
+LAYERS_DIRECTORY = f"./{layers_folder}"
+
+VALID_AUDIO_FORMATS = ["mp3", "wav", "m4a"]
 
 
 class GifTool:
@@ -52,6 +58,13 @@ def get_temp_directory(file_name: str):
     temp_directory = os.path.join(TEMP_DIRECTORY, get_png_file_name(file_name))
     setup_directory(temp_directory, delete_if_exists=False)
     return temp_directory
+
+
+def get_metadata_json():
+    f = open(os.path.join(JSON_DIRECTORY, "_metadata.json"), "r")
+    metadata_list = json.load(f)
+    f.close()
+    return metadata_list
 
 
 def crop_and_save(
@@ -87,6 +100,27 @@ def crop_and_save(
             file_path = os.path.join(temp_folder_path, output_file_name)
             a.save(file_path, quality=95)
             k += 1
+
+
+def get_audio_file_from_json(attribute_config: Dict[str, str]) -> str:
+    """
+    Loops through and finds if there are any audio files
+    """
+    trait_type, value = attribute_config["trait_type"], attribute_config["value"]
+    audio_file_path = ""
+    for layer in os.listdir(layers_folder):
+        if layer == trait_type:
+            value_folder = os.path.join(layers_folder, trait_type)
+            for folder_value in os.listdir(value_folder):
+                if folder_value.startswith(value):
+                    file_folder = os.path.join(value_folder, folder_value)
+                    for file in os.listdir(file_folder):
+                        if any(
+                            file.endswith(audio_ending)
+                            for audio_ending in VALID_AUDIO_FORMATS
+                        ):
+                            audio_file_path = os.path.join(file_folder, file)
+    return audio_file_path
 
 
 def convert_pngs_to_output(
@@ -127,11 +161,37 @@ def convert_pngs_to_output(
         # ffmpeg uses quality 0 - 50, where 0 is the best, 50 is the worst.
         # so 50 - quality / 2 gives you the correct scale. Ex. quality = 100 will be 50 - 100 / 2 = 50
         # however I was having issues with 0 lossless, so pad 3 quality
-        mp4_name = get_png_file_name(file_name) + ".mp4"
+        index = get_png_file_name(file_name)
+        mp4_name = index + ".mp4"
         mp4_quality = int(50 - quality / 2) + 3
+
+        ffmpeg_string = ""
+        if enable_audio:
+            metadata_json = get_metadata_json()
+            metadata = metadata_json[int(index) - start_index]
+            attributes = metadata["attributes"]
+            audio_file_paths = []
+            for attribute_config in attributes:
+                audio_file_path = get_audio_file_from_json(attribute_config)
+                if audio_file_path:
+                    audio_file_paths.append(audio_file_path)
+
+            if len(audio_file_paths) > 1:
+                raise Exception(
+                    f"Multiple audio files for attribute {audio_file_paths}"
+                )
+
+            audio_file_path = ""
+            if len(audio_file_paths) == 1:
+                audio_file_path = audio_file_paths[0]
+
+            if audio_file_path:
+                ffmpeg_string = f"-i '{audio_file_path}' -bitexact "
+
         subprocess.run(
-            f"ffmpeg -y -r {fps} -f image2 -s {width}x{height}"
-            f" -i {temp_img_folder}/%d.png -vcodec libx264 "
+            f"ffmpeg -y -r {fps} -f image2 -s {width}x{height} -i {temp_img_folder}/%d.png "
+            + ffmpeg_string
+            + f"-shortest -vcodec libx264 "
             f"-crf {mp4_quality} -pix_fmt yuv420p {os.path.join(output_directory, mp4_name)}",
             shell=True,
             **kwargs,

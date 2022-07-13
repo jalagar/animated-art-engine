@@ -19,5 +19,6 @@
   "numFramesPerBatch": 4,
   "useMultiprocessing": false,
   "processorCount": 1,
-  "useFileNumbering": true
+  "useFileNumbering": true,
+  "enableAudio": true
 }
