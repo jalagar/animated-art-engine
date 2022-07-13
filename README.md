@@ -403,7 +403,8 @@ and forest noises with a forest background.
 Just put the audio file in the corresponding layer folder, and step3 will take that and put it on the mp4. You can see an example in the `layers_audio` folder. Try it out by setting `layersFolder` to `layers_audio` and `enableAudio` to `true`, then run `make all`. The mp4 will be the length of frames
 and the audio will get truncated if it is too long.
 
-The tool supports `mp3`, `wav`, and `m4a`.
+The tool supports `mp3`, `wav`, and `m4a`. If there are multiple audio files for the same NFT, it will
+combine the audio files and overlap them.
 
 ### Extend existing collection into GIF/MP4
 

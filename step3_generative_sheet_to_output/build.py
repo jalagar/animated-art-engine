@@ -4,7 +4,7 @@ from PIL import Image
 import os, sys
 import imageio
 import json
-from typing import Dict
+from typing import Dict, List
 
 # In order to import utils/file.py we need to add this path.append
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -103,12 +103,12 @@ def crop_and_save(
             k += 1
 
 
-def get_audio_file_from_json(attribute_config: Dict[str, str]) -> str:
+def get_audio_file_from_json(attribute_config: Dict[str, str]) -> List[str]:
     """
     Loops through and finds if there are any audio files
     """
     trait_type, value = attribute_config["trait_type"], attribute_config["value"]
-    audio_file_path = ""
+    audio_file_paths = []
     for layer in os.listdir(layers_folder):
         if layer == trait_type:
             value_folder = os.path.join(layers_folder, trait_type)
@@ -120,8 +120,8 @@ def get_audio_file_from_json(attribute_config: Dict[str, str]) -> str:
                             file.endswith(audio_ending)
                             for audio_ending in VALID_AUDIO_FORMATS
                         ):
-                            audio_file_path = os.path.join(file_folder, file)
-    return audio_file_path
+                            audio_file_paths.append(os.path.join(file_folder, file))
+    return audio_file_paths
 
 
 def convert_pngs_to_output(
@@ -173,26 +173,26 @@ def convert_pngs_to_output(
             attributes = metadata["attributes"]
             audio_file_paths = []
             for attribute_config in attributes:
-                audio_file_path = get_audio_file_from_json(attribute_config)
-                if audio_file_path:
-                    audio_file_paths.append(audio_file_path)
+                audio_file_paths.extend(get_audio_file_from_json(attribute_config))
 
-            if len(audio_file_paths) > 1:
-                raise Exception(
-                    f"Multiple audio files for attribute {audio_file_paths}"
+            if audio_file_paths:
+                multi_audio_string = "".join(
+                    f"-i '{audio_file_path}' " for audio_file_path in audio_file_paths
                 )
-
-            audio_file_path = ""
-            if len(audio_file_paths) == 1:
-                audio_file_path = audio_file_paths[0]
-
-            if audio_file_path:
-                ffmpeg_string = f"-i '{audio_file_path}' -bitexact "
+                subprocess.run(
+                    f"ffmpeg {multi_audio_string} -filter_complex amix=inputs={len(audio_file_paths)}:duration=longest"
+                    f" {os.path.join(get_temp_directory(file_name), 'output.mp3')}",
+                    shell=True,
+                    **kwargs,
+                )
+                ffmpeg_string = (
+                    f"-i {os.path.join(get_temp_directory(file_name), 'output.mp3')}"
+                )
 
         subprocess.run(
             f"ffmpeg -stream_loop {num_loop} -y -r {fps} -f image2 -s {width}x{height} -i {temp_img_folder}/%d.png "
             + ffmpeg_string
-            + f"-shortest -vcodec libx264 "
+            + f" -bitexact -shortest -vcodec libx264 "
             f"-crf {mp4_quality} -pix_fmt yuv420p {os.path.join(output_directory, mp4_name)}",
             shell=True,
             **kwargs,
