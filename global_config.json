@@ -14,7 +14,7 @@
   "mp4Tool": "ffmpeg",
   "outputType": "gif",
   "loopGif": true,
-  "numLoopMP4": 1,
+  "numLoopMP4": 0,
   "debug": false,
   "useBatches": false,
   "numFramesPerBatch": 4,
