@@ -7,7 +7,8 @@
 **Allez voir -pour les anglophones- [Youtube Tutorial](https://www.youtube.com/watch?v=z3jMEx6PRUc) ou [Youtube Tutorial](https://www.youtube.com/watch?v=wjifmH3rmFw) pour les francophones!**
 
 Cette application python et node génère des gifs/MP4, basés sur des calques pour créer de l'art NFT animé ! C'est plus rapide, plus simple et
-produit des gifs/MP4 de meilleure qualité que tout autre outil génératif animé en open source. Ça contient aussi de nombreuses autres fonctionnalités, y compris, mais sans s'y limiter, l'empilement des calques, les conditions si-alors, supporte les réseaux ETH/Solana/Tezos, les images d'aperçu, l'insertion de super-rares/légendes faits main, les formats gifs/MP4, et le traitement par lots (batch) poure prendre en charge des centaines de calques et le multitraitement.
+produit des gifs/MP4 de meilleure qualité que tout autre outil génératif animé en open source. Ça
+contient aussi de nombreuses autres fonctionnalités, y compris, mais sans s'y limiter, l'empilement des calques, les conditions si-alors, supporte les réseaux ETH/Solana/Tezos, les images d'aperçu, l'insertion de super-rares/légendes faits main, les formats gifs/MP4, et le traitement par lots (batch) pour prendre en charge des centaines de calques et le multitraitement.
 
 Exportez votre animation sous forme de séquence d'images png, organisez vos dossiers de calques avec rareté, et le code fait le reste ! Je prévois de maintenir activement ce dépôt et de l'améliorer avec divers outils pour les mois à venir, alors assurez-vous de poser des questions dans la discussion et d'y décrire vos problèmes.
 
@@ -622,4 +623,3 @@ Pxlsyl
 [Site Web](https://www.pxlsyl.art/)
 
 [Discord] (discord.gg/agkZjACtwA)
-
