@@ -622,4 +622,4 @@ Pxlsyl
 
 [Site Web](https://www.pxlsyl.art/)
 
-[Discord] (https://discord.com/invite/agkZjACtwA)
+[Discord] (discord.gg/agkZjACtwA)
