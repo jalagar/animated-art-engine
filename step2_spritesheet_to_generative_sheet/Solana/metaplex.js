@@ -1,115 +1,60 @@
-"use strict";
+/**
+ * If you are exporting your project for Solana:
+ * 1. Read the Readme section for more info
+ * 2. Enter your metadata information in this file, more on the Slana Metadata
+ *    standards here, https://docs.metaplex.com/nft-standard
+ * 3. Run the generate for Solana script, yarn generate:solana (or npm run generate:solana)
+ * 4. If you forgot to do step 3, do step 3 OR run the solana util
+ *    `node utils/metaplex.js`
+ *
+ * Credits:
+ * Metaplex.js util by https://github.com/DawidAbram
+ */
+const NFTName = "NameOfNFT" //This is the name there will be showen on your NFTs !!! Name can at max be 32 characters !!!
+const collectionName = "PROJECT_NAME"; //This is used if mutiple collection is needed
+const collectionFamily = "PROJECT_FAMILY"; // Many projects can belong to one family
+const symbol = "PRJSMBL"; // !!! Symbol can at max be 10 characters !!!
+const NFTprefix = "#" //Prefix = "#" results in "NameOfNFT #10", prefix = ":" results in "NameOfNFT :10"
+const name_prefix_gap = " " //if you want the space between the nft name and prefix, leave the space. If you don't, delete the space. With space: "NameOfNFT #10", without space: "NameOfNFT#10"
 
-const fs = require("fs");
-const path = require("path");
-const isLocal = typeof process.pkg === "undefined";
-const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
-const chalk = require("chalk");
+const baseUriPrefix = ""; // OPTIONAL, if you need to prefix your image#.png with a baseURI
+const description = "Default Solana Description";
+const external_url = ""; // add optional external URL here, e.g, https://0n10nDivision.com
 
-const {
-  NFTName,
-  symbol,
-  description,
-  baseUriPrefix,
-  external_url,
-  royaltyFee,
-  creators,
-} = require(path.join(basePath, "Solana/solanaConfig.js"));
-const { startIndex } = require(path.join(basePath, "/src/config.js"));
-const gifDir = `${basePath}/../build/gif`;
-const jsonDir = `${basePath}/../build/json`;
+const royaltyFee = 200; // This is 2% royalty fee
 
-const metaplexFilePath = `${basePath}/../build/solana`;
-const metaplexDir = `${basePath}/../build/solana`;
-
-const setup = () => {
-  if (fs.existsSync(metaplexFilePath)) {
-    fs.rmSync(metaplexFilePath, {
-      recursive: true,
-    });
-  }
-  fs.mkdirSync(metaplexFilePath);
-  fs.mkdirSync(path.join(metaplexFilePath, "/json"));
-  fs.mkdirSync(path.join(metaplexFilePath, "/gifs"));
-};
-
-const getIndividualImageFiles = () => {
-  return fs
-    .readdirSync(gifDir)
-    .filter((item) => /^[0-9]{1,6}.gif/g.test(item));
-};
-
-const getIndividualJsonFiles = () => {
-  return fs
-    .readdirSync(jsonDir)
-    .filter((item) => /^[0-9]{1,6}.json/g.test(item));
-};
-
-setup();
-console.log(chalk.bgGreenBright.black("Beginning Solana/Metaplex conversion"));
-console.log({ startIndex });
-console.log(
-  chalk.green(
-    `\nExtracting metaplex-ready files.\nWriting to folder: ${metaplexFilePath}`
-  )
-);
-
-// Rename all image files to n-1.png (to be zero indexed "start at zero") and store in solana/images
-const imageFiles = getIndividualImageFiles();
-imageFiles.forEach((file) => {
-  let nameWithoutExtension = file.slice(0, -4);
-  let editionCountFromFileName = Number(nameWithoutExtension);
-  let newEditionCount = editionCountFromFileName - startIndex;
-  fs.copyFile(
-    `${gifDir}/${file}`,
-    path.join(`${metaplexDir}`, "gifs", `${newEditionCount}.gif`),
-    () => { }
-  );
-});
-console.log(`\nFinished converting images to being metaplex-ready.\n`);
-
-// Identify json files
-const jsonFiles = getIndividualJsonFiles();
-console.log(
-  chalk.green(`Found ${jsonFiles.length} json files in "${jsonDir}" to process`)
-);
-
-// Iterate, open and put in metadata list
-jsonFiles.forEach((file) => {
-  let nameWithoutExtension = file.slice(0, -4);
-  let editionCountFromFileName = Number(nameWithoutExtension);
-
-  const rawData = fs.readFileSync(`${jsonDir}/${file}`);
-  const jsonData = JSON.parse(rawData);
-
-  let tempMetadata = {
-    //customize the "#" below in line 87 into any prefix you want
-    name: NFTName + " " + "#" + jsonData.edition,
-    symbol: symbol,
-    description: description,
-    seller_fee_basis_points: royaltyFee,
-    image: `${editionCountFromFileName}.gif`,
-    ...(external_url !== "" && { external_url }),
-    attributes: jsonData.attributes,
-    properties: {
-      edition: jsonData.edition,
-      files: [
-        {
-          uri: `${editionCountFromFileName}.gif`,
-          type: "image/gif",
-        },
-      ],
-      category: "gif",
-      creators: creators,
-      compiler: "HashLips Art Engine - Jalagar gif fork | qualifieddevs.io",
+/**
+ * Array of Creators.
+ * If there is more than one creator, add additional objects with address and share properties.
+ */
+const creators = [
+    {
+        address: "WALLET_ADDRESS", // Wallet address for royalties
+        share: 100, // Amount of shares for this wallet, can be more than one, all have to add up to 100 together !!! And a maximum of 4 creators !!!
     },
-  };
-  fs.writeFileSync(
-    path.join(`${metaplexDir}`, "json", `${editionCountFromFileName}.json`),
-    JSON.stringify(tempMetadata, null, 2)
-  );
-});
-console.log(
-  `\nFinished converting json metadata files to being metaplex-ready.`
-);
-console.log(chalk.green(`\nConversion was finished successfully!\n`));
+    // uncomment and edit for additional creator.
+    // {
+    //   address: "second wallet address here",
+    //   share: 100,
+    // },
+];
+
+/**
+ * Only change this if you need to generate data for video/VR/3d content
+ */
+const propertyCategory = "gif";
+
+module.exports = {
+    symbol,
+    NFTName,
+    collectionName,
+    collectionFamily,
+    NFTprefix,
+    name_prefix_gap,
+    description,
+    royaltyFee,
+    creators,
+    external_url,
+    baseUriPrefix,
+    propertyCategory,
+};
