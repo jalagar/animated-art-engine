@@ -85,7 +85,7 @@ jsonFiles.forEach((file) => {
   const jsonData = JSON.parse(rawData);
 
   let tempMetadata = {
-    name: NFTName + " " + jsonData.name,
+    name: NFTName + prefix_name_space + namePrefix + jsonData.name,
     symbol: symbol,
     description: description,
     seller_fee_basis_points: royaltyFee,
