@@ -10,16 +10,18 @@
  * Credits:
  * Metaplex.js util by https://github.com/DawidAbram
  */
-const NFTName = "" //This is the name there will be showen on your NFTs !!! Name can at max be 32 characters !!!
-const collectionName = ""; //This is used if mutiple collection is needed
-const collectionFamily = "false"; // Many projects can belong to one family
-const symbol = ""; // !!! Symbol can at max be 10 characters !!!
+const NFTName = "NameOfNFT" //This is the name there will be showen on your NFTs !!! Name can at max be 32 characters !!!
+const collectionName = "PROJECT_NAME"; //This is used if mutiple collection is needed
+const collectionFamily = "PROJECT_FAMILY"; // Many projects can belong to one family
+const symbol = "PRJSMBL"; // !!! Symbol can at max be 10 characters !!!
+const NFTprefix = "#" //Prefix = "#" results in "NameOfNFT #10", prefix = ":" results in "NameOfNFT :10"
+const name_prefix_gap = " " //if you want the space between the nft name and prefix, leave the space. If you don't, delete the space. With space: "NameOfNFT #10", without space: "NameOfNFT#10"
 
 const baseUriPrefix = ""; // OPTIONAL, if you need to prefix your image#.png with a baseURI
-const description = ""; //collection/image description
+const description = "Default Solana Description";
 const external_url = ""; // add optional external URL here, e.g, https://0n10nDivision.com
 
-const royaltyFee = 400; // This is 2% royalty fee
+const royaltyFee = 200; // This is 2% royalty fee
 
 /**
  * Array of Creators.
@@ -27,7 +29,7 @@ const royaltyFee = 400; // This is 2% royalty fee
  */
 const creators = [
     {
-        address: "", // Wallet address for royalties
+        address: "WALLET_ADDRESS", // Wallet address for royalties
         share: 100, // Amount of shares for this wallet, can be more than one, all have to add up to 100 together !!! And a maximum of 4 creators !!!
     },
     // uncomment and edit for additional creator.
@@ -47,6 +49,8 @@ module.exports = {
     NFTName,
     collectionName,
     collectionFamily,
+    NFTprefix,
+    name_prefix_gap,
     description,
     royaltyFee,
     creators,
