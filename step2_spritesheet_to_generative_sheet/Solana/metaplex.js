@@ -8,8 +8,6 @@ const chalk = require("chalk");
 
 const {
   NFTName,
-  collectionName,
-  collectionFamily,
   symbol,
   description,
   baseUriPrefix,
@@ -85,7 +83,8 @@ jsonFiles.forEach((file) => {
   const jsonData = JSON.parse(rawData);
 
   let tempMetadata = {
-    name: NFTName + " " + jsonData.name,
+    //customize the "#" below in line 87 into any prefix you want
+    name: NFTName + " " + "#" + jsonData.edition,
     symbol: symbol,
     description: description,
     seller_fee_basis_points: royaltyFee,
