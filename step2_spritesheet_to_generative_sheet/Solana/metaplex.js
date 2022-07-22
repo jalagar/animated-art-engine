@@ -11,7 +11,7 @@ const {
   collectionName,
   collectionFamily,
   NFTprefix,
-  name_prefix_gap,
+  namePrefixGap,
   symbol,
   description,
   baseUriPrefix,
