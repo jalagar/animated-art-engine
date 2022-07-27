@@ -11,11 +11,11 @@
  * Metaplex.js util by https://github.com/DawidAbram
  */
 const NFTName = "NameOfNFT" //This is the name there will be showen on your NFTs !!! Name can at max be 32 characters !!!
-const namePrefix = "#" //if you want the prefix to be something like "-" instead. Example: "NameOfNft #1" would change to "NameOfNft -1"
-const prefix_name_space = "-" //Leave this if you want a space between the nft name and number. Having a space: "NameOfNFT #10". If you don't want the space inbetween, change it from " " to "", resulting in: "NameOfNFT#10"
 const collectionName = "PROJECT_NAME"; //This is used if mutiple collection is needed
 const collectionFamily = "PROJECT_FAMILY"; // Many projects can belong to one family
 const symbol = "PRJSMBL"; // !!! Symbol can at max be 10 characters !!!
+const NFTPrefix = "#" //Prefix = "#" results in "NameOfNFT #10", prefix = ":" results in "NameOfNFT :10"
+const name_prefix_gap = " " //if you want the space between the nft name and prefix, leave the space. If you don't, delete the space. With space: "NameOfNFT #10", without space: "NameOfNFT#10"
 
 const baseUriPrefix = ""; // OPTIONAL, if you need to prefix your image#.png with a baseURI
 const description = "Default Solana Description";
@@ -49,12 +49,12 @@ module.exports = {
     NFTName,
     collectionName,
     collectionFamily,
+    NFTPrefix,
+    name_prefix_gap,
     description,
     royaltyFee,
     creators,
     external_url,
     baseUriPrefix,
     propertyCategory,
-    namePrefix,
-    prefix_name_space,
 };
