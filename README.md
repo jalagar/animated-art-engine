@@ -40,8 +40,7 @@ See below for some examples of other artists and devs using this tool for their 
 
 [@PxlSyl](https://github.com/PxlSyl)
 
-<img src="./README_Assets/examples/Pod28.gif" width="200"><img src="./README_Assets/examples/Pod48.gif" width="200"><img src="./README_Assets/examples/Pod51.gif" width="200">
-<img src="./README_Assets/examples/Pod91.gif" width="200">
+<img src="./README_Assets/examples/Pod28.gif" width="200"><img src="./README_Assets/examples/Pod48.gif" width="200"><img src="./README_Assets/examples/Pod51.gif" width="200"><img src="./README_Assets/examples/Pod91.gif" width="200">
 
 
 ## Requirements
