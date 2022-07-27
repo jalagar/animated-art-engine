@@ -34,6 +34,16 @@ on [OpenSea](https://opensea.io/collection/genesis-bouncing-ball).
 
 <img src="./README_Assets/z-index/0.gif" width="200">
 
+## Samples
+
+See below for some examples of other artists and devs using this tool for their own collections! Feel free to reach out to me or create a PR with your examples!
+
+[@PxlSyl](https://github.com/PxlSyl)
+
+<img src="./README_Assets/examples/Pod28.gif" width="200"><img src="./README_Assets/examples/Pod48.gif" width="200"><img src="./README_Assets/examples/Pod51.gif" width="200">
+<img src="./README_Assets/examples/Pod91.gif" width="200">
+
+
 ## Requirements
 
 Install an IDE of your preference. [Recomended](https://code.visualstudio.com/download)
