@@ -10,7 +10,7 @@ const {
   NFTName,
   collectionName,
   collectionFamily,
-  NFTprefix,
+  NFTPrefix,
   namePrefixGap,
   symbol,
   description,

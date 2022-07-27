@@ -14,7 +14,7 @@ const NFTName = "NameOfNFT" //This is the name there will be showen on your NFTs
 const collectionName = "PROJECT_NAME"; //This is used if mutiple collection is needed
 const collectionFamily = "PROJECT_FAMILY"; // Many projects can belong to one family
 const symbol = "PRJSMBL"; // !!! Symbol can at max be 10 characters !!!
-const NFTprefix = "#" //Prefix = "#" results in "NameOfNFT #10", prefix = ":" results in "NameOfNFT :10"
+const NFTPrefix = "#" //Prefix = "#" results in "NameOfNFT #10", prefix = ":" results in "NameOfNFT :10"
 const namePrefixGap = " " //if you want the space between the nft name and prefix, leave the space. If you don't, delete the space. With space: "NameOfNFT #10", without space: "NameOfNFT#10"
 
 const baseUriPrefix = ""; // OPTIONAL, if you need to prefix your image#.png with a baseURI
@@ -49,7 +49,7 @@ module.exports = {
     NFTName,
     collectionName,
     collectionFamily,
-    NFTprefix,
+    NFTPrefix,
     namePrefixGap,
     description,
     royaltyFee,
