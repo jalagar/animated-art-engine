@@ -10,6 +10,8 @@ const {
   NFTName,
   collectionName,
   collectionFamily,
+  NFTPrefix,
+  name_prefix_gap,
   symbol,
   description,
   baseUriPrefix,
@@ -85,7 +87,7 @@ jsonFiles.forEach((file) => {
   const jsonData = JSON.parse(rawData);
 
   let tempMetadata = {
-    name: NFTName + prefix_name_space + namePrefix + jsonData.name,
+    name: NFTName + name_prefix_gap + NFTPrefix + jsonData.name,
     symbol: symbol,
     description: description,
     seller_fee_basis_points: royaltyFee,
