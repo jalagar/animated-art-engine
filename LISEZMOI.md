@@ -32,6 +32,17 @@ Voici un exemple de résultat final (ou vous pouvez télécharger le code et l'e
 
 <img src="./README_Assets/z-index/0.gif" width="200">
 
+## Samples
+
+Ci-dessous quelques exemples d'autres artistes et développeurs utilisant cet outil pour leurs propres collections! N'hésitez pas à me contacter ou à créer un PR avec vos exemples !
+
+[@PxlSyl](https://github.com/PxlSyl)
+
+<img src="./README_Assets/examples/Pod28.gif" width="200">
+<img src="./README_Assets/examples/Pod48.gif" width="200">
+<img src="./README_Assets/examples/Pod51.gif" width="200">
+<img src="./README_Assets/examples/Pod91.gif" width="200">
+
 ## Pré-requis
 
 Installez un IDE de votre choix. [Recomended](https://code.visualstudio.com/download)
