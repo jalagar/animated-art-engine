@@ -46,7 +46,7 @@ const canvas = createCanvas(format.width, format.height);
 const ctxMain = canvas.getContext("2d");
 ctxMain.imageSmoothingEnabled = format.smoothing;
 
-let dnaList = new Set();
+let dnaSet = new Set();
 const DNA_DELIMITER = "*";
 
 const zflag = /(z-?\d*,)/;
@@ -424,8 +424,8 @@ const filterDNAOptions = (_dna) => {
   return filteredDNA.join(DNA_DELIMITER);
 };
 
-const isDnaUnique = (_DnaList, _dna = []) => {
-  return !dnaList.has(_dna);
+const isDnaUnique = (_dnaSet, _dna = []) => {
+  return !dnaSet.has(_dna);
 };
 
 // expecting to return an array of strings for each _layer_ that is picked,
@@ -767,11 +767,12 @@ const outputFiles = (abstractedIndexes, layerData, metadataList, attributesList)
 };
 
 const startCreating = async (storedDNA) => {
+  let dnaList = [];
   if (storedDNA) {
-    console.log(`using stored dna of ${storedDNA.size}`);
-    dnaList = storedDNA;
+    dnaSet = storedDNA;
+    dnaList = [...storedDNA];
   }
-  const metadataList = [];
+  let metadataList = [];
   const attributesList = [];
   let layerConfigIndex = 0;
   let editionCount = 1; //used for the growEditionSize while loop, not edition number
@@ -789,6 +790,7 @@ const startCreating = async (storedDNA) => {
   if (shuffleLayerConfigurations) {
     abstractedIndexes = shuffle(abstractedIndexes);
   }
+  dnaList = Array(abstractedIndexes.length);
   debugLogs
     ? console.log("Editions left to create: ", abstractedIndexes)
     : null;
@@ -800,7 +802,7 @@ const startCreating = async (storedDNA) => {
       editionCount <= layerConfigurations[layerConfigIndex].growEditionSizeTo
     ) {
       let newDna = createDna(layers);
-      if (isDnaUnique(dnaList, newDna)) {
+      if (isDnaUnique(dnaSet, newDna)) {
         let results = constructLayerToDna(newDna, layers);
         debugLogs ? console.log("DNA:", newDna.split(DNA_DELIMITER)) : null;
         let loadedElements = [];
@@ -822,8 +824,9 @@ const startCreating = async (storedDNA) => {
           paintLayers(ctxMain, renderObjectArray, layerData, attributesList);
           outputFiles(abstractedIndexes, layerData, metadataList, attributesList);
         });
-
-        dnaList.add(filterDNAOptions(newDna));
+        const filteredDna = filterDNAOptions(newDna);
+        dnaSet.add(filteredDna);
+        dnaList[abstractedIndexes[0] - startIndex] = filteredDna;
         editionCount++;
         abstractedIndexes.shift();
       } else {
@@ -839,8 +842,12 @@ const startCreating = async (storedDNA) => {
     }
     layerConfigIndex++;
   }
+  if (shuffleLayerConfigurations) {
+    // sort metadatalist so it's in the right order
+    metadataList.sort((a, b) => a.edition - b.edition);
+  }
   writeMetaData(JSON.stringify(metadataList, null, 2));
-  writeDnaLog(JSON.stringify([...dnaList], null, 2));
+  writeDnaLog(JSON.stringify(dnaList, null, 2));
 };
 
 module.exports = {
