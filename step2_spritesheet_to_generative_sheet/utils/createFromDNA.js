@@ -66,8 +66,6 @@ const regenerateItem = (_id, options) => {
   );
 
   const layers = layersSetup(layerConfigurations[layerConfigIndex].layersOrder);
-  console.log(layerConfigIndex, _id, layerEdition, layerConfigIndex)
-
   const { existingDna, layerImages } = createItem(_id, layers);
   if (!existingDna) {
     return;
