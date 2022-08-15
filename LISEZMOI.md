@@ -4,13 +4,12 @@
 
 **Ce dépôt s'appelait jalagar/Generative_Gif_Engine mais maintenant qu'il supporte GIF, MP4, il a été renommé jalagar/animated-art-engine. v3.1.0 est le début de l'ère de l'animation.**
 
-**Allez voir -pour les anglophones- [Youtube Tutorial](https://www.youtube.com/watch?v=z3jMEx6PRUc) ou [Youtube Tutorial](https://www.youtube.com/watch?v=wjifmH3rmFw) pour les francophones!**
+**Allez voir -pour les anglophones- [Youtube Tutorial](https://www.youtube.com/watch?v=z3jMEx6PRUc) ou [Tutoriel Youtube](https://www.youtube.com/watch?v=wjifmH3rmFw) pour les francophones!**
 
-Cette application python et node génère des gifs/MP4, basés sur des calques pour créer de l'art NFT animé ! C'est plus rapide, plus simple et
-produit des gifs/MP4 de meilleure qualité que tout autre outil génératif animé en open source. Ça
-contient aussi de nombreuses autres fonctionnalités, y compris, mais sans s'y limiter, l'empilement des calques, les conditions si-alors, supporte les réseaux ETH/Solana/Tezos, les images d'aperçu, l'insertion de super-rares/légendes faits main, les formats gifs/MP4, et le traitement par lots (batch) pour prendre en charge des centaines de calques et le multitraitement.
+Cette application python et node génère des gifs/MP4, basée sur des calques pour créer de l'art NFT animé ! C'est plus rapide, plus simple et
+produit des gifs/MP4 de meilleure qualité que tout autre outil génératif animé en open source. Çela contient aussi de nombreuses autres fonctionnalités, y compris, mais sans s'y limiter, l'empilement des calques, les déclarations si-alors, supporte les réseaux ETH/Solana/Tezos, les images d'aperçu, l'insertion de super-rares/légendes faits main, les formats gifs/MP4, et le traitement par lots (batch) pour prendre en charge des centaines de calques et le multitraitement.
 
-Exportez votre animation sous forme de séquence d'images png, organisez vos dossiers de calques avec rareté, et le code fait le reste ! Je prévois de maintenir activement ce dépôt et de l'améliorer avec divers outils pour les mois à venir, alors assurez-vous de poser des questions dans la discussion et d'y décrire vos problèmes.
+Exportez votre animation sous forme de séquence d'images png, organisez vos dossiers de calques avec rareté, et le code fera le reste ! Je prévois de maintenir activement ce dépôt et de l'améliorer avec divers outils pour les mois à venir, alors assurez-vous de poser vos questions dans la discussion et d'y décrire vos problèmes.
 
 Il y a 3 étapes:
 
@@ -18,17 +17,17 @@ Il y a 3 étapes:
     est utile si vous souhaitez démarrer avec des fichiers png, et facilite la vie de l'artiste !
 
 2. [Node] Créez des spritesheets génératifs à partir des calques de l'étape 1.
-    - L'idée originale vient du [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) mais maintenant la plupart du code de cette étape est dérivé de [nftchef's Generative Engine](https://github.com /nftchef/art-engine) qui est lui-même dérivé de [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Veuillez consulter Hashlip's [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https:/ /twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) pour une explication plus détaillée sur le fonctionnement du processus de génération.
+    - L'idée originale vient du [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) mais actuellement la plupart du code de cette étape est dérivé de [Nftchef's Generative Engine](https://github.com /nftchef/art-engine), lui-même dérivé du [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node). Veuillez consulter Hashlip's [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) pour des explications plus détaillées sur le fonctionnement du processus de génération.
 
-3. [Python + gifski/ffmpeg] Convertissez les spritesheets en gifs/MP4 en utilisant Python et [gifski](https://github.com/ImageOptim/gifski) ou [ffmpeg](https://ffmpeg.org/) pour MP4 .
+3. [Python + gifski/ffmpeg] Convertissez les spritesheets en GIF/MP4 en utilisant Python et [gifski](https://github.com/ImageOptim/gifski) pour le format GIF ou [ffmpeg](https://ffmpeg.org/) pour le format MP4 .
 
-Allez voir [Medium post](https://jalagar-eth.medium.com/how-to-create-generative-animated-nft-art-in-under-an-hour-e7dab1785c56) and [How does it work?](#how-does-it-work) pour plus d'informations!
+Allez voir [Medium post](https://jalagar-eth.medium.com/how-to-create-generative-animated-nft-art-in-under-an-hour-e7dab1785c56) and [Comment cela fonctionne?](#how-does-it-work) pour davantage d'informations!
 
-Voici un exemple de résultat final (ou vous pouvez télécharger le code et l'exécuter et voir plus de balles rebondissantes :)). Il est également visible sur[OpenSea](https://opensea.io/collection/genesis-bouncing-ball).
+Voici un exemple de résultat final (vous pouvez aussi télécharger le code, l'exécuter et voir plus de balles rebondissantes :)). Il est également visible sur[OpenSea](https://opensea.io/collection/genesis-bouncing-ball).
 
 <img src="./README_Assets/0.gif" width="200"><img src="./README_Assets/1.gif" width="200"><img src="./README_Assets/2.gif" width="200"><img src="./README_Assets/3.gif" width="200">
 
-**EDIT l'outil prends maintenant en compte le z-index/stacking, le grouping, les conditions if-then, et les incompatibilités**. Voir [this section for more information](#nftchef-improvements-z-indexstacking-grouping-if-then-statements-and-incompatibilities). Ci dessous un exemple avec un calque à la fois au dessus et en dessous de la balle.
+**EDIT l'outil prends maintenant en compte le z-index/stacking, le grouping, les conditions if-then, et les incompatibilités**. Voir [Cette section pour davantage d'informations](#nftchef-improvements-z-indexstacking-grouping-if-then-statements-and-incompatibilities). Ci dessous un exemple avec un calque à la fois au dessus et en dessous de la balle.
 
 <img src="./README_Assets/z-index/0.gif" width="200">
 
@@ -38,14 +37,11 @@ Ci-dessous quelques exemples d'autres artistes et développeurs utilisant cet ou
 
 [@PxlSyl](https://github.com/PxlSyl)
 
-<img src="./README_Assets/examples/Pod28.gif" width="200">
-<img src="./README_Assets/examples/Pod48.gif" width="200">
-<img src="./README_Assets/examples/Pod51.gif" width="200">
-<img src="./README_Assets/examples/Pod91.gif" width="200">
+<img src="./README_Assets/examples/Pod28.gif" width="200"><img src="./README_Assets/examples/Pod48.gif" width="200"><img src="./README_Assets/examples/Pod51.gif" width="200"><img src="./README_Assets/examples/Pod91.gif" width="200">
 
 ## Pré-requis
 
-Installez un IDE de votre choix. [Recomended](https://code.visualstudio.com/download)
+Installez un IDE de votre choix. [recommandé](https://code.visualstudio.com/download)
 
 Installez la dernière version de Node [Node.js](https://nodejs.org/en/download/)
 
@@ -57,11 +53,17 @@ Installez la dernière version de Python [Python 3](https://www.python.org/downl
 
 - Lancez la commande suivante pour vérifier que python est bien installé:
 
+Sous Mac:
+
         python3 --version 
+        
+Sous Windows:
+ 
+        python --version
 
 Si vous voulez des Gifs en sortie:
 
-Installez [gifski](https://gif.ski/). Je recommande l'utilisation de brew `brew install gifski` si vous êtes sous Mac OSX. Si vous n'avez pas brew vous pouvez l'installer ainsi [brew](https://brew.sh/) ssur Mac OSX. Ou sous Windows vous pouvez l'installer grâce à [Chocolatey](https://community.chocolatey.org/): `choco install gifski`.
+Installez [gifski](https://gif.ski/). Je recommande l'utilisation de brew `brew install gifski` si vous êtes sous Mac OSX. Si vous n'avez pas brew vous pouvez l'installer ainsi [brew](https://brew.sh/) sous Mac OSX. Ou sous Windows vous pouvez l'installer grâce à [Chocolatey](https://community.chocolatey.org/): `choco install gifski`.
 
 Sous Linux, certaines personnes ont des soucis avec `gifski`. Vous allez devoir régler la configuration `gifTool` sur `imageio` à la place (instructions plus bas).
 
@@ -91,15 +93,15 @@ Si vous avez le moindre problème avec cette commande, essayez de lancer les sui
 
 Chaque environnement est différent, donc essayez aussi de faire une recherche Google sur votre souci. Ci dessous une liste de problèmes connus:
 
-- [M1 Mac: Canvas prebuild isn't built for ARM computers](https://github.com/Automattic/node-canvas/issues/1825) donc vous devez l'installer ici [from their Github](https://github.com/Automattic/node-canvas/wiki#installation-guides)
+- [M1 Mac: La préconstruction de Canvas n'est pas conçue pour les ordinateurs ARM](https://github.com/Automattic/node-canvas/issues/1825) donc vous devez l'installer  [depuis leur Github](https://github.com/Automattic/node-canvas/wiki#installation-guides)
 - `cd` La commande pourrait ne pas fonctionner, selon le terminal que vous utilisez. Vous devrez peut-être éditer `Makefile` et utiliser `CHDIR` ou son équivalent.
 - Si vous êtes sur Windows 10 il est possible que 'make' ne soit pas reconnu. Essayez `choco install make` ou suivez ces [instructions](https://pakstech.com/blog/make-windows/#:~:text=make%20%3A%20The%20term%20'make',choose%20Path%20and%20click%20Edit). Vous pouvez aussi copier-coller les instructions dans le fichier `Makefile` manuellement.
-- Si vous êtes sous Windows il est possible que vous obteniez une erreur où 'python3' n'existe pas, essayez de modifier le fichier `Makefile`et remplacez python3 par python. Merci!
+- Si vous êtes sous Windows il est possible que vous obteniez une erreur où 'python3' n'existe pas, essayez de modifier le fichier `Makefile`et remplacez toutes les occurences de "python3" par "python". Merci!
 - Si brew n'est pas installé, regardez la doc de [gifski](https://github.com/ImageOptim/gifski) pour les autres moyens d'installer gifski et regardez la doc de [ffmpeg](https://ffmpeg.org/) pour les MP4.
 
 ## Comment lancer le programme?
 
-Déplacez vos fichiers png ou gif dans le dossier `/layers` ou chaque calque doit lui-même se trouver dans un dossier, et chaque dossier de traits contient plusieurs dossiers d'attributs qui eux-mêmes contiennent les images individuelles (frames) du futur GIF, un fichier GIF, ou un fichier PNG . Par exemple si vous voulez définir des calques pour le fonds (background), vous aurez les dossiers `/layers/background/blue#20` et `/layers/background/red#20`.
+Déplacez vos fichiers png ou gif dans le dossier `/layers` ou chaque calque doit lui-même se trouver dans un dossier, et où chaque dossier de traits contient plusieurs dossiers d'attributs, qui eux-mêmes contiennent les images individuelles (frames) du futur GIF, un fichier GIF, ou un fichier PNG . Par exemple si vous voulez définir des calques pour le fonds (background), vous aurez les dossiers `/layers/background/blue#20` et `/layers/background/red#20`.
 
 Dans chaque dossier d'attributs, les frames doivent être nommées ainsi : `0.png` -> `X.png` ou alors : `0.gif`. Voir le code ou [step 1](#step-1) pour la structure des dossiers. Le code gérera n'importe quel nombre de calques, vous pouvez donc avoir un calque avec deux frames, un autre calque avec une frame et encore un autre avec 20 frames, et tant que vous passez `numberOfFrames` = 20, les calques seront répétés jusqu'à ce qu'ils atteignent 20 images par GIF ou MP4.
 
@@ -110,9 +112,9 @@ Mettez à jour le fichier `global_config.json` avec:
 1.  **`'totalSupply'`** : Nombre total de gifs/MP4 à générer.
 2.  **`'height'`** : Hauteur de vos frames. Celle-ci devrait être égale à la largeur. La valeur par défaut est de 350 (voir [https://docs.opensea.io/docs/metadata-standards#:~:text=We%20recommend%20using%20a%20350%20x%20350%20image](OpenSea recommendation))
 3.  **`'width'`** : Largeur de vos frames. Celle-ci devrait être égale à la hauteur. La valeur par défaut est de 350 (voir [https://docs.opensea.io/docs/metadata-standards#:~:text=We%20recommend%20using%20a%20350%20x%20350%20image](OpenSea recommendation))
-4.  **`'framesPerSecond'`** : Nombre d'images par seconde. Ce ne sera pas exact car PIL prend en millisecondes entières par image
+4.  **`'framesPerSecond'`** : Nombre d'images par seconde. Cela ne sera pas exact car PIL prend en millisecondes entières par image.
      (donc 12 fps = 83,3 ms par image mais arrondi à un int = 83 ms). Cela ne sera pas reconnaissable à l'œil nu, mais mérite d'être signalé.
-5.  **`'numberOfFrames'`** : Nombre total d'images. Par exemple, vous pourriez avoir 24 images, mais vous voulez le rendre à 12 fps.
+5.  **`'numberOfFrames'`** : Nombre total d'images. Par exemple, vous pourriez avoir 24 images, mais vous voudriez le ramener à 12 fps.
 6.  **`'description'`** : Description pour les métadonnées.
 7.  **`'baseUri'`** : baseUri à spécifier dans les métadonnées.
 8.  **`'saveIndividualFrames'`** : Utile si vous souhaitez enregistrer les frames finaux individuels, par exemple si vous souhaitez laisser les gens choisir une seul frame pour leur page de profil.
@@ -124,20 +126,20 @@ Mettez à jour le fichier `global_config.json` avec:
 14. **`'useBatches'`**: Réglez sur `true` si vous souhaitez utiliser le [batching](#batching). Sinon ne fait rien.
 15. **`'numFramesPerBatch'`**: Nombre de frames pour chaque lot (batching). Regardez [batching](#batching) pour plus d'informations. Ne fait quelquechose que si `useBatches` est réglé sur `true`.
 16. **`'loopGif'`**: `true` Si vous voulez boucler le gif (lecture en boucle), sinon `false`.
-17. **`'useMultiprocessing'`**: `true` Si vous voulez utilise rle multi-traitement, ce qui va accélérer les étapes 1 et 3. Vous pouvez configurer le nombre de processeurs à utiliser avec `processorCount`. Utilisez avec parcimonie, je recommanderais d'augmenter lentement `processorCount` et de monitorer l'usage de votre CPU, car cela pourrait faire crasher votre ordinateur.
+17. **`'useMultiprocessing'`**: `true` Si vous voulez utiliser le multi-traitement, ce qui va accélérer les étapes 1 et 3. Vous pouvez configurer le nombre de processeurs à utiliser avec `processorCount`. Utilisez cela avec parcimonie, je recommanderais d'augmenter lentement `processorCount` et de monitorer l'usage de votre CPU, car cela pourrait faire crasher votre ordinateur.
 18. **`'processorCount'`**: Nombre de processeurs à utiliser avec le multi-traitement. Le goulot est `multiprocessing.cpu_count()`. Utilisez avec parcimonie.
 19. **`'useFileNumbering'`**: Utilisez la numérotation 0.png -> X.png, ou non. Si vous souhaitez uniquement utiliser vos noms de fichiers, définissez-le sur `false`.
-20. **`'enableAudio'`**: BETA. Vous pouvez maintenant ajouter de l'audio en tant que calque. Voir [Add Specific Audio Trait Section](#adding-specific-audio-per-trait) pour plus d'informations.
+20. **`'enableAudio'`**: BETA. Vous pouvez maintenant ajouter de l'audio en tant que calque. Voir [Ajouter un trait audio spécifique](#adding-specific-audio-per-trait) pour plus d'informations.
 21. **`'numLoopMP4'`**: Nombre de boucles pour vos MP4.
 
 Mettez à jour `step2_spritesheet_to_generative_sheet/src/config.js` et les lignes de code suivant `layerConfigurations`. Si vous voulez une
-configuration basique, éditez simplement `layersOrder`, mais si vous voulez profiter des possibilités du [nftchef's repo](https://generator.nftchef.dev/), survolez le fichier afin de visualiser des exemples et modifiez `layerConfigurations` en conséquence.
+configuration basique, éditez simplement `layersOrder`, mais si vous voulez profiter des possibilités du [Nftchef's repo](https://generator.nftchef.dev/), survolez le fichier afin de visualiser des exemples et modifiez `layerConfigurations` en conséquence.
 
 - Pour lancer le processus du début à la fin, en une seule fois:
 
         make all
 
-Vos fichiers de sortie au format Gif apparaitront dans  `build/gif`, et vos fichiers de sortie MP4 apparaitront dans `build/mp4`.Les métadonnées Json  pour ETH et compatibles EVM apparaitront dans `build/json`. Essayez par vous-mêmes avec les options et calques par défaut!
+Vos fichiers de sortie au format Gif apparaitront dans  `build/gif`, et vos fichiers de sortie MP4 apparaitront dans `build/mp4`.Les métadonnées Json  pour ETH et compatibles EVM apparaitront dans `build/json`. Essayez par vous-même avec les options et calques par défaut!
 
 Si vous voulez jongler entre la génération de Gifs et de MP4, vous pouvez modifier `global_config.json`, et simplement lancer `make step3`.
 
@@ -287,7 +289,7 @@ Green Tower#50.png:
 
 <img src="./README_Assets/step1/Landscape/Green Tower.png" width="1000">
 
-**EDIT L'outil prends maintenant en compte le z-index/stacking, le grouping et les conditions if-then **. Voir [nftchef's docs](https://generator.nftchef.dev/readme/) pour plus d'informations. Les calques à cette étape devront correspondre au format attendu à l'étape 2. Voir l'exemple de dossier de calques pour plus d'informations.
+**EDIT L'outil prends maintenant en compte le z-index/stacking, le grouping et les conditions if-then **. Voir [Nftchef's docs](https://generator.nftchef.dev/readme/) pour plus d'informations. Les calques à cette étape devront correspondre au format attendu à l'étape 2. Voir l'exemple de dossier de calques pour plus d'informations.
 
 **EDIT prends maintenant en compte les calques au format Gif**.
 Vous pouvez fournir vos calques au format Gif, et le code va les scinder en frames.
@@ -298,15 +300,14 @@ Cela créera un dossier temporaire dans `step1_layers_to_spritesheet/temp` avec 
 
 L'étape 2 prend les spritesheets de l'étape 1 et génère toutes les combinaisons possibles en fonction de la rareté. C'est ici que toute la magie opère ! En sortie cela crée une multitude de spritesheets avec tous les calques superposés les uns sur les autres.
 
-L'idée originale vient de [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) mais maintenant la majeure partie du code a été forkée depuis [nftchef's Generative Engine](https://github.com/nftchef/art-engine) qui est lui-même un fork de [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node).
-S'il vous plaît allez voir Hashlip [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) pour une explication plus détaillée sur le fonctionnement général.
+L'idée originale vient de [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) mais maintenant la majeure partie du code a été forkée depuis [nftchef's Generative Engine](https://github.com/nftchef/art-engine), qui est lui-même un fork du [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node).
+S'il vous plaît, allez voir Hashlip [📺 Youtube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA) / [👄 Discord](https://discord.com/invite/qh6MWhMJDN) / [🐦 Twitter](https://twitter.com/hashlipsnft) / [ℹ️ Website](https://hashlips.online/HashLips) pour une explication plus détaillée sur le fonctionnement général.
 
-J'ai récemment modifié cette partie du code de [nftchef's Generative Engine](https://github.com/nftchef/art-engine) ce qui ajoute les possibilités suivantes:
-- Déclarations if-then. Vous pouvez avoir un code d'art génératif qui dit "si ce calque..." , alors cet autre calque est selectionné. Il y a un exemple de calques sous `layers_if_then` qui a la logique suivante : si la balle est rose, porte un "birthday" ou un "cowboy hat", ou si la balle est violette, alors porte un "mini ball hat". Voir [nftchef's docs](https://generator.nftchef.dev/readme/branching-if-then) pour plus d'informations.
+J'ai récemment modifié cette partie du code du [Nftchef's Generative Engine](https://github.com/nftchef/art-engine), ce qui ajoute les possibilités suivantes:
+- Déclarations if-then. Vous pouvez avoir un code d'art génératif qui dit "si ce calque..." , alors cet autre calque sera selectionné. Il y a un exemple de calques sous `layers_if_then` qui a la logique suivante : si la balle est rose, porte un "birthday" ou un "cowboy hat", ou si la balle est violette, alors porte un "mini ball hat". Voir [Nftchef's docs](https://generator.nftchef.dev/readme/branching-if-then) pour plus d'informations.
 - Déclarations par groupes. 
-Vous pouvez maintenant regrouper vos traits dans des groupes spécifiques. Ainsi dans le 
-`layers_grouping` nous avons des balles et des chapeaux communs, des balles et chapeaux rares, et le premier `totalSupply - 1` est commun, le dernier est rare. Cela sortira dans l'ordre, mais vous pouvez les mélanger en réglant `shuffleLayerConfigurations` dans `config.js` sur `true`.
-- z-index autrement connu sous le nom d'ordre d'empilement. Vous pouvez maintenant avoir plusieurs ordres d'empilement pour le même calque, par exemple un panier de basket, qui a des parties plaçées au dessus et en dessous de la balle. Voir [nftchef's docs](https://generator.nftchef.dev/readme/z-index-layer-order) pour plus d'informations.
+Vous pouvez maintenant regrouper vos traits dans des groupes spécifiques. Ainsi dans le `layers_grouping` nous avons des balles et des chapeaux communs, des balles et chapeaux rares, le premier `totalSupply - 1` est commun, et le dernier est rare. Cela sortira dans l'ordre, mais vous pouvez les mélanger en réglant `shuffleLayerConfigurations` dans `config.js` sur `true`.
+- z-index, qui correspond à l'ordre d'empilement. Vous pouvez maintenant avoir plusieurs ordres d'empilement pour le même calque, par exemple un panier de basket, qui a des parties plaçées au dessus et en dessous de la balle. Voir [Nftchef's docs](https://generator.nftchef.dev/readme/z-index-layer-order) pour plus d'informations.
 
 Vous devrez mettre à jour `global_config.json` et`layerConfigurations` dans `step2_spritesheet_to_generative_sheet/src/config.js`.
 
@@ -329,12 +330,12 @@ Exemple de sortie avec le dossier `layers_z_index`:
 
 L'étape 3 prends les spritesheets de l'étape 2 et produit les gifs/MP4. Initialement j'utilisais [PIL](https://pillow.readthedocs.io/en/stable/), mais j'ai eu des soucis concernant la qualité d'image.
 
-Dans le dépôt original de MichaPipo, ils ont utilisé des bibliothèques javascript pour créer les gifs. Celles-ci copiaient pixel par pixel, et la logique était un peu compliquée. Créer seulement 15 gifs prenait 4 minutes, et j'ai remarqué que certaines des couleurs hexadécimales des pixels étaient désactivées. Également : en fonction de l'utilisation du processeur, le programme plantait. J'ai passé des jours à déboguer, avant de décider de repartir de zéro dans un autre langage.
+Dans le dépôt original de MichaPipo, ce sont des bibliothèques javascript qui ont été utilisées pour créer les gifs. Celles-ci copiaient pixel par pixel, et la logique était un peu compliquée. Créer seulement 15 gifs prenait 4 minutes, et j'ai pu remarquer que certaines des couleurs hexadécimales des pixels étaient désactivées. Également : en fonction de l'utilisation du processeur, le programme plantait. J'ai passé des jours entiers à déboguer, avant de décider de repartir de zéro dans un autre langage.
 
-J'ai ensuite essayé imageio et quelques bibliothèques Python, mais elles avaient toutes des problèmes pour générer des gifs.
+J'ai ensuite essayé Imageio et quelques bibliothèques Python, mais elles avaient toutes des problèmes pour générer des gifs.
 
-J'ai passé des semaines à trouver le meilleur outil pour ce travail, puis je suis tombé sur [gifski](https://gif.ski/). Cela
-crée des gifs incroyablement propres et fonctionne le mieux.
+J'ai passé des semaines à trouver le meilleur outil pour ce travail, puis j'ai découvert [gifski](https://gif.ski/). Cela
+crée des gifs incroyablement propres et fonctionne pour le mieux.
 
 Maintenant, générer 15 gifs prend moins de 30 secondes et s'affiche avec une qualité de pixel parfaite !
 
@@ -375,14 +376,14 @@ Si vous souhaitez basculer entre la génération de gif et celle de MP4, vous de
 
 ### améliorations avec NFTChef : z-index/stacking, grouping, déclarations if-then, et incompatibilité
 
-L'outil propose maintenant le z-index/stacking, le grouping, les déclarations if-then, et les incompatibilités. Voir [nftchef's docs](https://generator.nftchef.dev/readme/) pour plus d'informations.
+L'outil propose maintenant le z-index/stacking, le grouping, les déclarations if-then, et les incompatibilités. Voir [Nftchef's docs](https://generator.nftchef.dev/readme/) pour plus d'informations.
 
 Si vous ne voulez pas lire la doc:
 
 - **z-index/stacking**: Vous pouvez avoir le même calque au dessus et en dessous d'un autre calque (voir basketball au-dessus). Vous devez spécifier `z_,` devant le nom, par exemple `z1,` ou `z2,`. Voir `layers_z_index` pour un exemple, et essayez de régler `layersFolder` sur `layers_z_index` pour le voir en action et vérifiez `layerConfigurationsZIndex` dans `config.js` pour la configuration.
-- **grouping**: Vous pouvez regrouper les traits ensemble dans un groupe, comme communs/rares. Ensuite vous pouvez spécifier combien vous voulez en quantité pour chaque. Voir le dossier `layers_grouping` et `layerConfigurationsGrouping` dans `config.js`.
-- **if-then**: Vous pouvez spécifier "si ce trait"... "Alors il aura cet autre trait". Par exemple, si la balle est rose, alors choisis parmi ces deux chapeaux. Voir le dossier `layers_if_then` et `layerConfigurationsIfThen` dans `config.js`.
-- **incompatibilités**: Vous pouvez spécifier si vous souhaitez qu'un calque soit incompatible avec un autre calque. Par exemple, si vous ne voulez pas que l'arrière-plan clignotant ait une balle multicolore. REMARQUE, cela ne fonctionne que si les noms de calques sont tous uniques, sinon cela peut entraîner un comportement inattendu.
+- **grouping**: Vous pouvez regrouper les traits ensemble dans un groupe, comme communs/rares. Ensuite vous pouvez spécifier combien vous voulez en quantité pour chacun d'entre eux. Voir le dossier `layers_grouping` et `layerConfigurationsGrouping` dans `config.js`.
+- **if-then**: Vous pouvez spécifier "si ce trait"... "Alors il aura cet autre trait". Par exemple, "si la balle est rose", alors le code choisira parmi "ces deux chapeaux". Voir le dossier `layers_if_then` et `layerConfigurationsIfThen` dans `config.js`.
+- **incompatibilités**: Vous pouvez spécifier si vous souhaitez qu'un calque soit incompatible avec un autre calque. Par exemple, si vous ne voulez pas que l'arrière-plan clignotant ait une balle multicolore. REMARQUE: cela ne fonctionnera que si les noms de calques sont tous uniques, sinon cela pourrait entraîner un comportement inattendu.
  Voir `layers_incompatible` et `const incompatible` dans `config.js`. Vous pouvez dé-commenter la ligne et exécuter le code avec `layersFolder` réglé sur`layers_incompatible` pour voir ceci fonctionner.
 
 ### Ajouter un audio spécifique pour un trait
@@ -427,7 +428,7 @@ Vous pouvez vérifier les statistiques de rareté de votre collection avec :
 
 ### Exclure un calque du DNA
 
-Si vous souhaitez qu'une couche soit _ignorée_ dans la vérification de l'unicité du DNA, vous pouvez définir `bypassDNA : true` dans l'objet `options`. Cela permets de s'assurer que le reste des traits est unique sans considérer les calques `Background` comme des traits, par exemple. Les calques _sont_ inclus dans l'image finale.
+Si vous souhaitez qu'un calque soit _ignoré_ dans la vérification de l'unicité du DNA, vous pouvez définir `bypassDNA : true` dans l'objet `options`. Cela permets de s'assurer que le reste des traits est unique sans considérer les calques de fonds `Background` comme des traits, par exemple. Les calques _seront_ inclus dans l'image finale.
 
 ```js
 layersOrder: [
@@ -441,18 +442,15 @@ layersOrder: [
 
 ### Generation de hashage de provenace
 
-Si vous avez besoin de générer un hachage de provenance (et, oui, vous devriez, [lire à ce sujet ici](https://medium.com/coinmonks/the-elegance-of-the-nft-provenance-hash-solution-823b39f99473 ) ),
-
-exécutez l'utilitaire suivant
+Si vous avez besoin de générer un hachage de provenance (et, oui, vous devriez, [lire à ce sujet ici](https://medium.com/coinmonks/the-elegance-of-the-nft-provenance-hash-solution-823b39f99473 ) ), exécutez l'utilitaire suivant:
 
 ```
 make provenance
 ```
 
-Cela ajoutera un `imageHash` à chaque fichier `.json`, puis les concaténera
-et hashera la valeur du fichier en une chaîne (string), qui est le hashage de "provenance".
+Cela ajoutera un `imageHash` à chaque fichier `.json`, puis les concaténera et hashera la valeur du fichier en une chaîne (string), qui sera le "hashage de provenance".
 
-**Les informations de provenance sont enregistrées** dans le répertoire de construction dans `_provenance.json`. Ce fichier contient le hashage de provenance final ainsi que la (longue) chaîne (string) de hashage concaténée.
+**Les informations de provenance sont enregistrées** dans le répertoire de construction dans `_provenance.json`. Ce fichier contient le hashage de provenance final ainsi que la longue chaîne (string) de hashage concaténée.
 
 \*Remarque, si vous régénérez les gifs, **Vous devrez également régénérer ce hashage**.
 
@@ -551,7 +549,7 @@ qui va créer les images restantes en fonction des métadonnées initiales.
 
 ### Aperçu Gif/MP4
 
-Si vous voulez un aperçu gif/MP4 d'un sous-ensemble de gifs (comme avec le Hashlips), lancez la commande
+Si vous voulez un aperçu gif/MP4 d'un sous-ensemble de gifs (comme avec le Hashlips), lancez la commande:
 
 `make preview`
 
@@ -563,7 +561,7 @@ définissez `SORT_ORDER` sur `OrderEnum.DESC`.
 
 ## REMARQUES IMPORTANTES
 
-Tout le code des étapes 1 et 3 a été écrit par moi. L'idée originale du dépôt vient de [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) mais la plupart du code de l'étape 2 est maintenant dérivé du [nftchef's Generative Engine](https://github .com/nftchef/art-engine) qui est lui-même dérivé de [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node).
+Tout le code des étapes 1 et 3 a été écrit par moi-même. L'idée originale du dépôt vient du [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) mais la plupart du code de l'étape 2 est maintenant dérivé du [nftchef's Generative Engine](https://github .com/nftchef/art-engine) qui est lui-même dérivé du [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node).
 
 
 **FAQ**
@@ -611,8 +609,20 @@ Si vous voulez voir ce code en action, nous l'utilisons pour mon entreprise de f
 
 Pxlsyl
 
+NB.: 
+
+-Si vous avez des questions, ou besoin d'aide en français, vous pouvez poser vos questions sur mon Discord, ou sur celui de Ben BK où je suis instructeur.
+
+-Si vous cherchez quelqu'un de compétent et sérieux pour créer une collection pour votre projet, n'hésitez pas à me contacter! Je suis spécialisé dans l'illustration traditionnelle et le Pixel Art. Je fais également du numérique et du Concep Art, et du travail avec intelligence artificielle. Je fais aussi un peu de dev pour mes projets personnels.
+
+Mes liens :
+
 [Twitter](https://twitter.com/PxlSyl)
 
 [Site Web](https://www.pxlsyl.art/)
 
-[Discord] (discord.gg/agkZjACtwA)
+[Discord] (https://discord.gg/agkZjACtwA)
+
+Et si vous voulez me remercier pour mon implication au sein de la communauté FR, aucune obligation, mais voici mon adresse Eth :) :
+
+0x9Fa388136659F601573bcaDa792f68d4EE1eDac9
