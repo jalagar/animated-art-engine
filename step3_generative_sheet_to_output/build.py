@@ -34,8 +34,12 @@ debug = global_config_json["debug"]
 layers_folder = global_config_json["layersFolder"]
 enable_audio = global_config_json["enableAudio"]
 num_loop = global_config_json["numLoopMP4"]
+generate_thumbnail = global_config_json["generateThumbnail"]
+thumbnail_height = global_config_json["thumbnailHeight"]
+thumbnail_width = global_config_json["thumbnailWidth"]
 
 OUTPUT_DIRECTORY = f"./build/{output_type}"
+THUMBNAIL_DIRECTORY = f"./build/thumbnail"
 OUTPUT_IMAGES_DIRECTORY = "./build/images"
 INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
 TEMP_DIRECTORY = "./step3_generative_sheet_to_output/temp"
@@ -128,6 +132,7 @@ def convert_pngs_to_output(
     file_name: str,
     fps: int,
     output_directory: str,
+    thumbnail_directory: str,
     is_resize: bool,
     width: int,
     height: int,
@@ -197,6 +202,15 @@ def convert_pngs_to_output(
             shell=True,
             **kwargs,
         )
+        if generate_thumbnail:
+            subprocess.run(
+                f"ffmpeg -stream_loop {num_loop} -y -r {fps} -f image2 -s {thumbnail_width}x{thumbnail_height} -i {temp_img_folder}/%d.png "
+                + ffmpeg_string
+                + f" -bitexact -shortest -vcodec libx264 "
+                f"-crf {mp4_quality} -pix_fmt yuv420p {os.path.join(thumbnail_directory, mp4_name)}",
+                shell=True,
+                **kwargs,
+            )
     elif output_type == OutputType.GIF:
         gif_name = get_png_file_name(file_name) + ".gif"
         if gif_tool == GifTool.IMAGEIO:
@@ -216,6 +230,24 @@ def convert_pngs_to_output(
             ) as writer:
                 for image in images:
                     writer.append_data(image)
+
+            if generate_thumbnail:
+                images = []
+                for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
+                    if filename.endswith(".png"):
+                        temp_img_path = os.path.join(temp_img_folder, filename)
+                        img = Image.open(temp_img_path).resize((height, width))
+                        images.append(img)
+                with imageio.get_writer(
+                    os.path.join(thumbnail_directory, gif_name),
+                    fps=fps,
+                    mode="I",
+                    quantizer=0,
+                    palettesize=256,
+                    loop=0 if loop_gif else 1,
+                ) as writer:
+                    for image in images:
+                        writer.append_data(image)
         elif gif_tool == GifTool.GIFSKI:
             subprocess.run(
                 f"gifski -o {os.path.join(output_directory, gif_name)} "
@@ -228,6 +260,18 @@ def convert_pngs_to_output(
                 shell=True,
                 **kwargs,
             )
+            if generate_thumbnail:
+                subprocess.run(
+                    f"gifski -o {os.path.join(thumbnail_directory, gif_name)} "
+                    f"{temp_img_folder}/*.png "
+                    f"--fps={fps} "
+                    f"--quality={quality} "
+                    f"-W={thumbnail_width} "
+                    f"-H={thumbnail_height} "
+                    f"--repeat={0 if loop_gif else -1}",
+                    shell=True,
+                    **kwargs,
+                )
         else:
             raise Exception(
                 f"Passed in invalid gif_tool {gif_tool}, only options are gifski and imageio"
@@ -261,6 +305,7 @@ def generate_output(
     batch_number: int,
     should_generate_output: bool,
     output_directory: str,
+    thumbnail_directory: str,
     is_resize: bool,
     output_width: int,
     output_height: int,
@@ -274,6 +319,7 @@ def generate_output(
             filename,
             fps,
             output_directory,
+            thumbnail_directory,
             is_resize,
             output_width,
             output_height,
@@ -310,6 +356,9 @@ def main(
         for folder in [output_directory, OUTPUT_IMAGES_DIRECTORY, TEMP_DIRECTORY]:
             setup_directory(folder)
 
+        if generate_thumbnail:
+            setup_directory(THUMBNAIL_DIRECTORY)
+
     if use_multiprocessing:
         if processor_count > multiprocessing.cpu_count():
             raise Exception(
@@ -344,6 +393,7 @@ def main(
                     batch_number,
                     should_generate_output,
                     output_directory,
+                    THUMBNAIL_DIRECTORY,
                     is_resize,
                     output_width,
                     output_height,

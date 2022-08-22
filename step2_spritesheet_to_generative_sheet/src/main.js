@@ -31,6 +31,7 @@ const {
   extraMetadata,
   forcedCombinations,
   format,
+  generateThumbnail,
   incompatible,
   layerConfigurations,
   layersDir,
@@ -38,10 +39,12 @@ const {
   rarityDelimiter,
   shuffleLayerConfigurations,
   startIndex,
+  thumbnailUri,
   traitValueOverrides,
   uniqueDnaTorrance,
   useRootTraitType,
 } = require(path.join(basePath, "/src/config.js"));
+
 const canvas = createCanvas(format.width, format.height);
 const ctxMain = canvas.getContext("2d");
 ctxMain.imageSmoothingEnabled = format.smoothing;
@@ -305,8 +308,16 @@ const addMetadata = (_dna, _edition, _prefixData, attributesList) => {
     date: dateTime,
     ...extraMetadata,
     attributes: cleanedAttrs,
-    compiler: "HashLips Art Engine - Jalagar gif fork",
+    compiler: "Jalagar Animated Art Engine",
   };
+  // If generating thumbnail, replace image with thumbnail URI
+  // and animation with baseUri
+  // image = thumbnail smaller image
+  // animation_url = larger image
+  if (generateThumbnail) {
+    tempMetadata["image"] = `${thumbnailUri}/${_edition}.gif`
+    tempMetadata["animation_url"] = `${baseUri}/${_edition}.gif`
+  }
   return tempMetadata;
 };
 
