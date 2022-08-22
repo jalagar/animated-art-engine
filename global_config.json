@@ -1,7 +1,7 @@
 {
   "totalSupply": 4,
-  "height": 350,
-  "width": 350,
+  "height": 1000,
+  "width": 1000,
   "framesPerSecond": 12,
   "numberOfFrames": 12,
   "saveIndividualFrames": false,
@@ -21,5 +21,9 @@
   "useMultiprocessing": false,
   "processorCount": 1,
   "useFileNumbering": true,
-  "enableAudio": false
+  "enableAudio": false,
+  "generateThumbnail": false,
+  "thumbnailHeight": 350,
+  "thumbnailWidth": 350,
+  "thumbnailUri": "ipfs://ThumbnailUriToReplace"
 }

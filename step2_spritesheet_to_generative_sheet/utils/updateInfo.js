@@ -17,7 +17,7 @@ const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
 const fs = require("fs");
 
 console.log(path.join(basePath, "/src/config.js"));
-const { baseUri, description } = require(path.join(basePath, "/src/config.js"));
+const { baseUri, description, thumbnailUri, generateThumbnail } = require(path.join(basePath, "/src/config.js"));
 
 const { Command } = require("commander");
 const program = new Command();
@@ -56,7 +56,12 @@ program
      * insead of the loop index as images may have a different order.
      */
     data.forEach((item) => {
-      item.image = `${baseUri}/${item.edition}.gif`;
+      if (generateThumbnail) {
+        item.image = `${thumbnailUri}/${item.edition}.gif`;
+        item.animation_url = `${baseUri}/${item.edition}.gif`;
+      } else {
+        item.image = `${baseUri}/${item.edition}.gif`;
+      }
       item.description = description;
 
       if (options.name) {
@@ -90,6 +95,9 @@ program
       JSON.stringify(data, null, 2)
     );
     console.log(`\nUpdated baseUri for images to ===> ${baseUri}\n`);
+    if (generateThumbnail) {
+      console.log(`\nUpdated thumbnailUri for images to ===> ${thumbnailUri}\n`);
+    }
     console.log(`Updated Description for all to ===> ${description}\n`);
   });
 
