@@ -36,6 +36,7 @@ const {
   layerConfigurations,
   layersDir,
   outputDir,
+  outputType,
   rarityDelimiter,
   shuffleLayerConfigurations,
   startIndex,
@@ -302,8 +303,8 @@ const addMetadata = (_dna, _edition, _prefixData, attributesList) => {
     dna: hash(_dna),
     name: `${_prefix ? _prefix + " " : ""}#${_edition - _offset}`,
     description: description,
-    image: `${baseUri}/${_edition}.gif`,
-    imageName: `${_edition}.gif`, // Used by the provenance hash
+    image: `${baseUri}/${_edition}.${outputType}`,
+    imageName: `${_edition}.${outputType}`, // Used by the provenance hash
     edition: _edition,
     date: dateTime,
     ...extraMetadata,
@@ -315,8 +316,8 @@ const addMetadata = (_dna, _edition, _prefixData, attributesList) => {
   // image = thumbnail smaller image
   // animation_url = larger image
   if (generateThumbnail) {
-    tempMetadata["image"] = `${thumbnailUri}/${_edition}.gif`
-    tempMetadata["animation_url"] = `${baseUri}/${_edition}.gif`
+    tempMetadata["image"] = `${thumbnailUri}/${_edition}.${outputType}`
+    tempMetadata["animation_url"] = `${baseUri}/${_edition}.${outputType}`
   }
   return tempMetadata;
 };
