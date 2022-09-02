@@ -372,6 +372,7 @@ def main(
                 batch_number,
                 should_generate_output,
                 output_directory,
+                THUMBNAIL_DIRECTORY,
                 is_resize,
                 output_width,
                 output_height,
