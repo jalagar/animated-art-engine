@@ -101,6 +101,7 @@ Known issues:
 - If you're on Windows 10 you might get a 'make' is not recognized. Try `choco install make` or follow these [instructions](https://pakstech.com/blog/make-windows/#:~:text=make%20%3A%20The%20term%20'make',choose%20Path%20and%20click%20Edit). Otherwise you can copy and paste the instructions manually in `Makefile`.
 - If you're on Windows you might get an error where 'python3' does not exist, try modify the `Makefile` and replace python3 with python. Thank you!
 - If you don't have brew installed, look at [gifski](https://github.com/ImageOptim/gifski) docs for another way to install gifski or look at [ffmpeg](https://ffmpeg.org/) for MP4.
+- If it says commander missing and you're on Windows, try downloading and extracting GTK (see [https://github.com/jalagar/animated-art-engine/discussions/108](https://github.com/jalagar/animated-art-engine/discussions/108) for more info).
 
 ## How to run?
 
