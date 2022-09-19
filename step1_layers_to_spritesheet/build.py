@@ -17,8 +17,6 @@ is_debug = global_config_json["debug"]
 num_total_frames = global_config_json["numberOfFrames"]
 num_batch_frames = global_config_json["numFramesPerBatch"]
 use_batches = global_config_json["useBatches"]
-width = global_config_json["width"]
-height = global_config_json["height"]
 use_multiprocessing = global_config_json["useMultiprocessing"]
 processor_count = global_config_json["processorCount"]
 
@@ -27,7 +25,7 @@ TEMP_DIRECTORY = "./step1_layers_to_spritesheet/temp"
 OUTPUT_DIRECTORY = "./step1_layers_to_spritesheet/output"
 
 
-def combine_images(images: List[Image], batch_number: int) -> Image:
+def combine_images(images: List[Image], batch_number: int, height: int, width: int) -> Image:
     """
     Combines images horizontally in a new image. This assumes
     all images are the same size.
@@ -79,7 +77,8 @@ def duplicate_images_number_of_frames_times(images: List[Image], num_total_frame
 
 
 def parse_attributes_into_images(
-    attribute_folder: str, attribute_path: str, output_path: bool, batch_number: int
+    attribute_folder: str, attribute_path: str, output_path: bool, batch_number: int,
+    height: int, width: int
 ) -> Tuple[List[Image], bool]:
     """
     Mutual recursive function that parses the attributes
@@ -108,7 +107,7 @@ def parse_attributes_into_images(
             output_attribute_path = os.path.join(output_path, attribute_folder)
             setup_directory(output_attribute_path, delete_if_exists=False)
             parse_attribute_folders(
-                filename, file_path, output_attribute_path, batch_number
+                filename, file_path, output_attribute_path, batch_number, height, width
             )
 
     if len(images) == 0:
@@ -124,6 +123,8 @@ def parse_attribute_folders(
     attribute_path: str,
     output_path: str,
     batch_number: int,
+    height: int,
+    width: int,
 ) -> None:
     """
     Mutually recursive function that parses attribute folders by
@@ -144,11 +145,13 @@ def parse_attribute_folders(
         attribute_path,
         output_path=output_path,
         batch_number=batch_number,
+        height=height,
+        width=width,
     )
     if len(images) == 0:
         return
 
-    spritesheet = combine_images(images, batch_number)
+    spritesheet = combine_images(images, batch_number, height, width)
     # If it contains subfolder, that means there is if-then logic and we need to
     # place the file in the subfolder
     if containsSubFolder:
@@ -207,7 +210,7 @@ def parse_gifs_into_temp_directory(directory: str, output_directory: str) -> Non
             parse_gifs_into_temp_directory(file_path, output_path)
 
 
-def process_layer_folder(layers_directory, layer_folder, batch_number):
+def process_layer_folder(layers_directory, layer_folder, batch_number, height, width):
     layer_path = os.path.join(layers_directory, layer_folder)
     # hidden files should be ignored
     if layer_folder.startswith("."):
@@ -225,10 +228,12 @@ def process_layer_folder(layers_directory, layer_folder, batch_number):
                     attribute_path,
                     output_layer_path,
                     batch_number,
+                    height,
+                    width
                 )
 
 
-def main(batch_number=0):
+def main(batch_number=0, height=global_config_json["height"], width=global_config_json["width"]):
     print("********Starting step 1: Converting pngs to spritesheets********")
 
     setup_directory(OUTPUT_DIRECTORY)
@@ -256,6 +261,8 @@ def main(batch_number=0):
                 layers_directory,
                 layer_folder,
                 batch_number,
+                height,
+                width
             )
             for layer_folder in os.listdir(layers_directory)
         ]
@@ -266,7 +273,7 @@ def main(batch_number=0):
             )
     else:
         for layer_folder in os.listdir(layers_directory):
-            process_layer_folder(layers_directory, layer_folder, batch_number)
+            process_layer_folder(layers_directory, layer_folder, batch_number, height, width)
 
 
 if __name__ == "__main__":

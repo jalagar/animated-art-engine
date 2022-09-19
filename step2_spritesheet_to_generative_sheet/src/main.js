@@ -46,10 +46,6 @@ const {
   useRootTraitType,
 } = require(path.join(basePath, "/src/config.js"));
 
-const canvas = createCanvas(format.width, format.height);
-const ctxMain = canvas.getContext("2d");
-ctxMain.imageSmoothingEnabled = format.smoothing;
-
 let dnaSet = new Set();
 const DNA_DELIMITER = "*";
 
@@ -267,7 +263,7 @@ const layersSetup = (layersOrder) => {
   return layers;
 };
 
-const saveImage = (_editionCount) => {
+const saveImage = (_editionCount, canvas) => {
   fs.writeFileSync(
     `${outputDir}/images/${_editionCount}.png`,
     canvas.toBuffer("image/png")
@@ -280,7 +276,7 @@ const genColor = () => {
   return pastel;
 };
 
-const drawBackground = (canvasContext) => {
+const drawBackground = (canvasContext, height, width) => {
   canvasContext.fillStyle = genColor();
   canvasContext.fillRect(0, 0, format.width, format.height);
 };
@@ -706,7 +702,7 @@ function shuffle(array) {
  * @param {Object} layerData data passed from the current iteration of the loop or configured dna-set
  *
  */
-const paintLayers = (canvasContext, renderObjectArray, layerData, attributesList) => {
+const paintLayers = (canvasContext, renderObjectArray, layerData, attributesList, height, width) => {
   debugLogs ? console.log("\nClearing canvas") : null;
   canvasContext.clearRect(0, 0, format.width, format.height);
 
@@ -729,7 +725,7 @@ const paintLayers = (canvasContext, renderObjectArray, layerData, attributesList
 
   if (_background.generate) {
     canvasContext.globalCompositeOperation = "destination-over";
-    drawBackground(canvasContext);
+    drawBackground(canvasContext, height, width);
   }
   debugLogs
     ? console.log("Editions left to create: ", abstractedIndexes)
@@ -756,10 +752,10 @@ const postProcessMetadata = (layerData) => {
   };
 };
 
-const outputFiles = (abstractedIndexes, layerData, metadataList, attributesList) => {
+const outputFiles = (abstractedIndexes, layerData, metadataList, attributesList, canvas) => {
   const { newDna, _ } = layerData;
   // Save the canvas buffer to file
-  saveImage(abstractedIndexes[0]);
+  saveImage(abstractedIndexes[0], canvas);
 
   const { _prefix, _offset } = postProcessMetadata(layerData);
 
@@ -778,7 +774,12 @@ const outputFiles = (abstractedIndexes, layerData, metadataList, attributesList)
   );
 };
 
-const startCreating = async (storedDNA) => {
+const startCreating = async (storedDNA, overrideHeight = null, overrideWidth = null) => {
+  const height = overrideHeight || format.height;
+  const width = overrideWidth || format.width
+  const canvas = createCanvas(width, height);
+  const ctxMain = canvas.getContext("2d");
+  ctxMain.imageSmoothingEnabled = format.smoothing;
   let dnaList = [];
   if (storedDNA) {
     dnaSet = storedDNA;
@@ -833,8 +834,8 @@ const startCreating = async (storedDNA) => {
             abstractedIndexes,
             _background: background,
           };
-          paintLayers(ctxMain, renderObjectArray, layerData, attributesList);
-          outputFiles(abstractedIndexes, layerData, metadataList, attributesList);
+          paintLayers(ctxMain, renderObjectArray, layerData, attributesList, height, width);
+          outputFiles(abstractedIndexes, layerData, metadataList, attributesList, canvas);
         });
         const filteredDna = filterDNAOptions(newDna);
         dnaSet.add(filteredDna);
