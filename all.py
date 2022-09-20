@@ -50,7 +50,8 @@ def create_all_from_dna():
 
 def main():
     for i in range(num_total_frames // num_frames_per_batch):
-        print(f"*******Starting Batch {i}*******")
+        if use_batching:
+            print(f"*******Starting Batch {i}*******")
         step1_main(i)
         # For first batch, run step2 normally to generate hashes
         if i == 0:
