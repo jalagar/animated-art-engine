@@ -8,19 +8,17 @@ const chalk = require("chalk");
 
 const {
   NFTName,
-  collectionName,
-  collectionFamily,
   NFTPrefix,
   namePrefixGap,
   symbol,
   description,
-  baseUriPrefix,
   external_url,
   royaltyFee,
   creators,
+  outputType,
 } = require(path.join(basePath, "Solana/solanaConfig.js"));
 const { startIndex } = require(path.join(basePath, "/src/config.js"));
-const gifDir = `${basePath}/../build/gif`;
+const outputDir = `${basePath}/../build/${outputType}`;
 const jsonDir = `${basePath}/../build/json`;
 
 const metaplexFilePath = `${basePath}/../build/solana`;
@@ -34,13 +32,12 @@ const setup = () => {
   }
   fs.mkdirSync(metaplexFilePath);
   fs.mkdirSync(path.join(metaplexFilePath, "/json"));
-  fs.mkdirSync(path.join(metaplexFilePath, "/gifs"));
+  fs.mkdirSync(path.join(metaplexFilePath, `/${outputType}s`));
 };
 
 const getIndividualImageFiles = () => {
   return fs
-    .readdirSync(gifDir)
-    .filter((item) => /^[0-9]{1,6}.gif/g.test(item));
+    .readdirSync(outputDir)
 };
 
 const getIndividualJsonFiles = () => {
@@ -61,14 +58,16 @@ console.log(
 // Rename all image files to n-1.png (to be zero indexed "start at zero") and store in solana/images
 const imageFiles = getIndividualImageFiles();
 imageFiles.forEach((file) => {
-  let nameWithoutExtension = file.slice(0, -4);
-  let editionCountFromFileName = Number(nameWithoutExtension);
-  let newEditionCount = editionCountFromFileName - startIndex;
-  fs.copyFile(
-    `${gifDir}/${file}`,
-    path.join(`${metaplexDir}`, "gifs", `${newEditionCount}.gif`),
-    () => { }
-  );
+  if (file.endsWith(outputType)) {
+    let nameWithoutExtension = file.slice(0, -4);
+    let editionCountFromFileName = Number(nameWithoutExtension);
+    let newEditionCount = editionCountFromFileName - startIndex;
+    fs.copyFile(
+      `${outputDir}/${file}`,
+      path.join(`${metaplexDir}`, `${outputType}s`, `${newEditionCount}.${outputType}`),
+      () => { }
+    );
+  }
 });
 console.log(`\nFinished converting images to being metaplex-ready.\n`);
 
@@ -91,18 +90,18 @@ jsonFiles.forEach((file) => {
     symbol: symbol,
     description: description,
     seller_fee_basis_points: royaltyFee,
-    image: `${editionCountFromFileName}.gif`,
+    image: `${editionCountFromFileName}.${outputType}`,
     ...(external_url !== "" && { external_url }),
     attributes: jsonData.attributes,
     properties: {
       edition: jsonData.edition,
       files: [
         {
-          uri: `${editionCountFromFileName}.gif`,
-          type: "image/gif",
+          uri: `${editionCountFromFileName}.${outputType}`,
+          type: `image/${outputType}`,
         },
       ],
-      category: "gif",
+      category: `${outputType}`,
       creators: creators,
       compiler: "Jalagar Animated Art Engine | qualifieddevs.io",
     },

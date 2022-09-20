@@ -1,3 +1,8 @@
+"use strict";
+
+const path = require("path");
+const isLocal = typeof process.pkg === "undefined";
+const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
 /**
  * If you are exporting your project for Solana:
  * 1. Read the Readme section for more info
@@ -39,10 +44,11 @@ const creators = [
     // },
 ];
 
-/**
- * Only change this if you need to generate data for video/VR/3d content
- */
-const propertyCategory = "gif";
+const { outputType } = require(path.join(
+    basePath,
+    "../global_config.json"
+));
+
 
 module.exports = {
     symbol,
@@ -56,5 +62,5 @@ module.exports = {
     creators,
     external_url,
     baseUriPrefix,
-    propertyCategory,
+    outputType,
 };
