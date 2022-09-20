@@ -6,11 +6,17 @@ import multiprocessing
 
 global_config_json = parse_global_config()
 num_total_frames = global_config_json["numberOfFrames"]
-num_frames_per_batch = global_config_json["numFramesPerBatch"]
+use_batching = global_config_json["useBatches"]
+# if not using batching, default to num total frames
+num_frames_per_batch = (
+    global_config_json["numFramesPerBatch"] if use_batching else num_total_frames
+)
 total_supply = global_config_json["totalSupply"]
 use_multiprocessing = global_config_json["useMultiprocessing"]
 processor_count = global_config_json["processorCount"]
 start_index = global_config_json["startIndex"]
+height = global_config_json["height"]
+width = global_config_json["width"]
 
 
 def create_from_dna(edition):

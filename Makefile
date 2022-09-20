@@ -12,9 +12,7 @@ step3:
 	python3 step3_generative_sheet_to_output/build.py
 
 all:
-	make step1
-	make step2
-	make step3
+	python3 all.py
 
 solana:
 	cd step2_spritesheet_to_generative_sheet && npm run generate:solana && cd ..
@@ -37,7 +35,7 @@ update_json_tezos:
 	cd step2_spritesheet_to_generative_sheet && npm run update_info:tezos && cd ..
 
 all_batch:
-	python3 batch.py
+	make all
 
 replace:
 	cd step2_spritesheet_to_generative_sheet && npm run replace ../ultraRares && cd ..
