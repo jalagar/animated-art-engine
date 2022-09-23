@@ -2,7 +2,6 @@ import subprocess
 import multiprocessing
 from PIL import Image
 import os, sys
-import imageio
 import json
 from typing import Dict, List
 
@@ -214,6 +213,8 @@ def convert_pngs_to_output(
     elif output_type == OutputType.GIF:
         gif_name = get_png_file_name(file_name) + ".gif"
         if gif_tool == GifTool.IMAGEIO:
+            # Moved import down here as people were having issues
+            import imageio
             images = []
             for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
                 if filename.endswith(".png"):
