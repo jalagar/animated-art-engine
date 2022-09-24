@@ -19,7 +19,7 @@
     "useBatches": false,
     "numFramesPerBatch": 4,
     "useMultiprocessing": false,
-    "processorCount": 1,
+    "processorCount": 8,
     "useFileNumbering": true,
     "enableAudio": false,
     "generateThumbnail": false,

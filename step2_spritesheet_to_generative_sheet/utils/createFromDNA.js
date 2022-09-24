@@ -23,7 +23,6 @@ const {
   layerConfigurations,
   outputJPEG,
   startIndex,
-  outputDir,
 } = require(path.join(basePath, "/src/config.js"));
 
 const {
@@ -34,8 +33,6 @@ const {
   sortZIndex,
 } = require(path.join(basePath, "/src/main.js"));
 
-const canvas = createCanvas(format.width, format.height);
-const ctxMain = canvas.getContext("2d");
 
 const getDNA = () => {
   return JSON.parse(fs.readFileSync(dnaFilePath));
@@ -47,7 +44,7 @@ const createItem = (_id, layers) => {
   return { existingDna, layerImages: constructLayerToDna(existingDna, layers) };
 };
 
-const outputFiles = (_id) => {
+const outputFiles = (_id, canvas) => {
   // Save the image
   fs.writeFileSync(
     `${imageDir}/${_id}${outputJPEG ? ".jpg" : ".png"}`,
@@ -55,7 +52,7 @@ const outputFiles = (_id) => {
   );
 };
 
-const regenerateItem = (_id, options) => {
+const regenerateItem = (_id, options, canvas, ctxMain, overrideWidth) => {
   // get the dna lists
   // FIgure out which layer config set it's from
   const layerEdition = layerConfigurations.reduce((acc, config) => {
@@ -90,20 +87,25 @@ const regenerateItem = (_id, options) => {
       _background: background,
     };
     // paint layers to global canvas context.. no return value
-    paintLayers(ctxMain, renderObjectArray, layerData, []);
-    outputFiles(_id, layerData, options);
+    paintLayers(ctxMain, renderObjectArray, layerData, [], overrideWidth);
+    outputFiles(_id, canvas);
   });
 };
 
 program
   .argument("<id>")
+  .argument("<width>")
   .option("-d, --debug", "display some debugging")
-  .action((id, options, command) => {
+  .action((id, width, options, command) => {
+    const overrideWidth = width ? parseInt(width) : format.width
+    const canvas = createCanvas(overrideWidth, format.height);
+    const ctxMain = canvas.getContext("2d");
+
     options.debug
       ? console.log(chalk.greenBright.inverse(`Regenerating #${id}`))
       : null;
 
-    regenerateItem(id, options);
+    regenerateItem(id, options, canvas, ctxMain, overrideWidth);
   });
 
 program.parse();
