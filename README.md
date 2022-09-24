@@ -1,8 +1,8 @@
-# Welcome to the **Generative Animated Engine v3.1.0** 🐤
+# Welcome to the **Generative Animated Engine v3.1.1** 🐤
 
 [8 minute read]
 
-**This repo used to be called jalagar/Generative_Gif_Engine but because it now supports GIF, MP4, it was renamed to jalagar/animated-art-engine. v3.1.0 is the beginning of the animated era.**
+**This repo used to be called jalagar/Generative_Gif_Engine but because it now supports GIF, MP4, it was renamed to jalagar/animated-art-engine. v3.1.1 is the beginning of the animated era.**
 
 **Check out this [Youtube Tutorial](https://www.youtube.com/watch?v=z3jMEx6PRUc) on how it works!**
 
@@ -569,7 +569,10 @@ See [Tezos README](step2_spritesheet_to_generative_sheet/documentation/other-blo
 Do you want higher resolution, more frames, and larger gifs/MP4? Batching is for you! Currently step2 is limited by 32000 pixel files,
 so in order to get around this we must batch the entire process into chunks and then combine them at the end.
 
-Set `useBatches` in `global_config.json` to `true` and then set `numFramesPerBatch` to an even divisible of `numberOfFrames`.
+Set `useBatches` in `global_config.json` to `true` and then set `numFramesPerBatch` to a smaller frame batch. NOTE try testing different frames per batch to see if rendering a smaller number of
+editions is faster or slower. Some users have said smaller batches renders faster. This works
+for odd number of frames as well, ex. 35 total frames, and 12 frames per batch, it will generate
+2 batches of 12 frames, and 1 batch of 11 frames automatically.
 
 Then run `make all` which runs `python3 all.py`. This under the hood generates the JSON metadata for the first
 batch and then regenerates the next batches based on the existing JSON.

@@ -1,8 +1,8 @@
-# Bienvenu au **Generative Animated Engine v3.1.0** 🐤
+# Bienvenu au **Generative Animated Engine v3.1.1** 🐤
 
 [8 minutes de lecture]
 
-**Ce dépôt s'appelait jalagar/Generative_Gif_Engine mais maintenant qu'il supporte GIF, MP4, il a été renommé jalagar/animated-art-engine. v3.1.0 est le début de l'ère de l'animation.**
+**Ce dépôt s'appelait jalagar/Generative_Gif_Engine mais maintenant qu'il supporte GIF, MP4, il a été renommé jalagar/animated-art-engine. v3.1.1 est le début de l'ère de l'animation.**
 
 **Allez voir -pour les anglophones- [Youtube Tutorial](https://www.youtube.com/watch?v=z3jMEx6PRUc) ou [Tutoriel Youtube](https://www.youtube.com/watch?v=wjifmH3rmFw) pour les francophones!**
 

@@ -19,14 +19,15 @@ height = global_config_json["height"]
 width = global_config_json["width"]
 
 
-def create_from_dna(edition):
+def create_from_dna(edition, num_frames_per_batch=num_frames_per_batch):
+    override_width = num_frames_per_batch * width
     subprocess.run(
-        f"cd step2_spritesheet_to_generative_sheet && npm run create_from_dna {edition}",
+        f"cd step2_spritesheet_to_generative_sheet && npm run create_from_dna {edition} {override_width}",
         shell=True,
     )
 
 
-def create_all_from_dna():
+def create_all_from_dna(num_frames_per_batch=num_frames_per_batch):
     if use_multiprocessing:
         if processor_count > multiprocessing.cpu_count():
             raise Exception(
@@ -35,7 +36,7 @@ def create_all_from_dna():
             )
 
         args = [
-            (edition,) for edition in range(start_index, start_index + total_supply)
+            (edition, num_frames_per_batch) for edition in range(start_index, start_index + total_supply)
         ]
         with multiprocessing.Pool(processor_count) as pool:
             pool.starmap(
@@ -45,7 +46,7 @@ def create_all_from_dna():
     else:
         # Then recreate DNA from the editions
         for edition in range(start_index, start_index + total_supply):
-            create_from_dna(edition)
+            create_from_dna(edition, num_frames_per_batch)
 
 
 def main():
@@ -65,6 +66,18 @@ def main():
         step3_main(
             i,
             should_generate_output=i == (num_total_frames // num_frames_per_batch - 1),
+        )
+
+    # if odd number of frames
+    if num_total_frames % num_frames_per_batch != 0:
+        print(f"Odd number of frames, finishing final batch of length {num_total_frames % num_frames_per_batch}")
+        if use_batching:
+            print(f"*******Starting Batch {i + 1}*******")
+        step1_main(i + 1, num_total_frames % num_frames_per_batch)
+        create_all_from_dna(num_total_frames % num_frames_per_batch)
+        step3_main(
+            i + 1,
+            should_generate_output=True
         )
 
 

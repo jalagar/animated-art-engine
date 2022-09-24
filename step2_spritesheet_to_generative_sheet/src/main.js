@@ -280,9 +280,9 @@ const genColor = () => {
   return pastel;
 };
 
-const drawBackground = (canvasContext) => {
+const drawBackground = (canvasContext, overrideWidth = null) => {
   canvasContext.fillStyle = genColor();
-  canvasContext.fillRect(0, 0, format.width, format.height);
+  canvasContext.fillRect(0, 0, overrideWidth || format.width, format.height);
 };
 
 const addMetadata = (_dna, _edition, _prefixData, attributesList) => {
@@ -350,8 +350,8 @@ const loadLayerImg = async (_layer) => {
   });
 };
 
-const drawElement = (_renderObject, mainCanvas, attributesList) => {
-  const layerCanvas = createCanvas(format.width, format.height);
+const drawElement = (_renderObject, mainCanvas, attributesList, overrideWidth = null) => {
+  const layerCanvas = createCanvas(overrideWidth || format.width, format.height);
   const layerctx = layerCanvas.getContext("2d");
   layerctx.imageSmoothingEnabled = format.smoothing;
 
@@ -359,12 +359,12 @@ const drawElement = (_renderObject, mainCanvas, attributesList) => {
     _renderObject.loadedImage,
     0,
     0,
-    format.width,
+    overrideWidth || format.width,
     format.height
   );
 
   addAttributes(_renderObject, attributesList);
-  mainCanvas.drawImage(layerCanvas, 0, 0, format.width, format.height);
+  mainCanvas.drawImage(layerCanvas, 0, 0, overrideWidth || format.width, format.height);
   return layerCanvas;
 };
 
@@ -706,9 +706,9 @@ function shuffle(array) {
  * @param {Object} layerData data passed from the current iteration of the loop or configured dna-set
  *
  */
-const paintLayers = (canvasContext, renderObjectArray, layerData, attributesList) => {
+const paintLayers = (canvasContext, renderObjectArray, layerData, attributesList, overrideWidth = null) => {
   debugLogs ? console.log("\nClearing canvas") : null;
-  canvasContext.clearRect(0, 0, format.width, format.height);
+  canvasContext.clearRect(0, 0, overrideWidth || format.width, format.height);
 
   const { abstractedIndexes, _background } = layerData;
 
@@ -719,17 +719,17 @@ const paintLayers = (canvasContext, renderObjectArray, layerData, attributesList
     canvasContext.globalAlpha = renderObject.layer.opacity;
     canvasContext.globalCompositeOperation = renderObject.layer.blendmode;
     canvasContext.drawImage(
-      drawElement(renderObject, canvasContext, attributesList),
+      drawElement(renderObject, canvasContext, attributesList, overrideWidth),
       0,
       0,
-      format.weight,
+      overrideWidth || format.weight,
       format.height
     );
   });
 
   if (_background.generate) {
     canvasContext.globalCompositeOperation = "destination-over";
-    drawBackground(canvasContext);
+    drawBackground(overrideWidth, canvasContext);
   }
   debugLogs
     ? console.log("Editions left to create: ", abstractedIndexes)
