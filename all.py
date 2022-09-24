@@ -36,7 +36,8 @@ def create_all_from_dna(num_frames_per_batch=num_frames_per_batch):
             )
 
         args = [
-            (edition, num_frames_per_batch) for edition in range(start_index, start_index + total_supply)
+            (edition, num_frames_per_batch)
+            for edition in range(start_index, start_index + total_supply)
         ]
         with multiprocessing.Pool(processor_count) as pool:
             pool.starmap(
@@ -70,15 +71,14 @@ def main():
 
     # if odd number of frames
     if num_total_frames % num_frames_per_batch != 0:
-        print(f"Odd number of frames, finishing final batch of length {num_total_frames % num_frames_per_batch}")
+        print(
+            f"Odd number of frames, finishing final batch of length {num_total_frames % num_frames_per_batch}"
+        )
         if use_batching:
             print(f"*******Starting Batch {i + 1}*******")
         step1_main(i + 1, num_total_frames % num_frames_per_batch)
         create_all_from_dna(num_total_frames % num_frames_per_batch)
-        step3_main(
-            i + 1,
-            should_generate_output=True
-        )
+        step3_main(i + 1, should_generate_output=True)
 
 
 if __name__ == "__main__":

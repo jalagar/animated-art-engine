@@ -215,6 +215,7 @@ def convert_pngs_to_output(
         if gif_tool == GifTool.IMAGEIO:
             # Moved import down here as people were having issues
             import imageio
+
             images = []
             for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
                 if filename.endswith(".png"):

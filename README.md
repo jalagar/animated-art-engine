@@ -570,8 +570,9 @@ Do you want higher resolution, more frames, and larger gifs/MP4? Batching is for
 so in order to get around this we must batch the entire process into chunks and then combine them at the end.
 
 Set `useBatches` in `global_config.json` to `true` and then set `numFramesPerBatch` to a smaller frame batch. NOTE try testing different frames per batch to see if rendering a smaller number of
-editions is faster or slower. Some users have said smaller batches renders faster. This works
-for odd number of frames as well, ex. 35 total frames, and 12 frames per batch, it will generate
+editions is faster or slower. Some users have said smaller batches renders faster.
+
+This works for odd number of frames as well, ex. 35 total frames, and 12 frames per batch, it will generate
 2 batches of 12 frames, and 1 batch of 11 frames automatically.
 
 Then run `make all` which runs `python3 all.py`. This under the hood generates the JSON metadata for the first
