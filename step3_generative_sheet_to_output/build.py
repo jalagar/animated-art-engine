@@ -34,11 +34,14 @@ layers_folder = global_config_json["layersFolder"]
 enable_audio = global_config_json["enableAudio"]
 num_loop = global_config_json["numLoopMP4"]
 generate_thumbnail = global_config_json["generateThumbnail"]
+generate_pfp = global_config_json["generatePFP"]
+pfp_frame_number = global_config_json["pfpFrameNumber"]
 thumbnail_height = global_config_json["thumbnailHeight"]
 thumbnail_width = global_config_json["thumbnailWidth"]
 
 OUTPUT_DIRECTORY = f"./build/{output_type}"
 THUMBNAIL_DIRECTORY = f"./build/thumbnail"
+PFP_DIRECTORY = f"./build/pfp"
 OUTPUT_IMAGES_DIRECTORY = "./build/images"
 INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
 TEMP_DIRECTORY = "./step3_generative_sheet_to_output/temp"
@@ -148,15 +151,23 @@ def convert_pngs_to_output(
     images_directory = os.path.join(
         OUTPUT_IMAGES_DIRECTORY, get_png_file_name(file_name)
     )
+    index = get_png_file_name(file_name)
     if save_individual_frames and not is_resize:
         setup_directory(images_directory)
 
+    i = 0
     for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
         if filename.endswith(".png"):
             temp_img_path = os.path.join(temp_img_folder, filename)
+            if generate_pfp and i == pfp_frame_number:
+                new_frame = Image.open(temp_img_path)
+                new_frame.save(os.path.join(PFP_DIRECTORY, f"{index}.png"), quality=95)
+
             if save_individual_frames and not is_resize:
                 new_frame = Image.open(temp_img_path)
                 new_frame.save(os.path.join(images_directory, filename), quality=95)
+
+            i += 1
 
     kwargs = {}
     if not debug:
@@ -166,7 +177,6 @@ def convert_pngs_to_output(
         # ffmpeg uses quality 0 - 50, where 0 is the best, 50 is the worst.
         # so 50 - quality / 2 gives you the correct scale. Ex. quality = 100 will be 50 - 100 / 2 = 50
         # however I was having issues with 0 lossless, so pad 3 quality
-        index = get_png_file_name(file_name)
         mp4_name = index + ".mp4"
         mp4_quality = int(50 - quality / 2) + 3
 
@@ -360,6 +370,9 @@ def main(
 
         if generate_thumbnail:
             setup_directory(THUMBNAIL_DIRECTORY)
+
+        if generate_pfp:
+            setup_directory(PFP_DIRECTORY)
 
     if use_multiprocessing:
         if processor_count > multiprocessing.cpu_count():
