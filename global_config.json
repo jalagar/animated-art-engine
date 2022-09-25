@@ -25,5 +25,7 @@
     "generateThumbnail": false,
     "thumbnailHeight": 350,
     "thumbnailWidth": 350,
-    "thumbnailUri": "ipfs://ThumbnailUriToReplace"
+    "thumbnailUri": "ipfs://ThumbnailUriToReplace",
+    "generatePFP": true,
+    "pfpFrameNumber": 0
 }
