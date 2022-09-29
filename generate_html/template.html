@@ -1,0 +1,129 @@
+<html>
+
+<head>
+    <style>
+        html,
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #buttonContainer {
+            position: absolute;
+            z-index: 3;
+            display: none;
+            left: 25px;
+            top: 25px;
+        }
+
+        #button {
+            background-color: transparent;
+            background-repeat: no-repeat;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            padding: 0;
+        }
+
+        @-webkit-keyframes bounce {
+            from {
+                -webkit-transform: translateY(0);
+            }
+
+            to {
+                -webkit-transform: translateY(-10px);
+            }
+        }
+
+        @-moz-keyframes bounce {
+            from {
+                -moz-transform: translateY(0);
+            }
+
+            to {
+                -moz-transform: translateY(-10px);
+            }
+        }
+
+        @-ms-keyframes bounce {
+            from {
+                -ms-transform: translateY(0);
+            }
+
+            to {
+                -ms-transform: translateY(-10px);
+            }
+        }
+
+        @-o-keyframes bounce {
+            from {
+                -o-transform: translateY(0);
+            }
+
+            to {
+                -o-transform: translateY(-10px);
+            }
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-10px);
+            }
+        }
+
+        #buttonImage {
+            width: 40px;
+            height: 40px;
+        }
+
+        .animated {
+            -webkit-animation: bounce 0.4s ease-out infinite alternate;
+            -moz-animation: bounce 0.4s ease-out infinite alternate;
+            -ms-animation: bounce 0.4s ease-out infinite alternate;
+            -o-animation: bounce 0.4s ease-out infinite alternate;
+            animation: bounce 0.4s ease-out infinite alternate;
+        }
+
+        #originalImage {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        #gifImage {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="buttonContainer" onclick="onClick()" style="display: block;">
+        <button id="button" ontouchstart="">
+            <img class="animated" id="buttonImage" src="data:image/png;base64,logo_here">
+        </button>
+    </div>
+    <img id="originalImage" src="data:image/png;base64,image_here" style="display: block;">
+    <img id="gifImage" src="data:image/gif;base64,gif_here" style="display: none;">
+
+    <script>
+        function onClick() {
+            if (document.getElementById("originalImage").style.display === "none") {
+                document.getElementById("originalImage").style.display = "block";
+                document.getElementById("gifImage").style.display = "none";
+                document.getElementById("buttonImage").classList.add("animated");
+            } else {
+                document.getElementById("originalImage").style.display = "none";
+                document.getElementById("gifImage").style.display = "block";
+                document.getElementById("buttonImage").classList.remove("animated");
+            }
+        }
+    </script>
+</body>
+
+</html>
