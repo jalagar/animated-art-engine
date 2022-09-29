@@ -594,6 +594,7 @@ Check out `README_Assets/html/0.html` for an example (open it in any browser and
 Steps to generate HTML:
 1. Have all your animated gifs/MP4s in the `build/gifs` or `build/mp4` folder. You can do this by running `make all` or just copying them into the folders.
 2. Have all your PFPs in the `build/pfps` folder. You can do this by running `make all` with `generatePFP` set to `true`. You can pick which frame to be your PFPs in `pfpFrameNumber`. OR you can just drag the PFPs if you already have them generated.
+3. Change the logo to your logo in `generate_html/logo.png`. It has to be called `logo.png` all lowercase.
 3. Run `make html`. All the html files should be in `build/html`. You can change styling by editing `generate_html/template.html`.
 
 
