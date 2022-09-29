@@ -45,3 +45,6 @@ preview:
 
 regenerate:
 	python3 regenerate.py
+
+html:
+	python3 generate_html/build.py

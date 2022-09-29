@@ -581,6 +581,22 @@ Then run `make all` which runs `python3 all.py`. This under the hood generates t
 batch and then regenerates the next batches based on the existing JSON.
 
 
+### HTML Toggle Animation
+
+🧪 BETA FEATURE
+
+THIS FEATURE IS VERY MUCH IN BETA AND HAS NOT BEEN TESTED ON PRODUCTION! USE AT YOUR OWN RISK.
+
+Do you want someway for users to toggle between static and animated images (similar to [Little Lemon Friends](https://opensea.io/assets/ethereum/0x0b22fe0a2995c5389ac093400e52471dca8bb48a/5200))?
+
+Check out `README_Assets/html/0.html` for an example (open it in any browser and click the icon on the top left). Markdown doesn't allow embedding all HTML tags and javascript so you'll have to open it separately.
+
+Steps to generate HTML:
+1. Have all your animated gifs/MP4s in the `build/gifs` or `build/mp4` folder. You can do this by running `make all` or just copying them into the folders.
+2. Have all your PFPs in the `build/pfps` folder. You can do this by running `make all` with `generatePFP` set to `true`. You can pick which frame to be your PFPs in `pfpFrameNumber`. OR you can just drag the PFPs if you already have them generated.
+3. Run `make html`. All the html files should be in `build/html`. You can change styling by editing `generate_html/template.html`.
+
+
 ### Preview Gif/MP4
 
 If you want a preview gif/MP4 of a subset of gifs (like Hashlips), run
