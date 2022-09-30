@@ -89,7 +89,7 @@ def main():
             print(f"*******Starting Batch {i}*******")
         step1_main(i)
 
-        # Remove step 2 folders to reset the editions
+        # Remove step 2 folders to reset the editions if regenerating in parts
         shutil.rmtree("step2_spritesheet_to_generative_sheet/output/images")
         os.mkdir("step2_spritesheet_to_generative_sheet/output/images")
         create_all_from_dna()

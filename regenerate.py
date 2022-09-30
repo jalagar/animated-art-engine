@@ -4,6 +4,7 @@ import subprocess
 from utils.file import parse_global_config
 import os.path
 import sys
+import shutil
 
 # In order to import utils/file.py we need to add this path.append
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -27,6 +28,28 @@ use_multiprocessing = global_config_json["useMultiprocessing"]
 processor_count = global_config_json["processorCount"]
 width = global_config_json["width"]
 
+"""
+Override START_EDITION and END_EDITION if you want to run in batches.
+Default values:
+START_EDITION = start_index
+END_EDITION = start_index + total_supply
+
+Ex. You have a 10k collection but it takes too long to render the entire collection. You would first do
+START_EDITION = start_index
+END_EDITION = 1000 (exclusive)
+
+This would generate all 10k JSON files, but only generate the NFTs for the first 1K.
+
+Then you can move these NFTs to another folder, and then change:
+START_EDITION = 1000
+END_EDITION = 2000
+etc...
+
+NOTE END_EDITION is exclusive, so if start_index is 0 and you have 10k collection, END_EDITION would be 10001
+"""
+START_EDITION = start_index
+END_EDITION = start_index + total_supply
+
 
 def create_from_dna(edition, num_frames_per_batch=num_frames_per_batch):
     override_width = num_frames_per_batch * width
@@ -46,7 +69,7 @@ def create_all_from_dna():
 
         args = [
             (edition, num_frames_per_batch)
-            for edition in range(start_index, start_index + total_supply)
+            for edition in range(START_EDITION, END_EDITION)
         ]
         with multiprocessing.Pool(processor_count) as pool:
             pool.starmap(
@@ -55,7 +78,7 @@ def create_all_from_dna():
             )
     else:
         # Then recreate DNA from the editions
-        for edition in range(start_index, start_index + total_supply):
+        for edition in range(START_EDITION, END_EDITION):
             create_from_dna(edition, num_frames_per_batch)
 
 
@@ -94,6 +117,9 @@ def main():
         for i in range(num_total_frames // num_frames_per_batch):
             print(f"*******Starting Batch {i}*******")
             step1_main(i)
+            # Remove step 2 folders to reset the editions if regenerating in parts
+            shutil.rmtree("step2_spritesheet_to_generative_sheet/output/images")
+            os.mkdir("step2_spritesheet_to_generative_sheet/output/images")
             create_all_from_dna()
             # Only generate gif if its the last batch
             if not SKIP_STEP_THREE:
