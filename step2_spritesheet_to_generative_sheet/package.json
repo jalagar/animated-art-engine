@@ -1,6 +1,6 @@
 {
-  "name": "nft-gif-generator",
-  "version": "3.1.1",
+  "name": "nft-animated-generator",
+  "version": "3.1.2",
   "description": "Jalagar Fork off of NFTChef Fork - Hard fork from HashLips Art Engine, is a tool used to create multiple different instances of animated artworks based on provided layers. Most config is the same as Hashlips",
   "main": "index.js",
   "bin": "index.js",
