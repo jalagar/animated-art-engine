@@ -23,7 +23,6 @@ quality = global_config_json["quality"]
 gif_tool = global_config_json["gifTool"]
 use_batches = global_config_json["useBatches"]
 num_frames_per_batch = global_config_json["numFramesPerBatch"]
-save_individual_frames = global_config_json["saveIndividualFrames"]
 loop_gif = global_config_json["loopGif"]
 use_multiprocessing = global_config_json["useMultiprocessing"]
 processor_count = global_config_json["processorCount"]
@@ -42,7 +41,6 @@ thumbnail_width = global_config_json["thumbnailWidth"]
 OUTPUT_DIRECTORY = f"./build/{output_type}"
 THUMBNAIL_DIRECTORY = f"./build/thumbnail"
 PFP_DIRECTORY = f"./build/pfp"
-OUTPUT_IMAGES_DIRECTORY = "./build/images"
 INPUT_DIRECTORY = "./step2_spritesheet_to_generative_sheet/output/images"
 TEMP_DIRECTORY = "./step3_generative_sheet_to_output/temp"
 JSON_DIRECTORY = f"./build/json"
@@ -148,12 +146,7 @@ def convert_pngs_to_output(
     if not sort_function:
         sort_function = lambda img: int(get_png_file_name(img))
 
-    images_directory = os.path.join(
-        OUTPUT_IMAGES_DIRECTORY, get_png_file_name(file_name)
-    )
     index = get_png_file_name(file_name)
-    if save_individual_frames and not is_resize:
-        setup_directory(images_directory)
 
     i = 0
     for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
@@ -162,10 +155,6 @@ def convert_pngs_to_output(
             if generate_pfp and i == pfp_frame_number:
                 new_frame = Image.open(temp_img_path)
                 new_frame.save(os.path.join(PFP_DIRECTORY, f"{index}.png"), quality=95)
-
-            if save_individual_frames and not is_resize:
-                new_frame = Image.open(temp_img_path)
-                new_frame.save(os.path.join(images_directory, filename), quality=95)
 
             i += 1
 
@@ -365,7 +354,7 @@ def main(
 
     # Only set up folders if its the first batch
     if not use_batches or batch_number == 0:
-        for folder in [output_directory, OUTPUT_IMAGES_DIRECTORY, TEMP_DIRECTORY]:
+        for folder in [output_directory, TEMP_DIRECTORY]:
             setup_directory(folder)
 
         if generate_thumbnail:

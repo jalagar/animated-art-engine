@@ -4,7 +4,6 @@
     "width": 1000,
     "framesPerSecond": 12,
     "numberOfFrames": 12,
-    "saveIndividualFrames": false,
     "description": "Your description here",
     "baseUri": "ipfs://NewUriToReplace",
     "startIndex": 0,
@@ -27,5 +26,6 @@
     "thumbnailWidth": 350,
     "thumbnailUri": "ipfs://ThumbnailUriToReplace",
     "generatePFP": false,
-    "pfpFrameNumber": 0
+    "pfpFrameNumber": 0,
+    "animationUri": "ipfs://AnimationUriToReplace"
 }

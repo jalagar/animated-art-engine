@@ -16,8 +16,7 @@ const isLocal = typeof process.pkg === "undefined";
 const basePath = isLocal ? process.cwd() : path.dirname(process.execPath);
 const fs = require("fs");
 
-console.log(path.join(basePath, "/src/config.js"));
-const { baseUri, description, thumbnailUri, generateThumbnail } = require(path.join(basePath, "/src/config.js"));
+const { baseUri, description, thumbnailUri, generateThumbnail, outputType, animationUri } = require(path.join(basePath, "/src/config.js"));
 
 const { Command } = require("commander");
 const program = new Command();
@@ -57,10 +56,13 @@ program
      */
     data.forEach((item) => {
       if (generateThumbnail) {
-        item.image = `${thumbnailUri}/${item.edition}.gif`;
-        item.animation_url = `${baseUri}/${item.edition}.gif`;
+        item.image = `${thumbnailUri}/${item.edition}.${outputType}`;
+        item.animation_url = `${baseUri}/${item.edition}.${outputType}`;
+      } else if (animationUri) {
+        item.animation_url = `${animationUri}/${item.edition}.${outputType}`;
+        item.image = `${baseUri}/${item.edition}.${outputType}`;
       } else {
-        item.image = `${baseUri}/${item.edition}.gif`;
+        item.image = `${baseUri}/${item.edition}.${outputType}`;
       }
       item.description = description;
 
@@ -97,6 +99,9 @@ program
     console.log(`\nUpdated baseUri for images to ===> ${baseUri}\n`);
     if (generateThumbnail) {
       console.log(`\nUpdated thumbnailUri for images to ===> ${thumbnailUri}\n`);
+    }
+    if (animationUri) {
+      console.log(`\nUpdated animationUri for images to ===> ${animationUri}\n`);
     }
     console.log(`Updated Description for all to ===> ${description}\n`);
   });

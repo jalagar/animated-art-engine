@@ -13,7 +13,23 @@ const buildDir = path.join(basePath, "../build"); // JSON are written to json fo
  * General Generator Options
  ***********************/
 
-const { numFramesPerBatch, numberOfFrames, useBatches, description, baseUri, height, width, startIndex, thumbnailUri, generateThumbnail, debug, totalSupply, layersFolder, outputType } = require(path.join(
+const {
+  numFramesPerBatch,
+  numberOfFrames,
+  useBatches,
+  description,
+  baseUri,
+  height,
+  width,
+  startIndex,
+  thumbnailUri,
+  generateThumbnail,
+  debug,
+  totalSupply,
+  layersFolder,
+  outputType,
+  animationUri
+} = require(path.join(
   basePath,
   "../global_config.json"
 ));
@@ -205,6 +221,7 @@ const uniqueDnaTorrance = 10000;
 const useRootTraitType = true;
 
 module.exports = {
+  animationUri,
   background,
   baseUri,
   buildDir,
