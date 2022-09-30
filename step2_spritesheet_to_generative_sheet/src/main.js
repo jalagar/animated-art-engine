@@ -367,20 +367,16 @@ const drawElement = (_renderObject, mainCanvas, attributesList) => {
 
 const constructLayerToDna = (_dna = [], _layers = []) => {
   const dna = _dna.split(DNA_DELIMITER);
-  // console.log(_layers)
-  let mappedDnaToLayers = _layers.map((layer, index) => {
+  let mappedDnaToLayers = _layers.map((layer) => {
     let selectedElements = [];
     const layerImages = dna.filter(
       (element) => element.split(".")[0] == layer.id
     );
-    // console.log(layerImages)
     layerImages.forEach((img) => {
       const indexAddress = cleanDna(img);
-      // console.log(indexAddress)
-
       const indices = indexAddress.toString().split(".");
-      // const firstAddress = indices.shift();
       const lastAddress = indices.pop(); // 1
+
       // recursively go through each index to get the nested item
       let parentElement = indices.reduce((r, nestedIndex) => {
         if (!r[nestedIndex]) {
@@ -388,7 +384,10 @@ const constructLayerToDna = (_dna = [], _layers = []) => {
         }
         return r[nestedIndex].elements;
       }, _layers); //returns string, need to return
-
+      const selectedElement = parentElement[lastAddress];
+      if (!selectedElement) {
+        throw new Error(`${img} DNA is missing for trait: ${layer.name}, is something misnamed or missing?`)
+      }
       selectedElements.push(parentElement[lastAddress]);
     });
     // If there is more than one item whose root address indicies match the layer ID,

@@ -1,4 +1,4 @@
-# Welcome to the **Generative Animated Engine v3.1.2** 🐤
+# Welcome to the **Generative Animated Engine v3.1.3** 🐤
 
 [10 minute read]
 
@@ -125,23 +125,23 @@ Update `global_config.json` with:
 5.  **`'numberOfFrames'`** : number of total frames. For example you could have 24 frames, but you want to render it 12fps.
 6.  **`'description'`** : description to be put in the metadata.
 7.  **`'baseUri'`** : baseUri to be put in the metadata.
-8.  **`'saveIndividualFrames'`** : this is if you want to save the individual final frames, for example if you want to let people pick just one frame for a profile page.
-9. **`'layersFolder'`**: this is the folder that you want to use for the layers. The default is `layers`, but this allows you to have multiple versions of layers and run them side by side. The current repo has four example folders, `layers`, `layers_grouping`, `layers_if_then`, `layers_z_index` which all demonstrate features from [nftchef's repo](https://generator.nftchef.dev/).
-10. **`'quality'`**: quality of the output, 1-100.
-11. **`'gifTool'`**: pick which gif generation method to use, `gifski` or `imageio`. Gifski is better overall, but some people were having issues with it on Linux. Also `imageio` will work for more pixel art, so if you don't want to download Gifski you can set this to `imageio`.
-12. **`'MP4Tool'`**: pick which MP4 generation method to use. Only supports `ffmpeg` at the moment.
-13. **`'outputType'`**: select `gif` or `mp4`.
-14. **`'useBatches'`**: set to `true` if you want to take advantage of [batching](#batching). Otherwise does nothing.
-15. **`'numFramesPerBatch'`**: number of frames for each batch. See [batching](#batching) for more information. Only does something if `useBatches` is set to `true`.
-16. **`'loopGif'`**: `true` if you want to loop the gif, `false` if you don't want to loop it.
-17. **`'useMultiprocessing'`**: `true` if you want to use multi-processing which will speed up step1 and step3. You can configure how many processors to use with `processorCount`. Use at your own discretion, I would recommend slowly increase `processorCount` and monitor CPU usage, this could crash your computer.
-18. **`'processorCount'`**: Number of processors to use with multi-processing. The cap is `multiprocessing.cpu_count()`. Use at your own discretion.
-19. **`'useFileNumbering'`**: Use 0.png -> X.png numbering or not. If you want to just use the render farm file names, set this to false.
-20. **`'enableAudio'`**: BETA FEATURE. You can now add specific audio files per layer. See [Add Specific Audio Trait Section](#adding-specific-audio-per-trait) for more info.
-21. **`'numLoopMP4'`**: Number of times to loop mp4.
-22. **`'generateThumbnail'`**: BETA - Flag to generate thumbnail images. `thumbnailHeight` and `thumbnailWidth` are the corresponding flags. ETH JSON supports `image` and `animation_url`, `image` is thumbnail preview image on the feed, `animation_url` is the image to pull from when the user clicks.
-23. **`'generatePFP'`**: BETA - Flag to save one individual frame as a PFP using `pfpFrameNumber`.
-24. **`'pfpFrameNumber'`**: BETA - Select which frame to use, starts at 0 (being the first frame).
+8. **`'layersFolder'`**: this is the folder that you want to use for the layers. The default is `layers`, but this allows you to have multiple versions of layers and run them side by side. The current repo has four example folders, `layers`, `layers_grouping`, `layers_if_then`, `layers_z_index` which all demonstrate features from [nftchef's repo](https://generator.nftchef.dev/).
+9. **`'quality'`**: quality of the output, 1-100.
+10. **`'gifTool'`**: pick which gif generation method to use, `gifski` or `imageio`. Gifski is better overall, but some people were having issues with it on Linux. Also `imageio` will work for more pixel art, so if you don't want to download Gifski you can set this to `imageio`.
+11. **`'MP4Tool'`**: pick which MP4 generation method to use. Only supports `ffmpeg` at the moment.
+12. **`'outputType'`**: select `gif` or `mp4`.
+13. **`'useBatches'`**: set to `true` if you want to take advantage of [batching](#batching). Otherwise does nothing.
+14. **`'numFramesPerBatch'`**: number of frames for each batch. See [batching](#batching) for more information. Only does something if `useBatches` is set to `true`.
+15. **`'loopGif'`**: `true` if you want to loop the gif, `false` if you don't want to loop it.
+16. **`'useMultiprocessing'`**: `true` if you want to use multi-processing which will speed up step1 and step3. You can configure how many processors to use with `processorCount`. Use at your own discretion, I would recommend slowly increase `processorCount` and monitor CPU usage, this could crash your computer.
+17. **`'processorCount'`**: Number of processors to use with multi-processing. The cap is `multiprocessing.cpu_count()`. Use at your own discretion.
+18. **`'useFileNumbering'`**: Use 0.png -> X.png numbering or not. If you want to just use the render farm file names, set this to false.
+19. **`'enableAudio'`**: BETA FEATURE. You can now add specific audio files per layer. See [Add Specific Audio Trait Section](#adding-specific-audio-per-trait) for more info.
+20. **`'numLoopMP4'`**: Number of times to loop mp4.
+21. **`'generateThumbnail'`**: BETA - Flag to generate thumbnail images. `thumbnailHeight` and `thumbnailWidth` are the corresponding flags. ETH JSON supports `image` and `animation_url`, `image` is thumbnail preview image on the feed, `animation_url` is the image to pull from when the user clicks.
+22. **`'generatePFP'`**: BETA - Flag to save one individual frame as a PFP using `pfpFrameNumber`.
+23. **`'pfpFrameNumber'`**: BETA - Select which frame to use, starts at 0 (being the first frame).
+24. **`'animationUri'`**: BETA - Animation URI used in the toggle HTML features [HTML Animation Toggle](#html-toggle-animation).
 
 Update `step2_spritesheet_to_generative_sheet/src/config.js` with your `layerConfigurations`. If you want the basic
 configuration, just edit `layersOrder`, but if you want to take advantage of [nftchef's repo](https://generator.nftchef.dev/), then scroll through the file for some examples and modify `layerConfigurations` accordingly.
@@ -369,9 +369,6 @@ Example output with all 16 permutations (click on each gif for the 1000x1000 ver
 
 <img src="./README_Assets/step3/0.gif" width="150"><img src="./README_Assets/step3/1.gif" width="150"><img src="./README_Assets/step3/2.gif" width="150"><img src="./README_Assets/step3/3.gif" width="150"><img src="./README_Assets/step3/4.gif" width="150"><img src="./README_Assets/step3/5.gif" width="150"><img src="./README_Assets/step3/6.gif" width="150"><img src="./README_Assets/step3/7.gif" width="150"><img src="./README_Assets/step3/8.gif" width="150"><img src="./README_Assets/step3/9.gif" width="150"><img src="./README_Assets/step3/10.gif" width="150"><img src="./README_Assets/step3/11.gif" width="150"><img src="./README_Assets/step3/12.gif" width="150"><img src="./README_Assets/step3/13.gif" width="150"><img src="./README_Assets/step3/14.gif" width="150"><img src="./README_Assets/step3/15.gif" width="150">
 
-If you set `saveIndividualFrames` to `true` in `global_config.json`, it will also split the gifs into individual frames and save them in
-`images`. This is useful if you want people to be able to choose a single frame for a profile picture.
-
 Some metrics:
 
 MichaPipo's Generative Gif Engine:
@@ -596,6 +593,38 @@ Steps to generate HTML:
 2. Have all your PFPs in the `build/pfps` folder. You can do this by running `make all` with `generatePFP` set to `true`. You can pick which frame to be your PFPs in `pfpFrameNumber`. OR you can just drag the PFPs if you already have them generated.
 3. Change the logo to your logo in `generate_html/logo.png`. It has to be called `logo.png` all lowercase.
 3. Run `make html`. All the html files should be in `build/html`. You can change styling by editing `generate_html/template.html`.
+4. After uploading the HTML files to IPFS or Pinata, change the `animationUri` in `global_config.json`, then run `make update_json`.
+
+
+### Generate entire collection in parts
+
+🧪 BETA FEATURE
+
+Let's say you want to generate a 10k collection with 100 frames each. Most computers don't have enough space
+to handle hundreds of GB of data, plus the whole process can take days and might get interrupted halfway.
+
+Instead of paying for a remote server and having to pay for tons of storage, now you can run
+the whole generation process locally in parts! This is different than the "batching" mentioned in previous sections, which
+batches the frames into smaller batches. Generating in parts means you can generate only part of the collection at a time.
+
+For example, let's say you have a 10k collection with 120 frames. Your global config might look like:
+```
+{
+        "totalSupply": 10000,
+        ...
+        "startIndex": 0,
+        ...
+        "useBatches": true,
+        "numFramesPerBatch": 20
+}
+```
+
+Now instead of just running `make all` which will most likely error, you can genereate only 1k editions at a time. You will need to edit `all.py`.
+
+Look for `START_EDITION` and `END_EDITION`. These are going to be which range of editions you want to generate. For example first we could generate 0 - 1000. Edit the file with `START_EDITION = 0`, and `END_EDITION = 1000`. This under the hood will generate all 10K JSON files, but only generate the first 1K. You can check rarity and other metadata info now. **NOTE** `END_EDITION` is EXCLUSIVE, meaning this will only generate 0 - 999 (total of 1000).
+
+After this finishes, move the `build` folder to somewhere else on your computer, or an external hard
+drive, and start generating `START_EDITION = 1000` and `END_EDITION = 2000`. This will generate 1000 - 1999. Repeat the process until (making sure to move the files out of the build folder), `START_EDITION = 9000` to `END_EDITION = 10000`.
 
 
 ### Generate entire collection in parts
