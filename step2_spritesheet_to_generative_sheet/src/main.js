@@ -1,11 +1,12 @@
 "use strict";
 
 /*
-All of this code was taken from
+Most of this code was taken from
 https://github.com/nftchef/art-engine
 
-I just updated it to pull from the correct input
-layers and output to the correct directory
+I updated it tos pull from the correct input
+layers and output to the correct directory, and support
+various animated and enhancements on top.
 */
 
 const path = require("path");
@@ -45,10 +46,6 @@ const {
   uniqueDnaTorrance,
   useRootTraitType,
 } = require(path.join(basePath, "/src/config.js"));
-
-const canvas = createCanvas(format.width, format.height);
-const ctxMain = canvas.getContext("2d");
-ctxMain.imageSmoothingEnabled = format.smoothing;
 
 let dnaSet = new Set();
 const DNA_DELIMITER = "*";
@@ -267,7 +264,7 @@ const layersSetup = (layersOrder) => {
   return layers;
 };
 
-const saveImage = (_editionCount) => {
+const saveImage = (_editionCount, canvas) => {
   fs.writeFileSync(
     `${outputDir}/images/${_editionCount}.png`,
     canvas.toBuffer("image/png")
@@ -280,9 +277,9 @@ const genColor = () => {
   return pastel;
 };
 
-const drawBackground = (canvasContext, overrideWidth = null) => {
+const drawBackground = (canvasContext, height, width) => {
   canvasContext.fillStyle = genColor();
-  canvasContext.fillRect(0, 0, overrideWidth || format.width, format.height);
+  canvasContext.fillRect(0, 0, format.width, format.height);
 };
 
 const addMetadata = (_dna, _edition, _prefixData, attributesList) => {
@@ -350,8 +347,8 @@ const loadLayerImg = async (_layer) => {
   });
 };
 
-const drawElement = (_renderObject, mainCanvas, attributesList, overrideWidth = null) => {
-  const layerCanvas = createCanvas(overrideWidth || format.width, format.height);
+const drawElement = (_renderObject, mainCanvas, attributesList) => {
+  const layerCanvas = createCanvas(format.width, format.height);
   const layerctx = layerCanvas.getContext("2d");
   layerctx.imageSmoothingEnabled = format.smoothing;
 
@@ -359,12 +356,12 @@ const drawElement = (_renderObject, mainCanvas, attributesList, overrideWidth = 
     _renderObject.loadedImage,
     0,
     0,
-    overrideWidth || format.width,
+    format.width,
     format.height
   );
 
   addAttributes(_renderObject, attributesList);
-  mainCanvas.drawImage(layerCanvas, 0, 0, overrideWidth || format.width, format.height);
+  mainCanvas.drawImage(layerCanvas, 0, 0, format.width, format.height);
   return layerCanvas;
 };
 
@@ -706,9 +703,9 @@ function shuffle(array) {
  * @param {Object} layerData data passed from the current iteration of the loop or configured dna-set
  *
  */
-const paintLayers = (canvasContext, renderObjectArray, layerData, attributesList, overrideWidth = null) => {
+const paintLayers = (canvasContext, renderObjectArray, layerData, attributesList, height, width) => {
   debugLogs ? console.log("\nClearing canvas") : null;
-  canvasContext.clearRect(0, 0, overrideWidth || format.width, format.height);
+  canvasContext.clearRect(0, 0, format.width, format.height);
 
   const { abstractedIndexes, _background } = layerData;
 
@@ -719,17 +716,17 @@ const paintLayers = (canvasContext, renderObjectArray, layerData, attributesList
     canvasContext.globalAlpha = renderObject.layer.opacity;
     canvasContext.globalCompositeOperation = renderObject.layer.blendmode;
     canvasContext.drawImage(
-      drawElement(renderObject, canvasContext, attributesList, overrideWidth),
+      drawElement(renderObject, canvasContext, attributesList),
       0,
       0,
-      overrideWidth || format.weight,
+      format.weight,
       format.height
     );
   });
 
   if (_background.generate) {
     canvasContext.globalCompositeOperation = "destination-over";
-    drawBackground(overrideWidth, canvasContext);
+    drawBackground(canvasContext, height, width);
   }
   debugLogs
     ? console.log("Editions left to create: ", abstractedIndexes)
@@ -756,10 +753,10 @@ const postProcessMetadata = (layerData) => {
   };
 };
 
-const outputFiles = (abstractedIndexes, layerData, metadataList, attributesList) => {
+const outputFiles = (abstractedIndexes, layerData, metadataList, attributesList, canvas) => {
   const { newDna, _ } = layerData;
   // Save the canvas buffer to file
-  saveImage(abstractedIndexes[0]);
+  saveImage(abstractedIndexes[0], canvas);
 
   const { _prefix, _offset } = postProcessMetadata(layerData);
 
@@ -778,7 +775,12 @@ const outputFiles = (abstractedIndexes, layerData, metadataList, attributesList)
   );
 };
 
-const startCreating = async (storedDNA) => {
+const startCreating = async (storedDNA, overrideHeight = null, overrideWidth = null) => {
+  const height = overrideHeight || format.height;
+  const width = overrideWidth || format.width
+  const canvas = createCanvas(width, height);
+  const ctxMain = canvas.getContext("2d");
+  ctxMain.imageSmoothingEnabled = format.smoothing;
   let dnaList = [];
   if (storedDNA) {
     dnaSet = storedDNA;
@@ -833,8 +835,8 @@ const startCreating = async (storedDNA) => {
             abstractedIndexes,
             _background: background,
           };
-          paintLayers(ctxMain, renderObjectArray, layerData, attributesList);
-          outputFiles(abstractedIndexes, layerData, metadataList, attributesList);
+          paintLayers(ctxMain, renderObjectArray, layerData, attributesList, height, width);
+          outputFiles(abstractedIndexes, layerData, metadataList, attributesList, canvas);
         });
         const filteredDna = filterDNAOptions(newDna);
         dnaSet.add(filteredDna);

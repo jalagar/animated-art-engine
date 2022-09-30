@@ -1,6 +1,6 @@
-# Welcome to the **Generative Animated Engine v3.1.1** 🐤
+# Welcome to the **Generative Animated Engine v3.1.2** 🐤
 
-[8 minute read]
+[10 minute read]
 
 **This repo used to be called jalagar/Generative_Gif_Engine but because it now supports GIF, MP4, it was renamed to jalagar/animated-art-engine. v3.0.0 is the beginning of the animated era.**
 
@@ -596,6 +596,37 @@ Steps to generate HTML:
 2. Have all your PFPs in the `build/pfps` folder. You can do this by running `make all` with `generatePFP` set to `true`. You can pick which frame to be your PFPs in `pfpFrameNumber`. OR you can just drag the PFPs if you already have them generated.
 3. Change the logo to your logo in `generate_html/logo.png`. It has to be called `logo.png` all lowercase.
 3. Run `make html`. All the html files should be in `build/html`. You can change styling by editing `generate_html/template.html`.
+
+
+### Generate entire collection in parts
+
+🧪 BETA FEATURE
+
+Let's say you want to generate a 10k collection with 100 frames each. Most computers don't have enough space
+to handle hundreds of GB of data, plus the whole process can take days and might get interrupted halfway.
+
+Instead of paying for a remote server and having to pay for tons of storage, now you can run
+the whole generation process locally in parts! This is different than the "batching" mentioned in previous sections, which
+batches the frames into smaller batches. Generating in parts means you can generate only part of the collection at a time.
+
+For example, let's say you have a 10k collection with 120 frames. Your global config might look like:
+```
+{
+        "totalSupply": 10000,
+        ...
+        "startIndex": 0,
+        ...
+        "useBatches": true,
+        "numFramesPerBatch": 20
+}
+```
+
+Now instead of just running `make all` which will most likely error, you can genereate only 1k editions at a time. You will need to edit `all.py`.
+
+Look for `START_EDITION` and `END_EDITION`. These are going to be which range of editions you want to generate. For example first we could generate 0 - 1000. Edit the file with `START_EDITION = 0`, and `END_EDITION = 1000`. This under the hood will generate all 10K JSON files, but only generate the first 1K. You can check rarity and other metadata info now. **NOTE** `END_EDITION` is EXCLUSIVE, meaning this will only generate 0 - 999 (total of 1000).
+
+After this finishes, move the `build` folder to somewhere else on your computer, or an external hard
+drive, and start generating `START_EDITION = 1000` and `END_EDITION = 2000`. This will generate 1000 - 1999. Repeat the process until (making sure to move the files out of the build folder), `START_EDITION = 9000` to `END_EDITION = 10000`.
 
 
 ### Preview Gif/MP4

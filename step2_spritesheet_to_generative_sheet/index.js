@@ -16,10 +16,10 @@ const { startCreating, buildSetup } = require(path.join(
 
 program
   .name("generate")
-
-  .option("-c, --continue <dna>", "Continues generation using a _dna.json file")
+  .option("--continue <dna>", "Continues generation using a _dna.json file")
+  .option("--height <height>", "Override height")
+  .option("--width <width>", "Override width")
   .action((options) => {
-    console.log(chalk.green("generator started"), options.continue);
     options.continue
       ? console.log(
         chalk.bgCyanBright("\n continuing generation using _dna.json file \n")
@@ -32,8 +32,13 @@ program
       dna = new Set(storedGenomes);
       console.log({ dna });
     }
+    const args = program.args;
+    if (args.length == 2) {
+      startCreating(dna, parseInt(args[0]), parseInt(args[1]));
+    } else {
+      startCreating(dna, null, null);
+    }
 
-    startCreating(dna);
   });
 
-program.parse();
+program.parse(process.argv);
