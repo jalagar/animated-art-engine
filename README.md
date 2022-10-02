@@ -6,6 +6,36 @@
 
 **Check out this [Youtube Tutorial](https://www.youtube.com/watch?v=z3jMEx6PRUc) on how it works!**
 
+## Table of Contents
+- [Welcome to the **Generative Animated Engine v3.1.3** 🐤](#welcome-to-the---generative-animated-engine-v313-----)
+  * [Samples](#samples)
+  * [Requirements](#requirements)
+    + [Installation](#installation)
+  * [How to run?](#how-to-run-)
+  * [How does it work?](#how-does-it-work-)
+    + [Step 1](#step-1)
+    + [Step 2](#step-2)
+    + [Step 3](#step-3)
+    + [NFTChef improvements: z-index/stacking, grouping, if-then statements, and incompatibilities](#nftchef-improvements--z-index-stacking--grouping--if-then-statements--and-incompatibilities)
+    + [Adding specific audio per trait](#adding-specific-audio-per-trait)
+    + [Extend existing collection into GIF/MP4](#extend-existing-collection-into-gif-mp4)
+    + [Rarity stats](#rarity-stats)
+    + [Exclude a layer from DNA](#exclude-a-layer-from-dna)
+    + [Provenance Hash Generation](#provenance-hash-generation)
+    + [Remove trait](#remove-trait)
+    + [Update your metadata info](#update-your-metadata-info)
+    + [Randomly Insert Rare items - Replace Util](#randomly-insert-rare-items---replace-util)
+      - [Requirements](#requirements-1)
+      - [Setting up the JSON.](#setting-up-the-json)
+      - [Running](#running)
+    + [Solana metadata](#solana-metadata)
+    + [Tezos metadata](#tezos-metadata)
+    + [Batching](#batching)
+    + [HTML Toggle Animation](#html-toggle-animation)
+    + [Generate entire collection in parts](#generate-entire-collection-in-parts)
+    + [Preview Gif/MP4](#preview-gif-mp4)
+  * [IMPORTANT NOTES](#important-notes)
+
 This python and node app generates layered-based gifs/MP4 to create animated NFT art! It is faster, simpler, and
 produces higher quality gifs/MP4s than any other open source animated generative tool out there. It also
 contains many more features including but not limited to stacking layers, if-then, ETH/Solana/Tezos, preview images,
