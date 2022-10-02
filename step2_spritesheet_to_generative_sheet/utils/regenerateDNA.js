@@ -41,7 +41,7 @@ const regenerateDNA = (options) => {
         const layers = layersSetup(layerConfigurations[layerConfigIndex].layersOrder);
 
         // Loop through attributes, find the layer, and reconstruct the dna string
-        item.attributes.forEach((attribute, i) => {
+        item.attributes.forEach((attribute) => {
             const { trait_type: traitType, value } = attribute;
             const trait = layers.find((trait) => trait.name == traitType)
             let dnaString;
