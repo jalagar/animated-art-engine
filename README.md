@@ -16,7 +16,7 @@
   * [Step 1](#step-1)
   * [Step 2](#step-2)
   * [Step 3](#step-3)
-- [NFTChef improvements: z-index/stacking, grouping, if-then statements, and incompatibilities](#nftchef-improvements--z-index-stacking--grouping--if-then-statements--and-incompatibilities)
+- [NFTChef improvements: z-index/stacking, grouping, if-then statements, and incompatibilities](#nftchef-improvements-z-indexstacking-grouping-if-then-statements-and-incompatibilities)
 - [Adding specific audio per trait](#adding-specific-audio-per-trait)
 - [Extend existing collection into GIF/MP4](#extend-existing-collection-into-gif-mp4)
 - [Rarity stats](#rarity-stats)
