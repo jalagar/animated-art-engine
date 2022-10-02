@@ -7,9 +7,8 @@
 **Check out this [Youtube Tutorial](https://www.youtube.com/watch?v=z3jMEx6PRUc) on how it works!**
 
 ## Table of Contents
-- [Table of Contents](#table-of-contents)
 - [Summary](#summary)
-- [Samples](#samples)
+  * [Samples](#samples)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [How to run?](#how-to-run)
@@ -17,7 +16,7 @@
   * [Step 1](#step-1)
   * [Step 2](#step-2)
   * [Step 3](#step-3)
-  * [NFTChef improvements: z-index/stacking, grouping, if-then statements, and incompatibilities](#nftchef-improvements--z-index-stacking--grouping--if-then-statements--and-incompatibilities)
+- [NFTChef improvements: z-index/stacking, grouping, if-then statements, and incompatibilities](#nftchef-improvements--z-index-stacking--grouping--if-then-statements--and-incompatibilities)
 - [Adding specific audio per trait](#adding-specific-audio-per-trait)
 - [Extend existing collection into GIF/MP4](#extend-existing-collection-into-gif-mp4)
 - [Rarity stats](#rarity-stats)
@@ -36,7 +35,7 @@
 - [Generate entire collection in parts](#generate-entire-collection-in-parts)
 - [Preview Gif/MP4](#preview-gif-mp4)
 - [FAQ](#faq)
-- [Need more help?](#need-more-help)
+  * [Need more help?](#need-more-help)
 
 
 ## Summary
@@ -69,7 +68,7 @@ on [OpenSea](https://opensea.io/collection/genesis-bouncing-ball).
 
 <img src="./README_Assets/z-index/0.gif" width="200">
 
-## Samples
+### Samples
 
 See below for some examples of other artists and devs using this tool for their own collections! Feel free to reach out to me or create a PR with your examples!
 
@@ -426,7 +425,7 @@ You can set which gif tool to use in `global_config.json` by setting `gifTool` t
 
 If you want to switch between generating gif vs. MP4, you need to change `outputType` to `mp4` and only run `make step3`.
 
-### NFTChef improvements: z-index/stacking, grouping, if-then statements, and incompatibilities
+## NFTChef improvements: z-index/stacking, grouping, if-then statements, and incompatibilities
 
 Tool now supports z-index/stacking, grouping, if-then statements, and incompatibilities. See [nftchef's docs](https://generator.nftchef.dev/readme/) for more information.
 
@@ -702,7 +701,7 @@ Q: What blockchains do you support?
 
 Ethereum, Solana, Tezos.
 
-## Need more help?
+### Need more help?
 
 Be sure to follow me for more updates on this project:
 
