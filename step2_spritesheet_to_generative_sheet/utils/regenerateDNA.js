@@ -41,19 +41,23 @@ const regenerateDNA = (options) => {
         const layers = layersSetup(layerConfigurations[layerConfigIndex].layersOrder);
 
         // Loop through attributes, find the layer, and reconstruct the dna string
-        item.attributes.forEach((attribute) => {
+        item.attributes.forEach((attribute, i) => {
             const { trait_type: traitType, value } = attribute;
             const trait = layers.find((trait) => trait.name == traitType)
-
-            const { id: parentId, elements } = trait;
-            const layer = elements.find((element) => element.name == value);
-
             let dnaString;
-            if (!layer) {
-                console.log(`No corresponding layer for ${_id + startIndex}, skipping assuming this is a legendary`);
+            if (!trait) {
+                console.log(`No corresponding layer for ID: ${_id + startIndex}, Trait Type: ${traitType}, Value: ${value}, skipping assuming this is a legendary`);
                 dnaString = '';
             } else {
-                dnaString = `${parentId}.${layer.id}:${layer.zindex}${layer.filename}`;
+                const { id: parentId, elements } = trait;
+                const layer = elements.find((element) => element.name == value);
+
+                if (!layer) {
+                    console.log(`No corresponding layer for ID: ${_id + startIndex}, Trait Type: ${traitType}, Value: ${value}, skipping assuming this is a legendary`);
+                    dnaString = '';
+                } else {
+                    dnaString = `${parentId}.${layer.id}:${layer.zindex}${layer.filename}`;
+                }
             }
             dnaSequence.push(dnaString)
         })
