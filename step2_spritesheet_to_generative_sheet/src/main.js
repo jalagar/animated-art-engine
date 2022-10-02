@@ -386,7 +386,7 @@ const constructLayerToDna = (_dna = [], _layers = []) => {
       }, _layers); //returns string, need to return
       const selectedElement = parentElement[lastAddress];
       if (!selectedElement) {
-        throw new Error(`${img} DNA is missing for trait: ${layer.name}, is something misnamed or missing?`)
+        throw new Error(`${img} DNA is missing for trait: ${layer.name}, is something misnamed or missing? Or is this a one of one?`)
       }
       selectedElements.push(parentElement[lastAddress]);
     });
