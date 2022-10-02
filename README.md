@@ -7,34 +7,39 @@
 **Check out this [Youtube Tutorial](https://www.youtube.com/watch?v=z3jMEx6PRUc) on how it works!**
 
 ## Table of Contents
-- [Welcome to the **Generative Animated Engine v3.1.3** 🐤](#welcome-to-the---generative-animated-engine-v313-----)
-  * [Samples](#samples)
-  * [Requirements](#requirements)
-    + [Installation](#installation)
-  * [How to run?](#how-to-run-)
-  * [How does it work?](#how-does-it-work-)
-    + [Step 1](#step-1)
-    + [Step 2](#step-2)
-    + [Step 3](#step-3)
-    + [NFTChef improvements: z-index/stacking, grouping, if-then statements, and incompatibilities](#nftchef-improvements--z-index-stacking--grouping--if-then-statements--and-incompatibilities)
-    + [Adding specific audio per trait](#adding-specific-audio-per-trait)
-    + [Extend existing collection into GIF/MP4](#extend-existing-collection-into-gif-mp4)
-    + [Rarity stats](#rarity-stats)
-    + [Exclude a layer from DNA](#exclude-a-layer-from-dna)
-    + [Provenance Hash Generation](#provenance-hash-generation)
-    + [Remove trait](#remove-trait)
-    + [Update your metadata info](#update-your-metadata-info)
-    + [Randomly Insert Rare items - Replace Util](#randomly-insert-rare-items---replace-util)
-      - [Requirements](#requirements-1)
-      - [Setting up the JSON.](#setting-up-the-json)
-      - [Running](#running)
-    + [Solana metadata](#solana-metadata)
-    + [Tezos metadata](#tezos-metadata)
-    + [Batching](#batching)
-    + [HTML Toggle Animation](#html-toggle-animation)
-    + [Generate entire collection in parts](#generate-entire-collection-in-parts)
-    + [Preview Gif/MP4](#preview-gif-mp4)
-  * [IMPORTANT NOTES](#important-notes)
+- [Table of Contents](#table-of-contents)
+- [Summary](#summary)
+- [Samples](#samples)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [How to run?](#how-to-run)
+- [How does it work?](#how-does-it-work)
+  * [Step 1](#step-1)
+  * [Step 2](#step-2)
+  * [Step 3](#step-3)
+  * [NFTChef improvements: z-index/stacking, grouping, if-then statements, and incompatibilities](#nftchef-improvements--z-index-stacking--grouping--if-then-statements--and-incompatibilities)
+- [Adding specific audio per trait](#adding-specific-audio-per-trait)
+- [Extend existing collection into GIF/MP4](#extend-existing-collection-into-gif-mp4)
+- [Rarity stats](#rarity-stats)
+- [Exclude a layer from DNA](#exclude-a-layer-from-dna)
+- [Provenance Hash Generation](#provenance-hash-generation)
+- [Remove trait](#remove-trait)
+- [Update your metadata info](#update-your-metadata-info)
+- [Randomly Insert Rare items - Replace Util](#randomly-insert-rare-items---replace-util)
+  * [Requirements](#requirements-1)
+  * [Setting up the JSON.](#setting-up-the-json)
+  * [Running](#running)
+- [Solana metadata](#solana-metadata)
+- [Tezos metadata](#tezos-metadata)
+- [Batching](#batching)
+- [HTML Toggle Animation](#html-toggle-animation)
+- [Generate entire collection in parts](#generate-entire-collection-in-parts)
+- [Preview Gif/MP4](#preview-gif-mp4)
+- [FAQ](#faq)
+- [Need more help?](#need-more-help)
+
+
+## Summary
 
 This python and node app generates layered-based gifs/MP4 to create animated NFT art! It is faster, simpler, and
 produces higher quality gifs/MP4s than any other open source animated generative tool out there. It also
@@ -109,7 +114,7 @@ If you plan on developing on this repository, run `pre-commit` to install pre-co
 
 If you're on Windows you can optionally install [Make](https://www.gnu.org/software/make/) by running `choco install make`. Make is already pre-installed on Mac.
 
-### Installation
+## Installation
 
 - Download this repo and extract all the files.
 - Run this command on your root folder using the terminal:
@@ -433,7 +438,7 @@ a `z_,` in front of the name, for example `z1,` or `z2,`. See `layers_z_index` f
 - **if-then**: You can specify if this trait then have this other trait. For example, if ball is pink, then pick these two hats. See `layers_if_then` folder and `layerConfigurationsIfThen` in `config.js`.
 - **incompatibilities**: You can specify if you want a layer to be incompatible with another layer. For example, if you don't want the flashing background to have a multicolor ball. NOTE, this only works if layer names are all unique or else this may lead to unintended behavior. See `layers_incompatible` and `const incompatible` in `config.js`. You can uncomment the line, and run the code with `layersFolder` set to `layers_incompatible` to see it working in action.
 
-### Adding specific audio per trait
+## Adding specific audio per trait
 
 🧪 BETA FEATURE
 
@@ -446,7 +451,7 @@ and the audio will get truncated if it is too long.
 The tool supports `mp3`, `wav`, and `m4a`. If there are multiple audio files for the same NFT, it will
 combine the audio files and overlap them.
 
-### Extend existing collection into GIF/MP4
+## Extend existing collection into GIF/MP4
 
 🧪 BETA FEATURE
 
@@ -472,14 +477,14 @@ all the steps and not skipping any.
 Please let me know if you have any issues or use cases I did not think of.
 
 
-### Rarity stats
+## Rarity stats
 
 You can check the rarity stats of your collection with:
 
         make rarity
 
 
-### Exclude a layer from DNA
+## Exclude a layer from DNA
 
 If you want to have a layer _ignored_ in the DNA uniqueness check, you can set `bypassDNA: true` in the `options` object. This has the effect of making sure the rest of the traits are unique while not considering the `Background` Layers as traits, for example. The layers _are_ included in the final image.
 
@@ -493,7 +498,7 @@ layersOrder: [
       },
 ```
 
-### Provenance Hash Generation
+## Provenance Hash Generation
 
 If you need to generate a provenance hash (and, yes, you should, [read about it here](https://medium.com/coinmonks/the-elegance-of-the-nft-provenance-hash-solution-823b39f99473) ),
 
@@ -510,7 +515,7 @@ and hash the file value into one string which is the `provenance` hash.
 
 \*Note, if you regenerate the gifs, **You will also need to regenerate this hash**.
 
-### Remove trait
+## Remove trait
 
 If you need to remove a trait from the generated attributes for ALL the generated metadata .json files, you can use the removeTrait util command.
 
@@ -520,17 +525,17 @@ If you would like to print additional logging, use the -d flag
 
 `cd step2_spritesheet_to_generative_sheet && node utils/removeTrait.js "Trait Name" -d`
 
-### Update your metadata info
+## Update your metadata info
 
 You can change the description and base Uri of your metadata even after running the code by updating `global_config.json` and running:
 
         make update_json
 
-### Randomly Insert Rare items - Replace Util
+## Randomly Insert Rare items - Replace Util
 
 If you would like to manually add 'hand drawn' or unique versions into the pool of generated items, this utility takes a source folder (of your new artwork) and inserts it into the `build` directory, assigning them to random id's.
 
-#### Requirements
+### Requirements
 
 - Place gifs into ultraRares/gifs
 - Put matching, sequential json files in the ultraRares/json folder
@@ -549,7 +554,7 @@ example:
 
 **You must have matching json files for each of your images.**
 
-#### Setting up the JSON.
+### Setting up the JSON.
 
 Because this script randomizes which tokens to replace/place, _it is important_ to update the metadata properly with the resulting tokenId #.
 
@@ -567,13 +572,13 @@ Because this script randomizes which tokens to replace/place, _it is important_ 
   "edition": "##",
 ```
 
-#### Running
+### Running
 
 Run with `make replace`. If you need to replace the folder name, you may have to edit the `Makefile` directly with the folder.
 
 **Note this will not update _dna.json because these new JSONs don't have DNA. This will modify _metadata.json though.**
 
-### Solana metadata
+## Solana metadata
 
 🧪 BETA FEATURE
 
@@ -585,7 +590,7 @@ Most of the code comes from [nftchef](https://github.com/nftchef/art-engine/blob
 
 I have not tried this on any test net or production Solana chain, so please flag any issues or create a PR to fix them!
 
-### Tezos metadata
+## Tezos metadata
 
 🧪 BETA FEATURE
 
@@ -593,7 +598,7 @@ I have not tried this on any test net or production Tezos chain, so please flag 
 
 See [Tezos README](step2_spritesheet_to_generative_sheet/documentation/other-blockchains/tezos.md) for more information.
 
-### Batching
+## Batching
 
 Do you want higher resolution, more frames, and larger gifs/MP4? Batching is for you! Currently step2 is limited by 32000 pixel files,
 so in order to get around this we must batch the entire process into chunks and then combine them at the end.
@@ -608,7 +613,7 @@ Then run `make all` which runs `python3 all.py`. This under the hood generates t
 batch and then regenerates the next batches based on the existing JSON.
 
 
-### HTML Toggle Animation
+## HTML Toggle Animation
 
 🧪 BETA FEATURE
 
@@ -626,7 +631,7 @@ Steps to generate HTML:
 4. After uploading the HTML files to IPFS or Pinata, change the `animationUri` in `global_config.json`, then run `make update_json`.
 
 
-### Generate entire collection in parts
+## Generate entire collection in parts
 
 🧪 BETA FEATURE
 
@@ -657,7 +662,7 @@ After this finishes, move the `build` folder to somewhere else on your computer,
 drive, and start generating `START_EDITION = 1000` and `END_EDITION = 2000`. This will generate 1000 - 1999. Repeat the process until (making sure to move the files out of the build folder), `START_EDITION = 9000` to `END_EDITION = 10000`.
 
 
-### Preview Gif/MP4
+## Preview Gif/MP4
 
 If you want a preview gif/MP4 of a subset of gifs (like Hashlips), run
 
@@ -669,12 +674,9 @@ if you want to output the first X, set `SORT_ORDER` to `OrderEnum.ASC` and if yo
 set `SORT_ORDER` to `OrderEnum.DESC`.
 
 
-## IMPORTANT NOTES
 
-All of the code in step1 and step3 was written by me. The original idea for the repo came from [MichaPipo's Generative Gif Engine](https://github.com/MichaPipo/Generative_Gif_Engine) but now most of the code in step 2 is forked from [nftchef's Generative Engine](https://github.com/nftchef/art-engine) which is forked from [HashLips Generative Art Engine](https://github.com/HashLips/generative-art-node).
+## FAQ
 
-
-**FAQ**
 
 Q: Why did you decide to use Python for step 1 and step 3?
 
@@ -699,6 +701,8 @@ Output type: gif or MP4
 Q: What blockchains do you support?
 
 Ethereum, Solana, Tezos.
+
+## Need more help?
 
 Be sure to follow me for more updates on this project:
 
