@@ -118,7 +118,7 @@ def get_audio_file_from_json(attribute_config: Dict[str, str]) -> List[str]:
             value_folder = os.path.join(layers_folder, trait_type)
             for folder_value in os.listdir(value_folder):
                 if folder_value.startswith(value):
-                    file_folder = os.path.join(value_folder, os.sep, folder_value)
+                    file_folder = os.path.join(value_folder, folder_value)
                     for file in os.listdir(file_folder):
                         if any(
                             file.endswith(audio_ending)
@@ -170,6 +170,7 @@ def convert_pngs_to_output(
         mp4_quality = int(50 - quality / 2) + 3
 
         ffmpeg_string = ""
+        print(enable_audio)
         if enable_audio:
             metadata_json = get_metadata_json()
             metadata = metadata_json[int(index) - start_index]
@@ -177,6 +178,7 @@ def convert_pngs_to_output(
             audio_file_paths = []
             for attribute_config in attributes:
                 audio_file_paths.extend(get_audio_file_from_json(attribute_config))
+            print(audio_file_paths)
 
             if audio_file_paths:
                 multi_audio_string = "".join(

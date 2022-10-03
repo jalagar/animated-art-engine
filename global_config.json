@@ -20,7 +20,7 @@
     "useMultiprocessing": false,
     "processorCount": 8,
     "useFileNumbering": true,
-    "enableAudio": false,
+    "enableAudio": true,
     "generateThumbnail": false,
     "thumbnailHeight": 350,
     "thumbnailWidth": 350,
