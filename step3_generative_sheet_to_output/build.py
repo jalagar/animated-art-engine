@@ -115,7 +115,7 @@ def get_audio_file_from_json(attribute_config: Dict[str, str]) -> List[str]:
     audio_file_paths = []
     for layer in os.listdir(layers_folder):
         if layer == trait_type:
-            value_folder = os.path.join(layers_folder, os.sep, trait_type)
+            value_folder = os.path.join(layers_folder, trait_type)
             for folder_value in os.listdir(value_folder):
                 if folder_value.startswith(value):
                     file_folder = os.path.join(value_folder, os.sep, folder_value)
