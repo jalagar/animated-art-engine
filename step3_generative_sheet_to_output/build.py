@@ -180,7 +180,7 @@ def convert_pngs_to_output(
 
             if audio_file_paths:
                 multi_audio_string = "".join(
-                    f"-i '{audio_file_path}' " for audio_file_path in audio_file_paths
+                    f"-i {audio_file_path} " for audio_file_path in audio_file_paths
                 )
                 subprocess.run(
                     f"ffmpeg {multi_audio_string} -filter_complex amix=inputs={len(audio_file_paths)}:duration=longest"
