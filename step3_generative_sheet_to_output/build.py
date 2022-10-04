@@ -170,7 +170,6 @@ def convert_pngs_to_output(
         mp4_quality = int(50 - quality / 2) + 3
 
         ffmpeg_string = ""
-        print(enable_audio)
         if enable_audio:
             metadata_json = get_metadata_json()
             metadata = metadata_json[int(index) - start_index]
@@ -178,7 +177,6 @@ def convert_pngs_to_output(
             audio_file_paths = []
             for attribute_config in attributes:
                 audio_file_paths.extend(get_audio_file_from_json(attribute_config))
-            print(audio_file_paths)
 
             if audio_file_paths:
                 multi_audio_string = "".join(
