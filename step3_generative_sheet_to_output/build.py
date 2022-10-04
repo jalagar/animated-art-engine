@@ -124,7 +124,7 @@ def get_audio_file_from_json(attribute_config: Dict[str, str]) -> List[str]:
                             file.endswith(audio_ending)
                             for audio_ending in VALID_AUDIO_FORMATS
                         ):
-                            audio_file_paths.append(os.path.join(file_folder, os.sep, file))
+                            audio_file_paths.append(os.path.join(file_folder, file))
     return audio_file_paths
 
 
