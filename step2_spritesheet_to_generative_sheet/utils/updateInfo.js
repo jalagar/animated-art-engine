@@ -59,7 +59,7 @@ program
         item.image = `${thumbnailUri}/${item.edition}.${outputType}`;
         item.animation_url = `${baseUri}/${item.edition}.${outputType}`;
       } else if (animationUri) {
-        item.animation_url = `${animationUri}/${item.edition}.${outputType}`;
+        item.animation_url = `${animationUri}/${item.edition}.html`;
         item.image = `${baseUri}/${item.edition}.${outputType}`;
       } else {
         item.image = `${baseUri}/${item.edition}.${outputType}`;
