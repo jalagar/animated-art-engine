@@ -27,5 +27,5 @@
     "thumbnailUri": "ipfs://ThumbnailUriToReplace",
     "generatePFP": false,
     "pfpFrameNumber": 0,
-    "animationUri": "ipfs://AnimationUriToReplace"
+    "animationUri": ""
 }
