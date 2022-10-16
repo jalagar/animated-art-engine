@@ -129,7 +129,17 @@ def get_audio_file_from_json(attribute_config: Dict[str, str]) -> List[str]:
                             audio_file_paths.append(os.path.join(file_folder, file))
     return audio_file_paths
 
-def generate_ffmpeg(mp4_quality, mp4_width, mp4_height, temp_img_folder, ffmpeg_string, output_directory, mp4_name, kwargs):
+
+def generate_ffmpeg(
+    mp4_quality,
+    mp4_width,
+    mp4_height,
+    temp_img_folder,
+    ffmpeg_string,
+    output_directory,
+    mp4_name,
+    kwargs,
+):
     subprocess.run(
         f"ffmpeg -stream_loop {num_loop} -y -r {fps} -f image2 -s {mp4_width}x{mp4_height} -i {temp_img_folder}/%d.png "
         + ffmpeg_string
@@ -139,7 +149,10 @@ def generate_ffmpeg(mp4_quality, mp4_width, mp4_height, temp_img_folder, ffmpeg_
         **kwargs,
     )
 
-def generate_gif_imageio(output_directory, temp_img_folder, gif_name, gif_width, gif_height):
+
+def generate_gif_imageio(
+    output_directory, temp_img_folder, gif_name, gif_width, gif_height
+):
     # Moved import down here as people were having issues
     import imageio
 
@@ -162,7 +175,10 @@ def generate_gif_imageio(output_directory, temp_img_folder, gif_name, gif_width,
         for image in images:
             writer.append_data(image)
 
-def generate_gif_gifski(output_directory, temp_img_folder, gif_name, gif_width, gif_height, kwargs):
+
+def generate_gif_gifski(
+    output_directory, temp_img_folder, gif_name, gif_width, gif_height, kwargs
+):
     subprocess.run(
         f"gifski -o {os.path.join(output_directory, gif_name)} "
         f"{temp_img_folder}/*.png "
@@ -174,6 +190,7 @@ def generate_gif_gifski(output_directory, temp_img_folder, gif_name, gif_width, 
         shell=True,
         **kwargs,
     )
+
 
 def convert_pngs_to_output(
     file_name: str,
@@ -237,12 +254,25 @@ def convert_pngs_to_output(
             )
 
     if output_type == OutputType.MP4:
-        generate_ffmpeg(mp4_quality, width, height, temp_img_folder, ffmpeg_string, output_directory, mp4_name, kwargs)
+        generate_ffmpeg(
+            mp4_quality,
+            width,
+            height,
+            temp_img_folder,
+            ffmpeg_string,
+            output_directory,
+            mp4_name,
+            kwargs,
+        )
     elif output_type == OutputType.GIF:
         if gif_tool == GifTool.IMAGEIO:
-            generate_gif_imageio(output_directory, temp_img_folder, gif_name, width, height)
+            generate_gif_imageio(
+                output_directory, temp_img_folder, gif_name, width, height
+            )
         elif gif_tool == GifTool.GIFSKI:
-            generate_gif_gifski(output_directory, temp_img_folder, gif_name, width, height, kwargs)
+            generate_gif_gifski(
+                output_directory, temp_img_folder, gif_name, width, height, kwargs
+            )
         else:
             raise Exception(
                 f"Passed in invalid gif_tool {gif_tool}, only options are gifski and imageio"
@@ -251,16 +281,38 @@ def convert_pngs_to_output(
         raise Exception(
             f"Passed in invalid output type {output_type}, only options are gif and mp4"
         )
-    
+
     if generate_thumbnail:
         print(f"Generating thumbnail {gif_name}")
         if thumbnail_output_type == OutputType.MP4:
-            generate_ffmpeg(mp4_quality, thumbnail_width, thumbnail_height, temp_img_folder, ffmpeg_string, thumbnail_directory, mp4_name, kwargs)
+            generate_ffmpeg(
+                mp4_quality,
+                thumbnail_width,
+                thumbnail_height,
+                temp_img_folder,
+                ffmpeg_string,
+                thumbnail_directory,
+                mp4_name,
+                kwargs,
+            )
         elif thumbnail_output_type == OutputType.GIF:
             if gif_tool == GifTool.IMAGEIO:
-                generate_gif_imageio(thumbnail_directory, temp_img_folder, gif_name, thumbnail_width, thumbnail_height)
+                generate_gif_imageio(
+                    thumbnail_directory,
+                    temp_img_folder,
+                    gif_name,
+                    thumbnail_width,
+                    thumbnail_height,
+                )
             elif gif_tool == GifTool.GIFSKI:
-                generate_gif_gifski(thumbnail_directory, temp_img_folder, gif_name, thumbnail_width, thumbnail_height, kwargs)
+                generate_gif_gifski(
+                    thumbnail_directory,
+                    temp_img_folder,
+                    gif_name,
+                    thumbnail_width,
+                    thumbnail_height,
+                    kwargs,
+                )
             else:
                 raise Exception(
                     f"Passed in invalid gif_tool {gif_tool}, only options are gifski and imageio"
