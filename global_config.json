@@ -25,7 +25,8 @@
     "thumbnailHeight": 350,
     "thumbnailWidth": 350,
     "thumbnailUri": "ipfs://ThumbnailUriToReplace",
+    "thumbnailOutputType": "gif",
     "generatePFP": false,
     "pfpFrameNumber": 0,
-    "animationUri": "ipfs://AnimationUriToReplace"
+    "animationUri": ""
 }
