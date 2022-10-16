@@ -21,7 +21,7 @@
     "processorCount": 8,
     "useFileNumbering": true,
     "enableAudio": true,
-    "generateThumbnail": true,
+    "generateThumbnail": false,
     "thumbnailHeight": 350,
     "thumbnailWidth": 350,
     "thumbnailUri": "ipfs://ThumbnailUriToReplace",
