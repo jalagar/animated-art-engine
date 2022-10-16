@@ -21,10 +21,11 @@
     "processorCount": 8,
     "useFileNumbering": true,
     "enableAudio": true,
-    "generateThumbnail": false,
+    "generateThumbnail": true,
     "thumbnailHeight": 350,
     "thumbnailWidth": 350,
     "thumbnailUri": "ipfs://ThumbnailUriToReplace",
+    "thumbnailOutputType": "gif",
     "generatePFP": false,
     "pfpFrameNumber": 0,
     "animationUri": ""

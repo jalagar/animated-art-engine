@@ -4,6 +4,7 @@ from PIL import Image
 import os, sys
 import json
 from typing import Dict, List
+import numpy
 
 # In order to import utils/file.py we need to add this path.append
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -33,6 +34,7 @@ layers_folder = global_config_json["layersFolder"]
 enable_audio = global_config_json["enableAudio"]
 num_loop = global_config_json["numLoopMP4"]
 generate_thumbnail = global_config_json["generateThumbnail"]
+thumbnail_output_type = global_config_json["thumbnailOutputType"]
 generate_pfp = global_config_json["generatePFP"]
 pfp_frame_number = global_config_json["pfpFrameNumber"]
 thumbnail_height = global_config_json["thumbnailHeight"]
@@ -127,13 +129,56 @@ def get_audio_file_from_json(attribute_config: Dict[str, str]) -> List[str]:
                             audio_file_paths.append(os.path.join(file_folder, file))
     return audio_file_paths
 
+def generate_ffmpeg(mp4_quality, mp4_width, mp4_height, temp_img_folder, ffmpeg_string, output_directory, mp4_name, kwargs):
+    subprocess.run(
+        f"ffmpeg -stream_loop {num_loop} -y -r {fps} -f image2 -s {mp4_width}x{mp4_height} -i {temp_img_folder}/%d.png "
+        + ffmpeg_string
+        + f" -bitexact -shortest -vcodec libx264 "
+        f"-crf {mp4_quality} -pix_fmt yuv420p {os.path.join(output_directory, mp4_name)}",
+        shell=True,
+        **kwargs,
+    )
+
+def generate_gif_imageio(output_directory, temp_img_folder, gif_name, gif_width, gif_height):
+    # Moved import down here as people were having issues
+    import imageio
+
+    images = []
+    for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
+        if filename.endswith(".png"):
+            temp_img_path = os.path.join(temp_img_folder, filename)
+            image = imageio.imread(temp_img_path)
+            image = Image.fromarray(image).resize((gif_width, gif_height))
+            images.append(numpy.array(image))
+
+    with imageio.get_writer(
+        os.path.join(output_directory, gif_name),
+        fps=fps,
+        mode="I",
+        quantizer=0,
+        palettesize=256,
+        loop=0 if loop_gif else 1,
+    ) as writer:
+        for image in images:
+            writer.append_data(image)
+
+def generate_gif_gifski(output_directory, temp_img_folder, gif_name, gif_width, gif_height, kwargs):
+    subprocess.run(
+        f"gifski -o {os.path.join(output_directory, gif_name)} "
+        f"{temp_img_folder}/*.png "
+        f"--fps={fps} "
+        f"--quality={quality} "
+        f"-W={gif_width} "
+        f"-H={gif_height} "
+        f"--repeat={0 if loop_gif else -1}",
+        shell=True,
+        **kwargs,
+    )
 
 def convert_pngs_to_output(
     file_name: str,
-    fps: int,
     output_directory: str,
     thumbnail_directory: str,
-    is_resize: bool,
     width: int,
     height: int,
     temp_img_folder: str,
@@ -155,124 +200,49 @@ def convert_pngs_to_output(
             if generate_pfp and i == pfp_frame_number:
                 new_frame = Image.open(temp_img_path)
                 new_frame.save(os.path.join(PFP_DIRECTORY, f"{index}.png"), quality=95)
-
             i += 1
 
     kwargs = {}
     if not debug:
         kwargs = {"stdout": subprocess.DEVNULL, "stderr": subprocess.DEVNULL}
 
+    mp4_name = index + ".mp4"
+    gif_name = get_png_file_name(file_name) + ".gif"
+
+    # ffmpeg uses quality 0 - 50, where 0 is the best, 50 is the worst.
+    # so 50 - quality / 2 gives you the correct scale. Ex. quality = 100 will be 50 - 100 / 2 = 50
+    # however I was having issues with 0 lossless, so pad 3 quality
+    mp4_quality = int(50 - quality / 2) + 3
+    ffmpeg_string = ""
+    if enable_audio:
+        metadata_json = get_metadata_json()
+        metadata = metadata_json[int(index) - start_index]
+        attributes = metadata["attributes"]
+        audio_file_paths = []
+        for attribute_config in attributes:
+            audio_file_paths.extend(get_audio_file_from_json(attribute_config))
+
+        if audio_file_paths:
+            multi_audio_string = "".join(
+                f"-i {audio_file_path} " for audio_file_path in audio_file_paths
+            )
+            subprocess.run(
+                f"ffmpeg {multi_audio_string} -filter_complex amix=inputs={len(audio_file_paths)}:duration=longest"
+                f" {os.path.join(get_temp_directory(file_name), 'output.mp3')}",
+                shell=True,
+                **kwargs,
+            )
+            ffmpeg_string = (
+                f"-i {os.path.join(get_temp_directory(file_name), 'output.mp3')}"
+            )
+
     if output_type == OutputType.MP4:
-        # ffmpeg uses quality 0 - 50, where 0 is the best, 50 is the worst.
-        # so 50 - quality / 2 gives you the correct scale. Ex. quality = 100 will be 50 - 100 / 2 = 50
-        # however I was having issues with 0 lossless, so pad 3 quality
-        mp4_name = index + ".mp4"
-        mp4_quality = int(50 - quality / 2) + 3
-
-        ffmpeg_string = ""
-        if enable_audio:
-            metadata_json = get_metadata_json()
-            metadata = metadata_json[int(index) - start_index]
-            attributes = metadata["attributes"]
-            audio_file_paths = []
-            for attribute_config in attributes:
-                audio_file_paths.extend(get_audio_file_from_json(attribute_config))
-
-            if audio_file_paths:
-                multi_audio_string = "".join(
-                    f"-i {audio_file_path} " for audio_file_path in audio_file_paths
-                )
-                subprocess.run(
-                    f"ffmpeg {multi_audio_string} -filter_complex amix=inputs={len(audio_file_paths)}:duration=longest"
-                    f" {os.path.join(get_temp_directory(file_name), 'output.mp3')}",
-                    shell=True,
-                    **kwargs,
-                )
-                ffmpeg_string = (
-                    f"-i {os.path.join(get_temp_directory(file_name), 'output.mp3')}"
-                )
-
-        subprocess.run(
-            f"ffmpeg -stream_loop {num_loop} -y -r {fps} -f image2 -s {width}x{height} -i {temp_img_folder}/%d.png "
-            + ffmpeg_string
-            + f" -bitexact -shortest -vcodec libx264 "
-            f"-crf {mp4_quality} -pix_fmt yuv420p {os.path.join(output_directory, mp4_name)}",
-            shell=True,
-            **kwargs,
-        )
-        if generate_thumbnail:
-            subprocess.run(
-                f"ffmpeg -stream_loop {num_loop} -y -r {fps} -f image2 -s {thumbnail_width}x{thumbnail_height} -i {temp_img_folder}/%d.png "
-                + ffmpeg_string
-                + f" -bitexact -shortest -vcodec libx264 "
-                f"-crf {mp4_quality} -pix_fmt yuv420p {os.path.join(thumbnail_directory, mp4_name)}",
-                shell=True,
-                **kwargs,
-            )
+        generate_ffmpeg(mp4_quality, width, height, temp_img_folder, ffmpeg_string, output_directory, mp4_name, kwargs)
     elif output_type == OutputType.GIF:
-        gif_name = get_png_file_name(file_name) + ".gif"
         if gif_tool == GifTool.IMAGEIO:
-            # Moved import down here as people were having issues
-            import imageio
-
-            images = []
-            for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
-                if filename.endswith(".png"):
-                    temp_img_path = os.path.join(temp_img_folder, filename)
-                    images.append(imageio.imread(temp_img_path))
-
-            with imageio.get_writer(
-                os.path.join(output_directory, gif_name),
-                fps=fps,
-                mode="I",
-                quantizer=0,
-                palettesize=256,
-                loop=0 if loop_gif else 1,
-            ) as writer:
-                for image in images:
-                    writer.append_data(image)
-
-            if generate_thumbnail:
-                images = []
-                for filename in sorted(os.listdir(temp_img_folder), key=sort_function):
-                    if filename.endswith(".png"):
-                        temp_img_path = os.path.join(temp_img_folder, filename)
-                        img = Image.open(temp_img_path).resize((height, width))
-                        images.append(img)
-                with imageio.get_writer(
-                    os.path.join(thumbnail_directory, gif_name),
-                    fps=fps,
-                    mode="I",
-                    quantizer=0,
-                    palettesize=256,
-                    loop=0 if loop_gif else 1,
-                ) as writer:
-                    for image in images:
-                        writer.append_data(image)
+            generate_gif_imageio(output_directory, temp_img_folder, gif_name, width, height)
         elif gif_tool == GifTool.GIFSKI:
-            subprocess.run(
-                f"gifski -o {os.path.join(output_directory, gif_name)} "
-                f"{temp_img_folder}/*.png "
-                f"--fps={fps} "
-                f"--quality={quality} "
-                f"-W={width} "
-                f"-H={height} "
-                f"--repeat={0 if loop_gif else -1}",
-                shell=True,
-                **kwargs,
-            )
-            if generate_thumbnail:
-                subprocess.run(
-                    f"gifski -o {os.path.join(thumbnail_directory, gif_name)} "
-                    f"{temp_img_folder}/*.png "
-                    f"--fps={fps} "
-                    f"--quality={quality} "
-                    f"-W={thumbnail_width} "
-                    f"-H={thumbnail_height} "
-                    f"--repeat={0 if loop_gif else -1}",
-                    shell=True,
-                    **kwargs,
-                )
+            generate_gif_gifski(output_directory, temp_img_folder, gif_name, width, height, kwargs)
         else:
             raise Exception(
                 f"Passed in invalid gif_tool {gif_tool}, only options are gifski and imageio"
@@ -281,24 +251,24 @@ def convert_pngs_to_output(
         raise Exception(
             f"Passed in invalid output type {output_type}, only options are gif and mp4"
         )
-
-
-def fps_to_ms_duration(fps: int) -> int:
-    """
-    Converts frames per second to millisecond duration.
-    PIL library takes in millisecond duration per frame
-    which is unintuitive from an animation perspective.
-
-    NOTE - this will not always be exact given the library
-    takes in an integer for number of milliseconds.
-    Ex. 12fps = 83.33ms per frame, but the code will convert
-    it to 83. Not noticeable by the human eye but still
-    worth calling out.
-
-    :param file: fps - frames per second
-    :returns: int - duration for each frame in milliseconds
-    """
-    return int(1000 / fps)
+    
+    if generate_thumbnail:
+        print(f"Generating thumbnail {gif_name}")
+        if thumbnail_output_type == OutputType.MP4:
+            generate_ffmpeg(mp4_quality, thumbnail_width, thumbnail_height, temp_img_folder, ffmpeg_string, thumbnail_directory, mp4_name, kwargs)
+        elif thumbnail_output_type == OutputType.GIF:
+            if gif_tool == GifTool.IMAGEIO:
+                generate_gif_imageio(thumbnail_directory, temp_img_folder, gif_name, thumbnail_width, thumbnail_height)
+            elif gif_tool == GifTool.GIFSKI:
+                generate_gif_gifski(thumbnail_directory, temp_img_folder, gif_name, thumbnail_width, thumbnail_height, kwargs)
+            else:
+                raise Exception(
+                    f"Passed in invalid gif_tool {gif_tool}, only options are gifski and imageio"
+                )
+        else:
+            raise Exception(
+                f"Passed in invalid thumbnail output type {thumbnail_output_type}, only options are gif and mp4"
+            )
 
 
 def generate_output(
@@ -307,7 +277,6 @@ def generate_output(
     should_generate_output: bool,
     output_directory: str,
     thumbnail_directory: str,
-    is_resize: bool,
     output_width: int,
     output_height: int,
     temp_img_folder: str,
@@ -318,10 +287,8 @@ def generate_output(
         print(f"Converting spritesheet to {output_type} for {filename}")
         convert_pngs_to_output(
             filename,
-            fps,
             output_directory,
             thumbnail_directory,
-            is_resize,
             output_width,
             output_height,
             temp_img_folder,
@@ -332,7 +299,6 @@ def main(
     batch_number: int = 0,
     should_generate_output: bool = True,  # Flag to determine if we should generate the final output or not
     output_directory=None,
-    is_resize=False,
     output_width=None,
     output_height=None,
 ):
@@ -377,7 +343,6 @@ def main(
                 should_generate_output,
                 output_directory,
                 THUMBNAIL_DIRECTORY,
-                is_resize,
                 output_width,
                 output_height,
                 get_temp_directory(filename),
@@ -399,7 +364,6 @@ def main(
                     should_generate_output,
                     output_directory,
                     THUMBNAIL_DIRECTORY,
-                    is_resize,
                     output_width,
                     output_height,
                     get_temp_directory(filename),

@@ -172,7 +172,7 @@ Update `global_config.json` with:
 18. **`'useFileNumbering'`**: Use 0.png -> X.png numbering or not. If you want to just use the render farm file names, set this to false.
 19. **`'enableAudio'`**: BETA FEATURE. You can now add specific audio files per layer. See [Add Specific Audio Trait Section](#adding-specific-audio-per-trait) for more info.
 20. **`'numLoopMP4'`**: Number of times to loop mp4.
-21. **`'generateThumbnail'`**: BETA - Flag to generate thumbnail images. `thumbnailHeight` and `thumbnailWidth` are the corresponding flags. ETH JSON supports `image` and `animation_url`, `image` is thumbnail preview image on the feed, `animation_url` is the image to pull from when the user clicks.
+21. **`'generateThumbnail'`**: BETA - Flag to generate thumbnail images. `thumbnailHeight` and `thumbnailWidth` are the corresponding flags. ETH JSON supports `image` and `animation_url`, `image` is thumbnail preview image on the feed, `animation_url` is the image to pull from when the user clicks. `thumbnailOutputType` is the output type for the thumbnail (you can have gif as thumbnail and mp4 as regular NFT).
 22. **`'generatePFP'`**: BETA - Flag to save one individual frame as a PFP using `pfpFrameNumber`.
 23. **`'pfpFrameNumber'`**: BETA - Select which frame to use, starts at 0 (being the first frame).
 24. **`'animationUri'`**: BETA - Animation URI used in the toggle HTML features [HTML Animation Toggle](#html-toggle-animation).
