@@ -25,7 +25,9 @@ TEMP_DIRECTORY = "./step1_layers_to_spritesheet/temp"
 OUTPUT_DIRECTORY = "./step1_layers_to_spritesheet/output"
 
 
-def combine_images(images: List[Image], batch_number: int, height: int, width: int) -> Image:
+def combine_images(
+    images: List[Image], batch_number: int, height: int, width: int
+) -> Image:
     """
     Combines images horizontally in a new image. This assumes
     all images are the same size.
@@ -77,8 +79,12 @@ def duplicate_images_number_of_frames_times(images: List[Image], num_total_frame
 
 
 def parse_attributes_into_images(
-    attribute_folder: str, attribute_path: str, output_path: bool, batch_number: int,
-    height: int, width: int
+    attribute_folder: str,
+    attribute_path: str,
+    output_path: bool,
+    batch_number: int,
+    height: int,
+    width: int,
 ) -> Tuple[List[Image], bool]:
     """
     Mutual recursive function that parses the attributes
@@ -229,11 +235,15 @@ def process_layer_folder(layers_directory, layer_folder, batch_number, height, w
                     output_layer_path,
                     batch_number,
                     height,
-                    width
+                    width,
                 )
 
 
-def main(batch_number=0, height=global_config_json["height"], width=global_config_json["width"]):
+def main(
+    batch_number=0,
+    height=global_config_json["height"],
+    width=global_config_json["width"],
+):
     print("********Starting step 1: Converting pngs to spritesheets********")
 
     setup_directory(OUTPUT_DIRECTORY)
@@ -257,13 +267,7 @@ def main(batch_number=0, height=global_config_json["height"], width=global_confi
             )
 
         args = [
-            (
-                layers_directory,
-                layer_folder,
-                batch_number,
-                height,
-                width
-            )
+            (layers_directory, layer_folder, batch_number, height, width)
             for layer_folder in os.listdir(layers_directory)
         ]
         with multiprocessing.Pool(processor_count) as pool:
@@ -273,7 +277,9 @@ def main(batch_number=0, height=global_config_json["height"], width=global_confi
             )
     else:
         for layer_folder in os.listdir(layers_directory):
-            process_layer_folder(layers_directory, layer_folder, batch_number, height, width)
+            process_layer_folder(
+                layers_directory, layer_folder, batch_number, height, width
+            )
 
 
 if __name__ == "__main__":
