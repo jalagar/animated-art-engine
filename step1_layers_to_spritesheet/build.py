@@ -189,7 +189,7 @@ def search_folders_for_gifs(directory: str) -> bool:
     return found_gif
 
 
-def parse_gifs_into_temp_directory(directory: str, output_directory: str) -> None:
+def parse_gifs_into_temp_directory(directory: str, output_directory: str, height: int, width: int) -> None:
     """
     Parses gifs in the layers folder and splits them into output directory
     :param directory - file path to layers directory
@@ -204,16 +204,19 @@ def parse_gifs_into_temp_directory(directory: str, output_directory: str) -> Non
             try:
                 for i in range(num_total_frames):
                     pil_gif.seek(i)
-                    pil_gif.save(os.path.join(output_directory, f"{i}.png"), quality=95)
+                    new_frame = PIL_Image.new('RGBA', pil_gif.size)
+                    new_frame.paste(pil_gif)
+                    new_frame = new_frame.resize((width, height))
+                    new_frame.save(os.path.join(output_directory, f"{i}.png"), quality=95)
             except EOFError:
                 # Ran out of frames, not all gifs need to be the same length
                 break
 
-        if filename.endswith("png"):
+        if filename.endswith("png") or filename.endswith("PNG"):
             shutil.copyfile(file_path, output_path)
         if os.path.isdir(file_path):
             setup_directory(output_path, delete_if_exists=False)
-            parse_gifs_into_temp_directory(file_path, output_path)
+            parse_gifs_into_temp_directory(file_path, output_path, height, width)
 
 
 def process_layer_folder(layers_directory, layer_folder, batch_number, height, width):
@@ -254,7 +257,7 @@ def main(
     contains_gif_layer = search_folders_for_gifs(LAYERS_DIRECTORY)
     if contains_gif_layer:
         setup_directory(TEMP_DIRECTORY)
-        parse_gifs_into_temp_directory(LAYERS_DIRECTORY, TEMP_DIRECTORY)
+        parse_gifs_into_temp_directory(LAYERS_DIRECTORY, TEMP_DIRECTORY, height, width)
         layers_directory = TEMP_DIRECTORY
     else:
         layers_directory = LAYERS_DIRECTORY
