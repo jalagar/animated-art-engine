@@ -99,16 +99,16 @@ def parse_attributes_into_images(
     :returns: Tuple of list of images, and a boolean indicating if there contains a subfolder
     """
     images = []
-    containsSubFolder = False
+    contains_sub_folder = False
 
     for filename in sorted(os.listdir(attribute_path), key=sort_function):
         file_path = os.path.join(attribute_path, filename)
-        if filename.endswith(".png"):
+        if filename.endswith(".png") or filename.endswith(".PNG"):
             img = PIL_Image.open(file_path)
             images.append(img)
 
         if os.path.isdir(file_path):
-            containsSubFolder = True
+            contains_sub_folder = True
             # Final output path needs to be output_layer_path/attribute_folder
             output_attribute_path = os.path.join(output_path, attribute_folder)
             setup_directory(output_attribute_path, delete_if_exists=False)
@@ -117,10 +117,10 @@ def parse_attributes_into_images(
             )
 
     if len(images) == 0:
-        return [], containsSubFolder
+        return [], contains_sub_folder
     return (
         duplicate_images_number_of_frames_times(images, num_total_frames),
-        containsSubFolder,
+        contains_sub_folder,
     )
 
 
@@ -146,7 +146,7 @@ def parse_attribute_folders(
     """
     print(f"Parsing attributes in folder: {attribute_folder}")
 
-    images, containsSubFolder = parse_attributes_into_images(
+    images, contains_sub_folder = parse_attributes_into_images(
         attribute_folder,
         attribute_path,
         output_path=output_path,
@@ -160,7 +160,7 @@ def parse_attribute_folders(
     spritesheet = combine_images(images, batch_number, height, width)
     # If it contains subfolder, that means there is if-then logic and we need to
     # place the file in the subfolder
-    if containsSubFolder:
+    if contains_sub_folder:
         output_folder = os.path.join(output_path, attribute_folder)
         if not os.path.exists(output_folder):
             setup_directory(output_folder)
