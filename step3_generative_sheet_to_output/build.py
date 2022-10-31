@@ -140,6 +140,11 @@ def generate_ffmpeg(
     mp4_name,
     kwargs,
 ):
+    try:
+        subprocess.Popen(["ffmpeg -version"])
+    except:
+        raise Exception(f"Error running ffmpeg, did you forget to install it? Try brew install ffmpeg or choco install ffmpeg")
+
     subprocess.run(
         f"ffmpeg -stream_loop {num_loop} -y -r {fps} -f image2 -s {mp4_width}x{mp4_height} -i {temp_img_folder}/%d.png "
         + ffmpeg_string
