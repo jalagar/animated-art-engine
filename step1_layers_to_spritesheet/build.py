@@ -196,6 +196,7 @@ def parse_gifs_into_temp_directory(directory: str, output_directory: str, height
     :param output_directory - file path to output_directory
     :returns: None
     """
+    print(f"Parsing layer folder: {directory}")
     for filename in os.listdir(directory):
         file_path = os.path.join(directory, filename)
         output_path = os.path.join(output_directory, filename)
