@@ -200,7 +200,8 @@ However this is tedious and unintuitive for many artists who use tools that expo
 Step 1 simply converts individual images to spritesheets with the rarity percentage. You provide the various layers in the
 `/layers` folder with the rarity in the folder name. Each image should be numbered from 0 -> X, and only accepts `.png`.
 
-**If you do not include the rarity weight in the attribute folder name, that attribute will be ignored**
+**If you do not include the rarity weight in the attribute folder name, that attribute will be ignored. These need to be integers. If you want decimal %s, multiple
+all the rarities by 10 or 100.**
 
 You can provide any number of frames in each layer folder, the code will repeat them up until it hits `numberOfFrames`.
 It will also trim any that have too many frames.
