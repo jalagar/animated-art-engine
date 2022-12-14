@@ -81,7 +81,7 @@ See below for some examples of other artists and devs using this tool for their 
 
 Install an IDE of your preference. [Recomended](https://code.visualstudio.com/download)
 
-Install the latest version of [Node.js](https://nodejs.org/en/download/)
+Install [Node.js](https://nodejs.org/en/download/) v16.14.2. In order to install a specific version of node, you can use `nvm`. On Mac you can `brew install nvm`, on Windows you can follow these instructions [https://www.freecodecamp.org/news/nvm-for-windows-how-to-download-and-install-node-version-manager-in-windows-10/](https://www.freecodecamp.org/news/nvm-for-windows-how-to-download-and-install-node-version-manager-in-windows-10/). Then run `nvm install 16.14.2` and `nvm use 16.14.2`
 
 - Run this command on your system terminal to check if node is installed:
 
