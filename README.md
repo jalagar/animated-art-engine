@@ -136,6 +136,7 @@ Known issues:
 - If you're on Windows you might get an error where 'python3' does not exist, try modify the `Makefile` and replace python3 with python. Thank you!
 - If you don't have brew installed, look at [gifski](https://github.com/ImageOptim/gifski) docs for another way to install gifski or look at [ffmpeg](https://ffmpeg.org/) for MP4.
 - If it says commander missing and you're on Windows, try downloading and extracting GTK (see [https://github.com/jalagar/animated-art-engine/discussions/108](https://github.com/jalagar/animated-art-engine/discussions/108) for more info).
+- If you're on Windows and it says missing library PIL, try rename PIL to pil in step1/build.py and step3/build.py.
 
 ## How to run?
 
@@ -701,6 +702,10 @@ Output type: gif or MP4
 Q: What blockchains do you support?
 
 Ethereum, Solana, Tezos.
+
+Q: I have issues on Windows what should I do?
+
+Check the discussion board, or ask Discord for more issues. Common problems can be found in the installation section.
 
 ### Need more help?
 
