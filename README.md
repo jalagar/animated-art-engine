@@ -618,8 +618,6 @@ batch and then regenerates the next batches based on the existing JSON.
 
 🧪 BETA FEATURE
 
-THIS FEATURE IS VERY MUCH IN BETA AND HAS NOT BEEN TESTED ON PRODUCTION! USE AT YOUR OWN RISK.
-
 Do you want someway for users to toggle between static and animated images (similar to [Little Lemon Friends](https://opensea.io/assets/ethereum/0x0b22fe0a2995c5389ac093400e52471dca8bb48a/5200))?
 
 Check out `README_Assets/html/0.html` for an example (open it in any browser and click the icon on the top left). Markdown doesn't allow embedding all HTML tags and javascript so you'll have to open it separately.
