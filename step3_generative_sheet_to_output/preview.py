@@ -66,13 +66,13 @@ def main():
     print(f"Converting images to a {output_type}")
     convert_pngs_to_output(
         "preview",
-        fps,
         BUILD_DIRECTORY,
         False,
         width,
         height,
         TEMP_PREVIEW_DIRECTORY,
         sort_function=lambda img: img,
+        enable_audio=False
     )
 
 

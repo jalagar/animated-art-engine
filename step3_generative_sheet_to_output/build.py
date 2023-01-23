@@ -31,7 +31,6 @@ start_index = global_config_json["startIndex"]
 output_type = global_config_json["outputType"]
 debug = global_config_json["debug"]
 layers_folder = global_config_json["layersFolder"]
-enable_audio = global_config_json["enableAudio"]
 num_loop = global_config_json["numLoopMP4"]
 generate_thumbnail = global_config_json["generateThumbnail"]
 thumbnail_output_type = global_config_json["thumbnailOutputType"]
@@ -205,7 +204,10 @@ def convert_pngs_to_output(
     height: int,
     temp_img_folder: str,
     sort_function=None,
+    enable_audio=None
 ):
+    if enable_audio == None:
+        enable_audio = global_config_json["enableAudio"]
     """
     Loop through temp_img_folder using the sort_function and save individual frames
     and then using either IMAGEIO or GIFSKI save the gif
