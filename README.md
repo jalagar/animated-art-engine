@@ -76,6 +76,15 @@ See below for some examples of other artists and devs using this tool for their 
 
 <img src="./README_Assets/examples/Pod28.gif" width="200"><img src="./README_Assets/examples/Pod48.gif" width="200"><img src="./README_Assets/examples/Pod51.gif" width="200"><img src="./README_Assets/examples/Pod91.gif" width="200">
 
+[@Lions_wtf](https://twitter.com/Lions_WTF)
+
+<img src="./README_Assets/examples/Lion1.gif" width="200"><img src="./README_Assets/examples/Lion2.gif" width="200"><img src="./README_Assets/examples/Lion3.gif" width="200">
+
+
+Dominic Overdrive NFT
+
+<img src="./README_Assets/examples/Overdrive1.gif" width="200"><img src="./README_Assets/examples/Overdrive2.gif" width="200"><img src="./README_Assets/examples/Overdrive3.gif" width="200"><img src="./README_Assets/examples/Overdrive4.gif" width="200">
+
 
 ## Requirements
 
