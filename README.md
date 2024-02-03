@@ -60,7 +60,7 @@ There are three steps:
 Checkout this [Medium post](https://jalagar-eth.medium.com/how-to-create-generative-animated-nft-art-in-under-an-hour-e7dab1785c56) and [How does it work?](#how-does-it-work) for more information!
 
 Here's an example final result (or you can download the code and run it and see more bouncing balls :)). It is also pushed to production
-on [OpenSea](https://opensea.io/collection/genesis-bouncing-ball).
+on [OpenSea](https://opensea.io/collection/genesis-ball-beta).
 
 <img src="./README_Assets/0.gif" width="200"><img src="./README_Assets/1.gif" width="200"><img src="./README_Assets/2.gif" width="200"><img src="./README_Assets/3.gif" width="200">
 
